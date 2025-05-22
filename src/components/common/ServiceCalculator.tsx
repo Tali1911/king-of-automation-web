@@ -37,10 +37,10 @@ const ServiceCalculator = () => {
     <Collapsible 
       open={isOpen} 
       onOpenChange={setIsOpen}
-      className="fixed bottom-6 left-6 z-40 w-80 md:w-96 shadow-xl rounded-xl"
+      className="fixed bottom-6 left-6 z-40 w-80 md:w-96 shadow-xl rounded-xl max-h-[calc(100vh-100px)] overflow-auto"
     >
       <CollapsibleTrigger className="bg-primary text-white p-3 rounded-t-xl w-full flex justify-between items-center">
-        <span className="font-medium">Service Cost Calculator</span>
+        <span className="font-medium text-sm">Service Cost Calculator</span>
         <span className="text-xs bg-white text-primary px-2 py-1 rounded-full">
           {isOpen ? "Close" : "Open"}
         </span>
@@ -56,14 +56,14 @@ const ServiceCalculator = () => {
             <X className="h-4 w-4" />
           </button>
 
-          <CardHeader className="pt-8">
-            <CardTitle>Estimate Your Project Cost</CardTitle>
-            <CardDescription>
+          <CardHeader className="pt-6 pb-3 px-4">
+            <CardTitle className="text-lg">Estimate Your Project Cost</CardTitle>
+            <CardDescription className="text-xs">
               Select service type and features to get an estimate
             </CardDescription>
           </CardHeader>
           
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-4 px-4 py-2">
             {/* Service Type Selection */}
             <ServiceTypeSelector 
               serviceType={serviceType} 
@@ -85,21 +85,21 @@ const ServiceCalculator = () => {
             />
           </CardContent>
           
-          <CardFooter className="flex-col">
-            <div className="w-full py-4 border-t border-b flex justify-between items-center">
-              <span>Estimated Total:</span>
-              <span className="text-2xl font-bold">
+          <CardFooter className="flex-col p-4">
+            <div className="w-full py-3 border-t border-b flex justify-between items-center">
+              <span className="text-sm">Estimated Total:</span>
+              <span className="text-xl font-bold">
                 ${calculateTotal(serviceType, selectedFeatures, isUrgent)}
               </span>
             </div>
             
-            <p className="text-xs text-muted-foreground mt-3 text-center">
+            <p className="text-xs text-muted-foreground mt-2 text-center">
               This is just an estimate. Contact us for a detailed quote.
             </p>
             
             <a 
               href="/contact"
-              className="w-full mt-4 bg-primary text-white py-2 rounded-md text-center font-medium hover:bg-primary/90 transition-colors"
+              className="w-full mt-3 bg-primary text-white py-2 rounded-md text-center text-sm font-medium hover:bg-primary/90 transition-colors"
             >
               Request Detailed Quote
             </a>

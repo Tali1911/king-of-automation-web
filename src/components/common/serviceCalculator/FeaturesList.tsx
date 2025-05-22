@@ -26,32 +26,33 @@ const FeaturesList = ({
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-2">
+      <div className="flex justify-between items-center mb-1">
         <h3 className="text-sm font-medium">Select Features</h3>
         <span className="text-xs text-muted-foreground">
           {selectedFeatures.length}/{serviceFeatures[serviceType].length} selected
         </span>
       </div>
-      <Progress value={percentComplete} className="h-1 mb-4" />
+      <Progress value={percentComplete} className="h-1 mb-3" />
       
-      <div className="space-y-3 max-h-40 overflow-y-auto pr-2">
+      <div className="space-y-2 max-h-28 overflow-y-auto pr-2">
         {serviceFeatures[serviceType].map((feature) => (
-          <div key={feature.id} className="flex space-x-3">
+          <div key={feature.id} className="flex space-x-2">
             <Checkbox 
               id={feature.id} 
               checked={selectedFeatures.includes(feature.id)} 
               onCheckedChange={() => onFeatureToggle(feature.id)}
+              className="mt-0.5"
             />
-            <div>
+            <div className="flex-grow">
               <label 
                 htmlFor={feature.id} 
-                className="text-sm font-medium cursor-pointer"
+                className="text-xs font-medium cursor-pointer"
               >
                 {feature.name}
               </label>
               <p className="text-xs text-muted-foreground">{feature.description}</p>
             </div>
-            <div className="ml-auto text-sm font-medium">
+            <div className="text-xs font-medium whitespace-nowrap">
               ${feature.basePrice}
             </div>
           </div>
