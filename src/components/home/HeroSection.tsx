@@ -18,21 +18,25 @@ const HeroSection = () => {
     if (titleEl) {
       titleEl.classList.add('animate-fade-in');
       titleEl.style.animationDelay = '0.2s';
+      titleEl.style.opacity = '1'; // Ensure it stays visible after animation
     }
     
     if (sloganEl) {
       sloganEl.classList.add('animate-fade-in');
       sloganEl.style.animationDelay = '0.5s';
+      sloganEl.style.opacity = '1'; // Ensure it stays visible after animation
     }
     
     if (descEl) {
       descEl.classList.add('animate-fade-in');
       descEl.style.animationDelay = '0.8s';
+      descEl.style.opacity = '1'; // Ensure it stays visible after animation
     }
     
     if (ctaEl) {
       ctaEl.classList.add('animate-fade-in');
       ctaEl.style.animationDelay = '1.1s';
+      ctaEl.style.opacity = '1'; // Ensure it stays visible after animation
     }
   }, []);
 

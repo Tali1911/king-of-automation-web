@@ -5,6 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Switch } from '@/components/ui/switch';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { X } from 'lucide-react';
 
 type ServiceType = 'website' | 'webapp' | 'data';
 type Feature = {
@@ -72,6 +73,10 @@ const ServiceCalculator = () => {
     );
   };
 
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   const percentComplete = Math.min(
     100, 
     selectedFeatures.length > 0 ? 
@@ -93,8 +98,16 @@ const ServiceCalculator = () => {
       </CollapsibleTrigger>
       
       <CollapsibleContent>
-        <Card className="border-t-0 rounded-t-none">
-          <CardHeader>
+        <Card className="border-t-0 rounded-t-none relative">
+          <button 
+            onClick={handleClose}
+            className="absolute right-2 top-2 p-1.5 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
+            aria-label="Close calculator"
+          >
+            <X className="h-4 w-4" />
+          </button>
+
+          <CardHeader className="pt-8">
             <CardTitle>Estimate Your Project Cost</CardTitle>
             <CardDescription>
               Select service type and features to get an estimate
