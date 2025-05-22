@@ -11,7 +11,10 @@ import AboutPage from "./pages/AboutPage";
 import ServicesPage from "./pages/ServicesPage";
 import PortfolioPage from "./pages/PortfolioPage";
 import ContactPage from "./pages/ContactPage";
+import BlogPage from "./pages/BlogPage";
 import NotFound from "./pages/NotFound";
+import Chatbot from "./components/common/Chatbot";
+import ServiceCalculator from "./components/common/ServiceCalculator";
 
 const queryClient = new QueryClient();
 
@@ -30,10 +33,13 @@ const App = () => (
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/portfolio" element={<PortfolioPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/blog" element={<BlogPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
           <Footer />
+          <Chatbot />
+          <ServiceCalculator />
         </div>
       </BrowserRouter>
     </TooltipProvider>
