@@ -4,7 +4,10 @@ import HeroSection from '../components/home/HeroSection';
 import ServicesSection from '../components/home/ServicesSection';
 import WhyChooseUsSection from '../components/home/WhyChooseUsSection';
 import TechStackSection from '../components/home/TechStackSection';
+import TestimonialsSection from '../components/home/TestimonialsSection';
 import ContactCTASection from '../components/home/ContactCTASection';
+import FAQSection from '../components/common/FAQSection';
+import ServiceBooking from '../components/common/ServiceBooking';
 import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
@@ -48,6 +51,9 @@ const HomePage = () => {
       <ServicesSection />
       <WhyChooseUsSection />
       <TechStackSection />
+      <TestimonialsSection />
+      <ServiceBooking />
+      <FAQSection />
       <ContactCTASection />
     </div>
   );
