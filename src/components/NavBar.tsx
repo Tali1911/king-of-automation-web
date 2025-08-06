@@ -32,12 +32,9 @@ const NavBar = () => {
       }`}
     >
       <div className="container-custom flex justify-between items-center">
-        <Link to="/" className="flex items-center">
-          <img 
-            src="/lovable-uploads/e33b2e0c-ee67-4b40-aa7b-e2e85f9409fc.png" 
-            alt="NafArro Tech Solution - The King of Automation" 
-            className="h-12 w-auto"
-          />
+        <Link to="/" className="flex items-center space-x-2">
+          <span className="text-primary font-heading text-2xl font-bold">NafArro</span>
+          <span className="text-secondary font-heading text-xl">Solutions</span>
         </Link>
 
         {/* Desktop Navigation */}
