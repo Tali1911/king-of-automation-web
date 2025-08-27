@@ -43,10 +43,16 @@ const TechStackSection = () => {
       delay: 0.4
     },
     {
-      name: "Django",
-      description: "Developing secure web applications",
-      image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg",
+      name: "MongoDB",
+      description: "Flexible NoSQL database solution",
+      image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
       delay: 0.6
+    },
+    {
+      name: "Supabase",
+      description: "Backend-as-a-Service platform",
+      image: "https://supabase.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fsupabase-logo-icon.6ce8a6f8.svg&w=64&q=75",
+      delay: 0.8
     }
   ];
 
@@ -60,7 +66,7 @@ const TechStackSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
           {technologies.map((tech, index) => (
             <div 
               key={index}
