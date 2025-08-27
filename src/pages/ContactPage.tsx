@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import SEO from '../components/SEO';
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -43,7 +44,41 @@ const ContactPage = () => {
       }, 5000);
     }, 1500);
   };
-  return <div className="pt-20">
+  const contactPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "NafArro Solutions",
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+254-701-443-446",
+          "contactType": "Customer Service",
+          "email": "info@nafarrosolutions.com",
+          "availableLanguage": "English"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1234 Tech Avenue",
+        "addressLocality": "Innovation City",
+        "postalCode": "98765",
+        "addressCountry": "US"
+      }
+    }
+  };
+
+  return (
+    <>
+      <SEO 
+        title="Contact NafArro Solutions - Get Your Automation Project Started Today"
+        description="Contact NafArro Solutions for website development, web application automation, and data analysis services. Get expert consultation and free quotes for your automation project."
+        keywords="contact nafarro solutions, automation consultation, website development quote, web application development, data analysis consultation, business automation experts"
+        canonical={typeof window !== 'undefined' ? window.location.href : ''}
+        schemaData={contactPageSchema}
+      />
+      <div className="pt-20">
       {/* Contact Header */}
       <div className="bg-primary text-white py-16">
         <div className="container-custom">
@@ -174,6 +209,8 @@ const ContactPage = () => {
           </div>
         </div>
       </div>
-    </div>;
+      </div>
+    </>
+  );
 };
 export default ContactPage;

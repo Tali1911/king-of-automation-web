@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Code, BarChart3, Globe, ArrowRight } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const ServicesPage = () => {
   // Animation on scroll functionality
@@ -80,8 +81,37 @@ const ServicesPage = () => {
     }
   ];
 
+  const servicesPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "provider": {
+      "@type": "Organization", 
+      "name": "NafArro Solutions"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Automation Services",
+      "itemListElement": services.map(service => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": service.title,
+          "description": service.description
+        }
+      }))
+    }
+  };
+
   return (
-    <div className="pt-20">
+    <>
+      <SEO 
+        title="Our Services - Website Development, Web Apps & Data Analysis | NafArro Solutions"
+        description="Discover NafArro Solutions' automation services: custom website development, web application automation, and data analysis. Transform your business with modern technology solutions."
+        keywords="website development services, web application automation, data analysis services, custom web development, business process automation, React development, Node.js services"
+        canonical={typeof window !== 'undefined' ? window.location.href : ''}
+        schemaData={servicesPageSchema}
+      />
+      <div className="pt-20">
       {/* Services Header */}
       <div className="bg-primary text-white py-16">
         <div className="container-custom">
@@ -214,7 +244,8 @@ const ServicesPage = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

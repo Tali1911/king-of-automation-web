@@ -8,6 +8,7 @@ import TestimonialsSection from '../components/home/TestimonialsSection';
 import ContactCTASection from '../components/home/ContactCTASection';
 import FAQSection from '../components/common/FAQSection';
 import ServiceBooking from '../components/common/ServiceBooking';
+import SEO from '../components/SEO';
 import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
@@ -45,17 +46,66 @@ const HomePage = () => {
     };
   }, []);
 
+  const homePageSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "NafArro Solutions",
+    "alternateName": "King of Automation",
+    "description": "Leading automation specialists providing website development, web applications, and data analysis services",
+    "url": typeof window !== 'undefined' ? window.location.origin : '',
+    "logo": typeof window !== 'undefined' ? `${window.location.origin}/lovable-uploads/554dc44c-5e9c-440a-8476-ae732b9fd973.png` : '',
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Automation Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Website Development",
+            "description": "Custom website development with modern technologies"
+          }
+        },
+        {
+          "@type": "Offer", 
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Web Application Development",
+            "description": "Custom web applications for business automation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service", 
+            "name": "Data Analysis & Automation",
+            "description": "Data collection, processing and automated reporting solutions"
+          }
+        }
+      ]
+    }
+  };
+
   return (
-    <div>
-      <HeroSection />
-      <ServicesSection />
-      <WhyChooseUsSection />
-      <TechStackSection />
-      <TestimonialsSection />
-      <ServiceBooking />
-      <FAQSection />
-      <ContactCTASection />
-    </div>
+    <>
+      <SEO 
+        title="NafArro Solutions | King of Automation - Business Process Automation Experts"
+        description="Transform your business with NafArro Solutions' automation services. We specialize in website development, web applications, and data analysis using React, Node.js, Express, MongoDB, and Supabase."
+        keywords="automation, business process automation, web development, web applications, data analysis, React development, Node.js, Express, MongoDB, Supabase, custom software, process optimization"
+        canonical={typeof window !== 'undefined' ? window.location.href : ''}
+        schemaData={homePageSchema}
+      />
+      <div>
+        <HeroSection />
+        <ServicesSection />
+        <WhyChooseUsSection />
+        <TechStackSection />
+        <TestimonialsSection />
+        <ServiceBooking />
+        <FAQSection />
+        <ContactCTASection />
+      </div>
+    </>
   );
 };
 

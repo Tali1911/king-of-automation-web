@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { CheckCircle, Clock, Users, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const AboutPage = () => {
   // Animation on scroll functionality
@@ -54,8 +55,51 @@ const AboutPage = () => {
     }
   ];
 
+  const aboutPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "NafArro Solutions",
+      "description": "We're on a mission to transform businesses through intelligent automation and innovative technology solutions",
+      "foundingDate": "2023",
+      "founders": [
+        {
+          "@type": "Person",
+          "name": "NafArro Team"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "US"
+      },
+      "employee": {
+        "@type": "Person",
+        "jobTitle": "Automation Specialist"
+      },
+      "knowsAbout": [
+        "Business Process Automation",
+        "Web Development", 
+        "Data Analysis",
+        "React Development",
+        "Node.js",
+        "Express",
+        "MongoDB", 
+        "Supabase"
+      ]
+    }
+  };
+
   return (
-    <div className="pt-20">
+    <>
+      <SEO 
+        title="About NafArro Solutions - Your Automation Experts | King of Automation"
+        description="Learn about NafArro Solutions, leading automation specialists transforming businesses through intelligent technology solutions. Discover our mission, values, and commitment to excellence."
+        keywords="about nafarro solutions, automation experts, company story, mission vision, core values, technology specialists, business automation company"
+        canonical={typeof window !== 'undefined' ? window.location.href : ''}
+        schemaData={aboutPageSchema}
+      />
+      <div className="pt-20">
       {/* About Header */}
       <div className="bg-primary text-white py-16">
         <div className="container-custom">
@@ -168,7 +212,8 @@ const AboutPage = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 
