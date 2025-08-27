@@ -10,6 +10,46 @@ type Message = {
   timestamp: Date;
 };
 
+type FAQ = {
+  keywords: string[];
+  response: string;
+};
+
+const builtInAnswers: FAQ[] = [
+  {
+    keywords: ['hello', 'hi', 'hey', 'greetings'],
+    response: "Hello! I'm the NafArro Assistant. I'm here to help you with questions about our automation services, pricing, and technology stack. How can I assist you today?"
+  },
+  {
+    keywords: ['services', 'what do you do', 'offerings'],
+    response: "We offer three main services: 🌐 Website Development, 💻 Web Application Development for automation, and 📊 Data Analysis & Automation. Each service is designed to streamline your business processes."
+  },
+  {
+    keywords: ['price', 'cost', 'pricing', 'how much'],
+    response: "Our pricing starts at $1,000 for websites, $2,500 for web applications, and $1,800 for data automation projects. Prices vary based on features and urgency. Would you like a detailed quote?"
+  },
+  {
+    keywords: ['tech', 'technology', 'stack', 'what technologies'],
+    response: "We use modern technologies: React for frontends, Node.js & Express for backends, MongoDB for databases, and Supabase for backend services. This ensures scalable and reliable solutions."
+  },
+  {
+    keywords: ['timeline', 'how long', 'duration', 'time'],
+    response: "Project timelines vary: Simple websites take 2-4 weeks, web applications 4-8 weeks, and data automation projects 3-6 weeks. Urgent projects can be expedited with a 40% premium."
+  },
+  {
+    keywords: ['contact', 'reach', 'get in touch'],
+    response: "You can reach us through our contact form on the website, or book a consultation directly. We typically respond within minutes during business hours!"
+  },
+  {
+    keywords: ['automation', 'automate'],
+    response: "We specialize in business process automation! We can automate data collection, reporting, workflows, and create custom dashboards to streamline your operations and save time."
+  },
+  {
+    keywords: ['portfolio', 'examples', 'work', 'projects'],
+    response: "You can view our portfolio on the Portfolio page to see examples of our websites, web applications, and automation solutions. Each project showcases our commitment to quality and innovation."
+  }
+];
+
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -28,6 +68,7 @@ const Chatbot = () => {
     setIsOpen(!isOpen);
   };
 
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim()) return;
@@ -41,23 +82,25 @@ const Chatbot = () => {
     };
     
     setMessages(prev => [...prev, newUserMessage]);
+    const userMessage = message.toLowerCase();
     setMessage('');
     setIsTyping(true);
 
-    // Simulate bot response after a delay
+    // Find matching built-in answer
     setTimeout(() => {
-      const responses = [
-        "Thanks for your message! We specialize in automation solutions. Would you like to learn more about our services?",
-        "Good question! We offer website development, web applications for automation, and data analysis services.",
-        "I'd be happy to connect you with one of our automation experts. What's the best way to reach you?",
-        "Our team has extensive experience with React, Node.js/Express, and Django. How can we help with your project?"
-      ];
-
-      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+      let botResponse = "Thanks for your question! For more specific information about our automation services, please feel free to contact our team directly. We're here to help with your automation needs!";
+      
+      // Check for keyword matches
+      for (const faq of builtInAnswers) {
+        if (faq.keywords.some(keyword => userMessage.includes(keyword))) {
+          botResponse = faq.response;
+          break;
+        }
+      }
       
       const botMessage: Message = {
         id: messages.length + 2,
-        text: randomResponse,
+        text: botResponse,
         isUser: false,
         timestamp: new Date()
       };
