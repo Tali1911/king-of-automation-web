@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { CheckCircle, Clock, Users, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import founderImage from '../assets/founder-naftali-koome.jpg';
 
 const AboutPage = () => {
   // Animation on scroll functionality
@@ -66,7 +67,10 @@ const AboutPage = () => {
       "founders": [
         {
           "@type": "Person",
-          "name": "NafArro Team"
+          "name": "Naftali Koome",
+          "jobTitle": "Founder & Lead Developer",
+          "alumniOf": "The Catholic University of Eastern Africa",
+          "knowsAbout": ["Computer Science", "Software Development", "Business Automation"]
         }
       ],
       "address": {
@@ -190,6 +194,67 @@ const AboutPage = () => {
               <p className="text-gray-200">
                 We envision a future where businesses of all sizes can harness the power of automation to thrive in an increasingly digital world.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Founder Section */}
+      <section className="py-16">
+        <div className="container-custom">
+          <div className="text-center mb-16 animate-on-scroll">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">Meet Our Founder</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Driven by passion for technology and innovation, our founder leads the vision of transforming businesses through automation.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="order-2 lg:order-1 animate-on-scroll">
+              <h3 className="text-2xl font-bold mb-4 text-primary">Naftali Koome</h3>
+              <p className="text-lg text-accent mb-4 font-medium">Founder & Lead Developer</p>
+              
+              <div className="space-y-4 text-gray-700">
+                <p>
+                  With a BSc in Computer Science and Information Technology from The Catholic University of Eastern Africa, Lang'ata, Naftali brings over half a decade of hands-on experience in software development and business automation.
+                </p>
+                
+                <p>
+                  His expertise spans across full-stack development, database management, and enterprise-level automation solutions. Having worked on diverse projects ranging from church management systems to GPS tracking applications, Naftali understands the unique challenges businesses face in the digital age.
+                </p>
+                
+                <p>
+                  Passionate about leveraging technology to solve real-world problems, Naftali founded NafArro Solutions with the vision of making advanced automation accessible to businesses of all sizes. His technical leadership and commitment to excellence drives the company's mission to be the "King of Automation."
+                </p>
+                
+                <div className="mt-6">
+                  <h4 className="font-semibold text-primary mb-2">Core Expertise:</h4>
+                  <ul className="grid grid-cols-2 gap-2 text-sm">
+                    <li>• React & TypeScript</li>
+                    <li>• Node.js & Express</li>
+                    <li>• Database Design</li>
+                    <li>• API Development</li>
+                    <li>• Process Automation</li>
+                    <li>• Cloud Solutions</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div className="order-1 lg:order-2 animate-on-scroll">
+              <div className="relative">
+                <div className="w-80 h-80 mx-auto rounded-2xl overflow-hidden shadow-2xl">
+                  <img 
+                    src={founderImage} 
+                    alt="Naftali Koome, Founder of NafArro Solutions" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="absolute -bottom-4 -right-4 bg-primary text-white p-4 rounded-lg shadow-lg">
+                  <p className="text-sm font-medium">5+ Years</p>
+                  <p className="text-xs">Experience</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
