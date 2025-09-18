@@ -35,57 +35,58 @@ const PortfolioPage = () => {
   const portfolioItems = [
     {
       id: 1,
-      title: "E-Commerce Automation Platform", 
+      title: 'Credit Management System',
       category: "automation",
-      image: "https://images.unsplash.com/photo-1557821552-17105176677c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1769&q=80",
-      description: "An automated inventory management and order processing system that reduced manual work by 80% for a leading online retailer.",
-      technologies: ["React", "Node.js", "Express", "MongoDB"],
-      results: "80% reduction in manual work, 45% faster order processing"
+      image: 'https://placehold.co/800x500/1e293b/ffffff?text=Credit+Management+System',
+      description: 'Web-based case management improving collection efficiency and analytics.',
+      technologies: ['React', 'TypeScript', 'Supabase', 'Tailwind', 'Vite'],
+      results: "Improved collection efficiency and comprehensive analytics",
+      liveUrl: 'https://cmsyst.netlify.app/',
+      githubUrl: 'https://github.com/Tali1911/collection-management-system'
     },
     {
       id: 2,
-      title: "Corporate Branding Website",
-      category: "website", 
-      image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1769&q=80",
-      description: "A responsive, modern website for a financial services firm that increased lead generation by 45% within the first quarter.",
-      technologies: ["React", "Tailwind CSS", "Next.js"],
-      results: "45% increase in lead generation, 60% better user engagement"
+      title: 'Church Management System',
+      category: "automation",
+      image: 'https://placehold.co/800x500/1e293b/ffffff?text=Church+Management+System',
+      description: 'Automating and managing church resources and departments on one platform.',
+      technologies: ['React', 'TypeScript', 'Supabase', 'Tailwind', 'Vite'],
+      results: "Centralized management of church operations and resources",
+      liveUrl: 'https://tot123.netlify.app/',
+      githubUrl: 'https://github.com/Tali1911/Complete_Church_MS'
     },
     {
       id: 3,
-      title: "HR Management System",
+      title: 'Action Point Follow-up',
       category: "automation",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1776&q=80", 
-      description: "A comprehensive HR platform automating employee onboarding, time tracking, and performance reviews for a company with 500+ employees.",
-      technologies: ["Django", "React", "PostgreSQL", "Redis"],
-      results: "90% faster onboarding process, 100% compliance rate"
+      image: 'https://placehold.co/800x500/312e81/ffffff?text=Action+Follow-up',
+      description: 'Action item tracking with advanced filtering and email notifications.',
+      technologies: ['React', 'Node', 'JWT', 'PostgreSQL', 'Sendgrid'],
+      results: "Streamlined action item tracking with automated notifications",
+      liveUrl: 'https://actionpoints.netlify.app/auth',
+      githubUrl: 'https://github.com/Tali1911/Agenda_action_point'
     },
     {
       id: 4,
-      title: "Restaurant Ordering System",
-      category: "automation",
-      image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80",
-      description: "A digital menu and ordering system that streamlined operations for a restaurant chain, reducing order time by 35%.",
-      technologies: ["React Native", "Node.js", "Express", "MongoDB"],
-      results: "35% reduction in order time, 25% increase in customer satisfaction"
+      title: 'cedarempowerhands.org',
+      category: "website",
+      image: 'https://placehold.co/800x500/4f46e5/ffffff?text=Non-Profit+Org',
+      description: "Website empowering Kenya's Youth through skills and sustainability.",
+      technologies: ['React', 'TypeScript', 'Tailwind', 'Vite'],
+      results: "Platform for youth empowerment and sustainability initiatives",
+      liveUrl: 'https://cedarempowerhands.org/',
+      githubUrl: 'https://github.com/Tali1911/cedar-empower-reach'
     },
     {
       id: 5,
-      title: "Photography Portfolio",
-      category: "website",
-      image: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1774&q=80",
-      description: "A visually stunning portfolio website for a professional photographer showcasing their work with advanced filtering and gallery features.",
-      technologies: ["React", "Gatsby", "GraphQL", "Netlify CMS"],
-      results: "200% increase in client inquiries, featured in design showcases"
-    },
-    {
-      id: 6,
-      title: "Manufacturing Process Automation", 
+      title: 'GPS Community Bond',
       category: "automation",
-      image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1720&q=80",
-      description: "An IoT-connected system that automated quality control processes, reducing defects by 65% for a manufacturing plant.",
-      technologies: ["Django", "Python", "IoT Sensors", "PostgreSQL"],
-      results: "65% reduction in defects, $500K annual cost savings"
+      image: 'https://placehold.co/800x500/0f172a/ffffff?text=GPS+Community+Bond',
+      description: 'GPS tracking app for walks with social features and detailed analytics.',
+      technologies: ['React', 'TypeScript', 'Supabase', 'Tailwind', 'Leaflet.js', 'geo.json'],
+      results: "Community engagement through GPS tracking and social features",
+      liveUrl: 'https://walktracking.netlify.app/',
+      githubUrl: 'https://github.com/Tali1911/Prayerwalk_Tracker'
     }
   ];
 
@@ -159,14 +160,28 @@ const PortfolioPage = () => {
                     alt={item.title} 
                     className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <div className="flex gap-3">
-                      <button className="p-2 bg-white rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
-                        <ExternalLink className="w-5 h-5" />
-                      </button>
-                      <button className="p-2 bg-white rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
-                        <Github className="w-5 h-5" />
-                      </button>
+                      {item.liveUrl && (
+                        <a 
+                          href={item.liveUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="p-2 bg-white rounded-full text-primary hover:bg-primary hover:text-white transition-colors"
+                        >
+                          <ExternalLink className="w-5 h-5" />
+                        </a>
+                      )}
+                      {item.githubUrl && (
+                        <a 
+                          href={item.githubUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="p-2 bg-white rounded-full text-primary hover:bg-primary hover:text-white transition-colors"
+                        >
+                          <Github className="w-5 h-5" />
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>
