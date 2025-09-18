@@ -1,6 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { ExternalLink, Github } from 'lucide-react';
+import creditManagementScreenshot from '../assets/credit-management-screenshot.png';
+import churchManagementScreenshot from '../assets/church-management-screenshot.png';
+import actionPointScreenshot from '../assets/action-point-screenshot.png';
+import cedarempowerhandsScreenshot from '../assets/cedarempowerhands-screenshot.png';
+import gpsTrackerScreenshot from '../assets/gps-tracker-screenshot.png';
 
 const PortfolioPage = () => {
   const [filter, setFilter] = useState<string>('all');
@@ -37,7 +42,7 @@ const PortfolioPage = () => {
       id: 1,
       title: 'Credit Management System',
       category: "automation",
-      image: 'https://placehold.co/800x500/1e293b/ffffff?text=Credit+Management+System',
+      image: creditManagementScreenshot,
       description: 'Web-based case management improving collection efficiency and analytics.',
       technologies: ['React', 'TypeScript', 'Supabase', 'Tailwind', 'Vite'],
       results: "Improved collection efficiency and comprehensive analytics",
@@ -48,7 +53,7 @@ const PortfolioPage = () => {
       id: 2,
       title: 'Church Management System',
       category: "automation",
-      image: 'https://placehold.co/800x500/1e293b/ffffff?text=Church+Management+System',
+      image: churchManagementScreenshot,
       description: 'Automating and managing church resources and departments on one platform.',
       technologies: ['React', 'TypeScript', 'Supabase', 'Tailwind', 'Vite'],
       results: "Centralized management of church operations and resources",
@@ -59,7 +64,7 @@ const PortfolioPage = () => {
       id: 3,
       title: 'Action Point Follow-up',
       category: "automation",
-      image: 'https://placehold.co/800x500/312e81/ffffff?text=Action+Follow-up',
+      image: actionPointScreenshot,
       description: 'Action item tracking with advanced filtering and email notifications.',
       technologies: ['React', 'Node', 'JWT', 'PostgreSQL', 'Sendgrid'],
       results: "Streamlined action item tracking with automated notifications",
@@ -70,7 +75,7 @@ const PortfolioPage = () => {
       id: 4,
       title: 'cedarempowerhands.org',
       category: "website",
-      image: 'https://placehold.co/800x500/4f46e5/ffffff?text=Non-Profit+Org',
+      image: cedarempowerhandsScreenshot,
       description: "Website empowering Kenya's Youth through skills and sustainability.",
       technologies: ['React', 'TypeScript', 'Tailwind', 'Vite'],
       results: "Platform for youth empowerment and sustainability initiatives",
@@ -81,7 +86,7 @@ const PortfolioPage = () => {
       id: 5,
       title: 'GPS Community Bond',
       category: "automation",
-      image: 'https://placehold.co/800x500/0f172a/ffffff?text=GPS+Community+Bond',
+      image: gpsTrackerScreenshot,
       description: 'GPS tracking app for walks with social features and detailed analytics.',
       technologies: ['React', 'TypeScript', 'Supabase', 'Tailwind', 'Leaflet.js', 'geo.json'],
       results: "Community engagement through GPS tracking and social features",
