@@ -1,28 +1,23 @@
-
 import React, { useEffect } from 'react';
 import { CheckCircle, Clock, Users, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import founderImage from '../assets/founder-naftali-koome.jpg';
-
 const AboutPage = () => {
   // Animation on scroll functionality
   useEffect(() => {
     const animateOnScroll = () => {
       const elements = document.querySelectorAll('.animate-on-scroll');
-      
-      elements.forEach((element) => {
+      elements.forEach(element => {
         const rect = element.getBoundingClientRect();
         if (rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8) {
           element.classList.add('show');
         }
       });
     };
-
     window.addEventListener('scroll', animateOnScroll);
     // Initial check
     animateOnScroll();
-
     return () => {
       window.removeEventListener('scroll', animateOnScroll);
     };
@@ -32,30 +27,23 @@ const AboutPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  const coreValues = [
-    {
-      icon: <CheckCircle size={40} className="text-secondary" />,
-      title: "Quality",
-      description: "We never compromise on the quality of our solutions, ensuring reliable, efficient, and secure applications."
-    },
-    {
-      icon: <Clock size={40} className="text-secondary" />,
-      title: "Timeliness",
-      description: "We understand the value of time and are committed to delivering projects on or before deadlines."
-    },
-    {
-      icon: <Users size={40} className="text-secondary" />,
-      title: "Collaboration",
-      description: "We work closely with our clients, encouraging open communication and feedback throughout the process."
-    },
-    {
-      icon: <Award size={40} className="text-secondary" />,
-      title: "Excellence",
-      description: "We strive for excellence in every aspect of our work, from code quality to client satisfaction."
-    }
-  ];
-
+  const coreValues = [{
+    icon: <CheckCircle size={40} className="text-secondary" />,
+    title: "Quality",
+    description: "We never compromise on the quality of our solutions, ensuring reliable, efficient, and secure applications."
+  }, {
+    icon: <Clock size={40} className="text-secondary" />,
+    title: "Timeliness",
+    description: "We understand the value of time and are committed to delivering projects on or before deadlines."
+  }, {
+    icon: <Users size={40} className="text-secondary" />,
+    title: "Collaboration",
+    description: "We work closely with our clients, encouraging open communication and feedback throughout the process."
+  }, {
+    icon: <Award size={40} className="text-secondary" />,
+    title: "Excellence",
+    description: "We strive for excellence in every aspect of our work, from code quality to client satisfaction."
+  }];
   const aboutPageSchema = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
@@ -64,15 +52,13 @@ const AboutPage = () => {
       "name": "NafArro Solutions",
       "description": "We're on a mission to transform businesses through intelligent automation and innovative technology solutions",
       "foundingDate": "2023",
-      "founders": [
-        {
-          "@type": "Person",
-          "name": "Naftali Koome",
-          "jobTitle": "Founder & Lead Developer",
-          "alumniOf": "The Catholic University of Eastern Africa",
-          "knowsAbout": ["Computer Science", "Software Development", "Business Automation"]
-        }
-      ],
+      "founders": [{
+        "@type": "Person",
+        "name": "Naftali Koome",
+        "jobTitle": "Founder & Lead Developer",
+        "alumniOf": "The Catholic University of Eastern Africa",
+        "knowsAbout": ["Computer Science", "Software Development", "Business Automation"]
+      }],
       "address": {
         "@type": "PostalAddress",
         "addressCountry": "US"
@@ -81,34 +67,19 @@ const AboutPage = () => {
         "@type": "Person",
         "jobTitle": "Automation Specialist"
       },
-      "knowsAbout": [
-        "Business Process Automation",
-        "Web Development", 
-        "Data Analysis",
-        "React Development",
-        "Node.js",
-        "Express",
-        "MongoDB", 
-        "Supabase"
-      ]
+      "knowsAbout": ["Business Process Automation", "Web Development", "Data Analysis", "React Development", "Node.js", "Express", "MongoDB", "Supabase"]
     }
   };
-
-  return (
-    <>
-      <SEO 
-        title="About NafArro Solutions - Your Automation Experts | King of Automation"
-        description="Learn about NafArro Solutions, leading automation specialists transforming businesses through intelligent technology solutions. Discover our mission, values, and commitment to excellence."
-        keywords="about nafarro solutions, automation experts, company story, mission vision, core values, technology specialists, business automation company"
-        canonical={typeof window !== 'undefined' ? window.location.href : ''}
-        schemaData={aboutPageSchema}
-      />
+  return <>
+      <SEO title="About NafArro Solutions - Your Automation Experts | King of Automation" description="Learn about NafArro Solutions, leading automation specialists transforming businesses through intelligent technology solutions. Discover our mission, values, and commitment to excellence." keywords="about nafarro solutions, automation experts, company story, mission vision, core values, technology specialists, business automation company" canonical={typeof window !== 'undefined' ? window.location.href : ''} schemaData={aboutPageSchema} />
       <div className="pt-20">
       {/* About Header */}
       <div className="bg-primary text-white py-16">
         <div className="container-custom">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">About NafArro Solutions</h1>
-          <p className="text-xl text-gray-300 max-w-3xl animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          <p className="text-xl text-gray-300 max-w-3xl animate-fade-in" style={{
+            animationDelay: '0.2s'
+          }}>
             We're on a mission to transform businesses through intelligent automation and innovative technology solutions.
           </p>
         </div>
@@ -132,11 +103,7 @@ const AboutPage = () => {
             </div>
             
             <div className="rounded-lg overflow-hidden shadow-xl animate-on-scroll">
-              <img 
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" 
-                alt="Team collaboration" 
-                className="w-full h-auto"
-              />
+              <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Team collaboration" className="w-full h-auto" />
             </div>
           </div>
         </div>
@@ -153,12 +120,9 @@ const AboutPage = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {coreValues.map((value, index) => (
-              <div 
-                key={index} 
-                className="bg-white p-8 rounded-lg shadow-md flex items-start space-x-5 animate-on-scroll"
-                style={{ transitionDelay: `${index * 0.2}s` }}
-              >
+            {coreValues.map((value, index) => <div key={index} className="bg-white p-8 rounded-lg shadow-md flex items-start space-x-5 animate-on-scroll" style={{
+              transitionDelay: `${index * 0.2}s`
+            }}>
                 <div className="flex-shrink-0 p-3 bg-primary/5 rounded-lg">
                   {value.icon}
                 </div>
@@ -166,8 +130,7 @@ const AboutPage = () => {
                   <h3 className="text-xl font-bold mb-2 text-primary">{value.title}</h3>
                   <p className="text-gray-600">{value.description}</p>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -186,7 +149,9 @@ const AboutPage = () => {
               </p>
             </div>
             
-            <div className="bg-accent p-8 rounded-lg text-white animate-on-scroll" style={{ transitionDelay: '0.3s' }}>
+            <div className="bg-accent p-8 rounded-lg text-white animate-on-scroll" style={{
+              transitionDelay: '0.3s'
+            }}>
               <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
               <p className="text-gray-200 mb-4">
                 To be recognized as the leading automation solutions provider, known for our technical excellence, innovation, and exceptional client service.
@@ -215,9 +180,7 @@ const AboutPage = () => {
               <p className="text-lg text-accent mb-4 font-medium">Founder & Lead Developer</p>
               
               <div className="space-y-4 text-gray-700">
-                <p>
-                  With a BSc in Computer Science and Information Technology from The Catholic University of Eastern Africa, Lang'ata, Naftali brings over half a decade of hands-on experience in software development and business automation.
-                </p>
+                <p>With a BSc in Computer Science and from The Catholic University of Eastern Africa, Lang'ata, Naftali brings over half a decade of hands-on experience in software development and business automation.</p>
                 
                 <p>
                   His expertise spans across full-stack development, database management, and enterprise-level automation solutions. Having worked on diverse projects ranging from church management systems to GPS tracking applications, Naftali understands the unique challenges businesses face in the digital age.
@@ -244,11 +207,7 @@ const AboutPage = () => {
             <div className="order-1 lg:order-2 animate-on-scroll">
               <div className="relative">
                 <div className="w-80 h-80 mx-auto rounded-2xl overflow-hidden shadow-2xl">
-                  <img 
-                    src={founderImage} 
-                    alt="Naftali Koome, Founder of NafArro Solutions" 
-                    className="w-full h-full object-cover"
-                  />
+                  <img src={founderImage} alt="Naftali Koome, Founder of NafArro Solutions" className="w-full h-full object-cover" />
                 </div>
                 <div className="absolute -bottom-4 -right-4 bg-primary text-white p-4 rounded-lg shadow-lg">
                   <p className="text-sm font-medium">5+ Years</p>
@@ -268,18 +227,13 @@ const AboutPage = () => {
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
               Let's discuss how our automation solutions can help your business reach new heights of efficiency and productivity.
             </p>
-            <Link 
-              to="/contact" 
-              className="btn-primary inline-block"
-            >
+            <Link to="/contact" className="btn-primary inline-block">
               Get in Touch
             </Link>
           </div>
         </div>
       </section>
       </div>
-    </>
-  );
+    </>;
 };
-
 export default AboutPage;
