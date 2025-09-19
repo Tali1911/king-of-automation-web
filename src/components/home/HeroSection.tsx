@@ -45,46 +45,62 @@ const HeroSection = () => {
       {/* Professional Animated Background */}
       <div className="absolute inset-0">
         {/* Animated gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-accent/20 animate-pulse-slow" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-transparent to-accent/30 animate-pulse" style={{ animationDuration: '4s' }} />
         
-        {/* Floating geometric shapes */}
-        <div className="absolute inset-0 opacity-5">
+        {/* Floating geometric shapes - More visible */}
+        <div className="absolute inset-0 opacity-20">
           {/* Large hexagons */}
-          <div className="absolute top-10 left-10 w-32 h-32 border border-white/30 transform rotate-45 animate-spin" style={{ animationDuration: '20s' }} />
-          <div className="absolute top-1/3 right-20 w-24 h-24 border border-white/20 transform rotate-12 animate-spin" style={{ animationDuration: '25s', animationDirection: 'reverse' }} />
-          <div className="absolute bottom-20 left-1/4 w-28 h-28 border border-white/25 transform -rotate-12 animate-spin" style={{ animationDuration: '30s' }} />
+          <div className="absolute top-10 left-10 w-32 h-32 border-2 border-white/50 transform rotate-45 animate-spin" style={{ animationDuration: '15s' }} />
+          <div className="absolute top-1/3 right-20 w-24 h-24 border-2 border-white/40 transform rotate-12 animate-spin" style={{ animationDuration: '18s', animationDirection: 'reverse' }} />
+          <div className="absolute bottom-20 left-1/4 w-28 h-28 border-2 border-white/45 transform -rotate-12 animate-spin" style={{ animationDuration: '22s' }} />
           
-          {/* Circuit-like lines */}
-          <div className="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-transparent via-white/10 to-transparent animate-pulse-slow" />
-          <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse-slow" style={{ animationDelay: '1s' }} />
-          <div className="absolute bottom-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/8 to-transparent animate-pulse-slow" style={{ animationDelay: '2s' }} />
+          {/* Circuit-like lines - More prominent */}
+          <div className="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-transparent via-white/25 to-transparent animate-pulse" style={{ animationDuration: '3s' }} />
+          <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/25 to-transparent animate-pulse" style={{ animationDelay: '1s', animationDuration: '3s' }} />
+          <div className="absolute bottom-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse" style={{ animationDelay: '2s', animationDuration: '3s' }} />
         </div>
         
-        {/* Floating orbs with glow effect */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-1/4 left-1/6 w-64 h-64 rounded-full bg-white/20 blur-3xl animate-pulse-slow" />
-          <div className="absolute top-2/3 right-1/6 w-48 h-48 rounded-full bg-accent/30 blur-2xl animate-pulse-slow" style={{ animationDelay: '1.5s' }} />
-          <div className="absolute bottom-1/4 left-1/2 w-56 h-56 rounded-full bg-secondary/20 blur-3xl animate-pulse-slow" style={{ animationDelay: '3s' }} />
+        {/* Floating orbs with glow effect - Enhanced */}
+        <div className="absolute inset-0 opacity-25">
+          <div className="absolute top-1/4 left-1/6 w-64 h-64 rounded-full bg-white/30 blur-3xl animate-pulse" style={{ animationDuration: '5s' }} />
+          <div className="absolute top-2/3 right-1/6 w-48 h-48 rounded-full bg-accent/40 blur-2xl animate-pulse" style={{ animationDelay: '2s', animationDuration: '6s' }} />
+          <div className="absolute bottom-1/4 left-1/2 w-56 h-56 rounded-full bg-secondary/30 blur-3xl animate-pulse" style={{ animationDelay: '4s', animationDuration: '7s' }} />
         </div>
         
-        {/* Animated dots grid */}
-        <div className="absolute inset-0 opacity-15">
-          {Array.from({ length: 12 }).map((_, i) => (
+        {/* Animated dots grid - More visible and faster */}
+        <div className="absolute inset-0 opacity-30">
+          {Array.from({ length: 15 }).map((_, i) => (
             <div
               key={i}
-              className="absolute w-2 h-2 bg-white rounded-full animate-pulse-slow"
+              className="absolute w-3 h-3 bg-white rounded-full animate-pulse"
               style={{
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${2 + Math.random() * 2}s`
+                animationDelay: `${Math.random() * 2}s`,
+                animationDuration: `${1.5 + Math.random() * 1.5}s`
               }}
             />
           ))}
         </div>
         
-        {/* Subtle wave animation */}
-        <div className="absolute bottom-0 left-0 w-full h-32 opacity-5">
+        {/* Moving particles */}
+        <div className="absolute inset-0 opacity-25">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div
+              key={`particle-${i}`}
+              className="absolute w-1 h-1 bg-white rounded-full animate-bounce"
+              style={{
+                top: `${20 + Math.random() * 60}%`,
+                left: `${10 + Math.random() * 80}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                animationDuration: `${2 + Math.random() * 3}s`
+              }}
+            />
+          ))}
+        </div>
+        
+        {/* Enhanced wave animation */}
+        <div className="absolute bottom-0 left-0 w-full h-32 opacity-15">
           <svg
             className="w-full h-full"
             viewBox="0 0 1200 120"
@@ -97,16 +113,16 @@ const HeroSection = () => {
               <animateTransform
                 attributeName="transform"
                 type="translate"
-                values="0,0; 50,0; 0,0"
-                dur="10s"
+                values="0,0; 100,0; 0,0"
+                dur="8s"
                 repeatCount="indefinite"
               />
             </path>
             <defs>
               <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="white" stopOpacity="0.3" />
-                <stop offset="50%" stopColor="white" stopOpacity="0.1" />
-                <stop offset="100%" stopColor="white" stopOpacity="0.3" />
+                <stop offset="0%" stopColor="white" stopOpacity="0.4" />
+                <stop offset="50%" stopColor="white" stopOpacity="0.2" />
+                <stop offset="100%" stopColor="white" stopOpacity="0.4" />
               </linearGradient>
             </defs>
           </svg>
