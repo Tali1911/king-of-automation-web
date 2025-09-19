@@ -23,26 +23,19 @@ const ContactPage = () => {
   };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
-    // Simulate form submission
-    setTimeout(() => {
-      console.log('Form submitted:', formData);
-      setIsSubmitting(false);
-      setSubmitSuccess(true);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
-      });
-
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setSubmitSuccess(false);
-      }, 5000);
-    }, 1500);
+    
+    // Create email content
+    const subject = encodeURIComponent(formData.subject || 'Contact Form Submission');
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\n` +
+      `Email: ${formData.email}\n` +
+      `Phone: ${formData.phone}\n` +
+      `Subject: ${formData.subject}\n\n` +
+      `Message:\n${formData.message}`
+    );
+    
+    // Open default mail client
+    window.location.href = `mailto:ruciukoome@gmail.com?subject=${subject}&body=${body}`;
   };
   const contactPageSchema = {
     "@context": "https://schema.org",
@@ -114,10 +107,10 @@ const ContactPage = () => {
                 <div className="bg-primary/10 p-3 rounded-lg mr-4">
                   <Mail className="text-primary h-6 w-6" />
                 </div>
-                <div>
-                  <h3 className="font-semibold text-lg mb-1">Email</h3>
-                  <p className="text-gray-600">info@nafarrosolutions.com</p>
-                </div>
+                 <div>
+                   <h3 className="font-semibold text-lg mb-1">Email</h3>
+                   <a href="mailto:ruciukoome@gmail.com" className="text-gray-600 hover:text-primary transition-colors">ruciukoome@gmail.com</a>
+                 </div>
               </div>
               
               <div className="flex items-start">

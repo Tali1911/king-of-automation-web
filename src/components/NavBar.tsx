@@ -42,6 +42,9 @@ const NavBar = () => {
           <Link to="/contact" className="text-foreground hover:text-primary transition-colors">
             Contact
           </Link>
+          <Link to="/consultation" className="text-foreground hover:text-primary transition-colors">
+            Consultation
+          </Link>
         </div>
 
         {/* CTA Button */}
@@ -74,6 +77,9 @@ const NavBar = () => {
             </Link>
             <Link to="/contact" className="text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
               Contact
+            </Link>
+            <Link to="/consultation" className="text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+              Consultation
             </Link>
             <Link to="/contact" className="btn-primary inline-block text-center" onClick={() => setIsMenuOpen(false)}>
               Get Started
