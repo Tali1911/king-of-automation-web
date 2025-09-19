@@ -15,6 +15,11 @@ import ContactPage from "./pages/ContactPage";
 import BlogPage from "./pages/BlogPage";
 import ConsultationPage from "./pages/ConsultationPage";
 import NotFound from "./pages/NotFound";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import TermsOfServicePage from "./pages/TermsOfServicePage";
+import WebDevelopmentPage from "./pages/services/WebDevelopmentPage";
+import AutomationPage from "./pages/services/AutomationPage";
+import DataAnalysisPage from "./pages/services/DataAnalysisPage";
 import Chatbot from "./components/common/Chatbot";
 import ServiceCalculator from "./components/common/ServiceCalculator";
 
@@ -38,6 +43,11 @@ const App = () => (
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/consultation" element={<ConsultationPage />} />
               <Route path="/blog" element={<BlogPage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+              <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+              <Route path="/services/web-development" element={<WebDevelopmentPage />} />
+              <Route path="/services/automation" element={<AutomationPage />} />
+              <Route path="/services/data-analysis" element={<DataAnalysisPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
