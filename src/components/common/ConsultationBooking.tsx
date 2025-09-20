@@ -7,8 +7,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Calendar, Clock, DollarSign, User, Mail, Phone, MessageSquare } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
+import PaymentForm from './PaymentForm';
 
 const ConsultationBooking = () => {
+  const [currentStep, setCurrentStep] = useState<'booking' | 'payment' | 'confirmation'>('booking');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -54,12 +56,80 @@ const ConsultationBooking = () => {
       return;
     }
 
-    // Here you would integrate with Stripe for payment processing
+    // Move to payment step
+    setCurrentStep('payment');
+  };
+
+  const handlePaymentComplete = () => {
+    setCurrentStep('confirmation');
     toast({
-      title: "Booking Submitted!",
-      description: `Your consultation booking for ${formData.duration} hour(s) at $${calculateTotal()} has been submitted. Payment integration coming soon!`,
+      title: "Payment Successful!",
+      description: `Your consultation has been booked and paid for. You'll receive a confirmation email shortly.`,
     });
   };
+
+  const handleBackToBooking = () => {
+    setCurrentStep('booking');
+  };
+
+  // Show payment form
+  if (currentStep === 'payment') {
+    return (
+      <PaymentForm 
+        amount={calculateTotal()} 
+        onBack={handleBackToBooking}
+        onPaymentComplete={handlePaymentComplete}
+      />
+    );
+  }
+
+  // Show confirmation
+  if (currentStep === 'confirmation') {
+    return (
+      <div className="max-w-2xl mx-auto p-6">
+        <Card className="border-green-200">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl text-green-600 flex items-center justify-center gap-2">
+              <DollarSign className="h-6 w-6" />
+              Booking Confirmed!
+            </CardTitle>
+            <CardDescription className="text-lg">
+              Your consultation has been successfully booked and paid for.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="bg-green-50 p-4 rounded-lg">
+              <h3 className="font-semibold text-green-800">Booking Details:</h3>
+              <p className="text-green-700">Date: {formData.date}</p>
+              <p className="text-green-700">Time: {formData.time}</p>
+              <p className="text-green-700">Duration: {formData.duration} hour(s)</p>
+              <p className="text-green-700">Total Paid: ${calculateTotal()}</p>
+            </div>
+            <p className="text-muted-foreground text-center">
+              You'll receive a confirmation email with meeting details shortly.
+            </p>
+            <Button 
+              onClick={() => {
+                setCurrentStep('booking');
+                setFormData({
+                  name: '',
+                  email: '',
+                  phone: '',
+                  date: '',
+                  time: '',
+                  duration: '1',
+                  message: ''
+                });
+              }}
+              className="w-full"
+            >
+              Book Another Consultation
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-2xl mx-auto p-6">
@@ -214,12 +284,8 @@ const ConsultationBooking = () => {
             {/* Submit Button */}
             <Button type="submit" className="w-full" size="lg">
               <DollarSign className="h-4 w-4 mr-2" />
-              Book Consultation & Pay ${calculateTotal()}
+              Proceed to Payment
             </Button>
-            
-            <p className="text-xs text-muted-foreground text-center">
-              Payment processing will be available once Stripe integration is implemented
-            </p>
           </form>
         </CardContent>
       </Card>
