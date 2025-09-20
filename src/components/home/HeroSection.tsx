@@ -144,7 +144,7 @@ const HeroSection = () => {
         </div>
         
         <div className="flex flex-col sm:flex-row gap-4 opacity-0" ref={ctaRef}>
-          <Link to="/contact" className="btn-primary text-center">Get In Touch</Link>
+          <Link to="/contact" className="btn-primary text-center">Schedule Consultation</Link>
           <Link to="/services" className="bg-transparent border border-white text-white font-medium py-2 px-6 rounded transition-all hover:bg-white/10 hover:shadow-lg hover:-translate-y-1 text-center">
             Explore Services
           </Link>
