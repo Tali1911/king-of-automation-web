@@ -1,24 +1,44 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { X, ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { ServiceType } from './serviceCalculator/types';
 import { serviceFeatures } from './serviceCalculator/types';
 import FeaturesList from './serviceCalculator/FeaturesList';
-import ServiceTypeSelector from './serviceCalculator/ServiceTypeSelector';
-import UrgencyToggle from './serviceCalculator/UrgencyToggle';
-import { calculateTotal } from './serviceCalculator/calculatorUtils';
+import SelectionPreview from './serviceCalculator/SelectionPreview';
+import QuoteRequestForm from './serviceCalculator/QuoteRequestForm';
+
+type Step = 'selection' | 'preview' | 'contact' | 'success';
 
 const ServiceCalculator = () => {
-  const [serviceType, setServiceType] = useState<ServiceType>('website');
-  const [isUrgent, setIsUrgent] = useState(false);
+  const [selectedServiceTypes, setSelectedServiceTypes] = useState<ServiceType[]>(['website']);
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [currentStep, setCurrentStep] = useState<Step>('selection');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleServiceTypeChange = (type: ServiceType) => {
-    setServiceType(type);
-    setSelectedFeatures([]);
+  const serviceTypeLabels: Record<ServiceType, string> = {
+    website: 'Website',
+    webapp: 'Web App',
+    data: 'Data Analysis'
+  };
+
+  const handleServiceTypeToggle = (type: ServiceType) => {
+    setSelectedServiceTypes(prev => {
+      if (prev.includes(type)) {
+        // Remove service type and its features
+        const removedFeatureIds = serviceFeatures[type]
+          .flatMap(cat => cat.features)
+          .map(f => f.id);
+        setSelectedFeatures(current => 
+          current.filter(id => !removedFeatureIds.includes(id))
+        );
+        return prev.filter(t => t !== type);
+      } else {
+        return [...prev, type];
+      }
+    });
   };
 
   const handleFeatureToggle = (featureId: string) => {
@@ -29,9 +49,39 @@ const ServiceCalculator = () => {
     );
   };
 
+  const handleRemoveFeature = (featureId: string) => {
+    setSelectedFeatures(prev => prev.filter(id => id !== featureId));
+  };
+
   const handleClose = () => {
     setIsOpen(false);
   };
+
+  const handleReset = () => {
+    setSelectedServiceTypes(['website']);
+    setSelectedFeatures([]);
+    setCurrentStep('selection');
+    setIsSubmitting(false);
+  };
+
+  const handleQuoteSubmit = async (data: any) => {
+    setIsSubmitting(true);
+    
+    // TODO: Integrate with backend to save quote request
+    // For now, simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    console.log('Quote request:', {
+      serviceTypes: selectedServiceTypes,
+      features: selectedFeatures,
+      contact: data
+    });
+    
+    setIsSubmitting(false);
+    setCurrentStep('success');
+  };
+
+  const canProceedToPreview = selectedFeatures.length > 0;
 
   return (
     <Collapsible 
@@ -40,7 +90,7 @@ const ServiceCalculator = () => {
       className="fixed bottom-6 left-6 z-40 w-80 md:w-96 shadow-xl rounded-xl max-h-[calc(100vh-100px)] overflow-auto"
     >
       <CollapsibleTrigger className="bg-primary text-primary-foreground p-3 rounded-t-xl w-full flex justify-between items-center hover:opacity-90 transition-opacity">
-        <span className="font-medium text-sm">Service Cost Calculator</span>
+        <span className="font-medium text-sm">Build Your Requirements</span>
         <span className="text-xs bg-background text-foreground px-2 py-1 rounded-full">
           {isOpen ? "Close" : "Open"}
         </span>
@@ -50,63 +100,150 @@ const ServiceCalculator = () => {
         <Card className="border-t-0 rounded-t-none relative">
           <button 
             onClick={handleClose}
-            className="absolute right-2 top-2 p-1.5 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
+            className="absolute right-2 top-2 p-1.5 bg-muted rounded-full hover:bg-muted/80 transition-colors z-10"
             aria-label="Close calculator"
           >
             <X className="h-4 w-4" />
           </button>
 
           <CardHeader className="pt-6 pb-3 px-4">
-            <CardTitle className="text-lg">Estimate Your Project Cost</CardTitle>
+            <CardTitle className="text-lg">
+              {currentStep === 'selection' && 'Select Your Features'}
+              {currentStep === 'preview' && 'Review Your Selection'}
+              {currentStep === 'contact' && 'Get Your Quote'}
+              {currentStep === 'success' && 'Request Submitted!'}
+            </CardTitle>
             <CardDescription className="text-xs">
-              Select service type and features. We'll get back to you with a detailed quote.
+              {currentStep === 'selection' && 'Choose service types and features you need'}
+              {currentStep === 'preview' && 'Review and edit your selections'}
+              {currentStep === 'contact' && 'Enter your contact information'}
+              {currentStep === 'success' && 'We\'ll be in touch soon'}
             </CardDescription>
           </CardHeader>
           
           <CardContent className="space-y-4 px-4 py-2">
-            {/* Service Type Selection */}
-            <ServiceTypeSelector 
-              serviceType={serviceType} 
-              onSelectServiceType={handleServiceTypeChange} 
-            />
-            
-            {/* Features */}
-            <FeaturesList 
-              serviceType={serviceType}
-              selectedFeatures={selectedFeatures}
-              serviceFeatures={serviceFeatures}
-              onFeatureToggle={handleFeatureToggle}
-            />
-            
-            {/* Priority Option */}
-            <UrgencyToggle 
-              isUrgent={isUrgent}
-              onToggleUrgency={setIsUrgent}
-            />
+            {currentStep === 'selection' && (
+              <>
+                {/* Service Type Selection */}
+                <div>
+                  <h3 className="text-sm font-medium mb-2">Service Types</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {(['website', 'webapp', 'data'] as ServiceType[]).map(type => (
+                      <button
+                        key={type}
+                        onClick={() => handleServiceTypeToggle(type)}
+                        className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                          selectedServiceTypes.includes(type)
+                            ? 'bg-primary text-primary-foreground'
+                            : 'bg-muted hover:bg-muted/80'
+                        }`}
+                      >
+                        {serviceTypeLabels[type]}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Features for each selected service type */}
+                {selectedServiceTypes.map(serviceType => (
+                  <div key={serviceType} className="border-t pt-3">
+                    <h4 className="text-xs font-semibold mb-2 text-muted-foreground uppercase">
+                      {serviceTypeLabels[serviceType]} Features
+                    </h4>
+                    <FeaturesList 
+                      serviceType={serviceType}
+                      selectedFeatures={selectedFeatures}
+                      serviceFeatures={serviceFeatures}
+                      onFeatureToggle={handleFeatureToggle}
+                    />
+                  </div>
+                ))}
+              </>
+            )}
+
+            {currentStep === 'preview' && (
+              <SelectionPreview
+                selectedServiceTypes={selectedServiceTypes}
+                selectedFeatures={selectedFeatures}
+                onRemoveFeature={handleRemoveFeature}
+              />
+            )}
+
+            {currentStep === 'contact' && (
+              <QuoteRequestForm
+                onSubmit={handleQuoteSubmit}
+                isSubmitting={isSubmitting}
+              />
+            )}
+
+            {currentStep === 'success' && (
+              <div className="text-center py-6 space-y-4">
+                <CheckCircle2 className="h-16 w-16 text-green-500 mx-auto" />
+                <div className="space-y-2">
+                  <h3 className="font-semibold">Thank you for your interest!</h3>
+                  <p className="text-sm text-muted-foreground">
+                    We've received your requirements and will send you a detailed quotation within 24-48 hours.
+                  </p>
+                </div>
+                <Button onClick={handleReset} variant="outline" className="w-full">
+                  Start New Request
+                </Button>
+              </div>
+            )}
           </CardContent>
           
-          <CardFooter className="flex-col p-4">
-            <div className="w-full py-3 border-t border-b flex justify-between items-center">
-              <span className="text-sm">Estimated Total:</span>
-              <span className="text-xl font-bold">
-                ${calculateTotal(serviceType, selectedFeatures, isUrgent)}
-              </span>
-            </div>
-            
-            <p className="text-xs text-muted-foreground mt-2 text-center">
-              This is an estimate. We'll review your selections and send you a detailed quote.
-            </p>
-            
-            <button 
-              className="w-full mt-3 bg-primary text-primary-foreground py-2 rounded-md text-center text-sm font-medium hover:opacity-90 transition-opacity"
-              onClick={() => {
-                // TODO: Integrate with login and quote request system
-                alert('Quote request feature coming soon! For now, please contact us directly.');
-              }}
-            >
-              Request Detailed Quote
-            </button>
-          </CardFooter>
+          {currentStep !== 'success' && (
+            <CardFooter className="flex justify-between p-4 border-t">
+              {currentStep === 'selection' && (
+                <>
+                  <div className="text-xs text-muted-foreground">
+                    {selectedFeatures.length} feature{selectedFeatures.length !== 1 ? 's' : ''} selected
+                  </div>
+                  <Button
+                    onClick={() => setCurrentStep('preview')}
+                    disabled={!canProceedToPreview}
+                    size="sm"
+                  >
+                    Continue
+                    <ArrowRight className="ml-2 h-3 w-3" />
+                  </Button>
+                </>
+              )}
+
+              {currentStep === 'preview' && (
+                <>
+                  <Button
+                    onClick={() => setCurrentStep('selection')}
+                    variant="outline"
+                    size="sm"
+                  >
+                    <ArrowLeft className="mr-2 h-3 w-3" />
+                    Edit
+                  </Button>
+                  <Button
+                    onClick={() => setCurrentStep('contact')}
+                    disabled={selectedFeatures.length === 0}
+                    size="sm"
+                  >
+                    Continue
+                    <ArrowRight className="ml-2 h-3 w-3" />
+                  </Button>
+                </>
+              )}
+
+              {currentStep === 'contact' && (
+                <Button
+                  onClick={() => setCurrentStep('preview')}
+                  variant="outline"
+                  size="sm"
+                  disabled={isSubmitting}
+                >
+                  <ArrowLeft className="mr-2 h-3 w-3" />
+                  Back
+                </Button>
+              )}
+            </CardFooter>
+          )}
         </Card>
       </CollapsibleContent>
     </Collapsible>
