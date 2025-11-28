@@ -68,9 +68,6 @@ const FeaturesList = ({
                     </label>
                     <p className="text-xs text-muted-foreground">{feature.description}</p>
                   </div>
-                  <div className="text-xs font-medium whitespace-nowrap text-primary">
-                    ${feature.basePrice}
-                  </div>
                 </div>
               ))}
             </CollapsibleContent>
