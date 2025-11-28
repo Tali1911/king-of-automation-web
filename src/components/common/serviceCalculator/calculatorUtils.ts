@@ -7,10 +7,12 @@ export const calculateTotal = (
   isUrgent: boolean
 ): string => {
   let featuresTotal = 0;
-  const currentFeatures = serviceFeatures[serviceType];
+  const currentCategories = serviceFeatures[serviceType];
   
   selectedFeatures.forEach(featureId => {
-    const feature = currentFeatures.find(f => f.id === featureId);
+    const feature = currentCategories
+      .flatMap(cat => cat.features)
+      .find(f => f.id === featureId);
     if (feature) {
       featuresTotal += feature.basePrice;
     }
