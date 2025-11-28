@@ -39,9 +39,9 @@ const ServiceCalculator = () => {
       onOpenChange={setIsOpen}
       className="fixed bottom-6 left-6 z-40 w-80 md:w-96 shadow-xl rounded-xl max-h-[calc(100vh-100px)] overflow-auto"
     >
-      <CollapsibleTrigger className="bg-primary text-white p-3 rounded-t-xl w-full flex justify-between items-center">
+      <CollapsibleTrigger className="bg-primary text-primary-foreground p-3 rounded-t-xl w-full flex justify-between items-center hover:opacity-90 transition-opacity">
         <span className="font-medium text-sm">Service Cost Calculator</span>
-        <span className="text-xs bg-white text-primary px-2 py-1 rounded-full">
+        <span className="text-xs bg-background text-foreground px-2 py-1 rounded-full">
           {isOpen ? "Close" : "Open"}
         </span>
       </CollapsibleTrigger>
@@ -59,7 +59,7 @@ const ServiceCalculator = () => {
           <CardHeader className="pt-6 pb-3 px-4">
             <CardTitle className="text-lg">Estimate Your Project Cost</CardTitle>
             <CardDescription className="text-xs">
-              Select service type and features to get an estimate
+              Select service type and features. We'll get back to you with a detailed quote.
             </CardDescription>
           </CardHeader>
           
@@ -94,15 +94,18 @@ const ServiceCalculator = () => {
             </div>
             
             <p className="text-xs text-muted-foreground mt-2 text-center">
-              This is just an estimate. Contact us for a detailed quote.
+              This is an estimate. We'll review your selections and send you a detailed quote.
             </p>
             
-            <a 
-              href="/contact"
-              className="w-full mt-3 bg-primary text-white py-2 rounded-md text-center text-sm font-medium hover:bg-primary/90 transition-colors"
+            <button 
+              className="w-full mt-3 bg-primary text-primary-foreground py-2 rounded-md text-center text-sm font-medium hover:opacity-90 transition-opacity"
+              onClick={() => {
+                // TODO: Integrate with login and quote request system
+                alert('Quote request feature coming soon! For now, please contact us directly.');
+              }}
             >
               Request Detailed Quote
-            </a>
+            </button>
           </CardFooter>
         </Card>
       </CollapsibleContent>
