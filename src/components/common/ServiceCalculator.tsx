@@ -3,11 +3,12 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Button } from '@/components/ui/button';
 import { X, ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { ServiceType } from './serviceCalculator/types';
-import { serviceFeatures } from './serviceCalculator/types';
+import { ServiceType, serviceFeatures } from './serviceCalculator/types';
 import FeaturesList from './serviceCalculator/FeaturesList';
 import SelectionPreview from './serviceCalculator/SelectionPreview';
 import QuoteRequestForm from './serviceCalculator/QuoteRequestForm';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 type Step = 'selection' | 'preview' | 'contact' | 'success';
 
@@ -17,11 +18,23 @@ const ServiceCalculator = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState<Step>('selection');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
   const serviceTypeLabels: Record<ServiceType, string> = {
     website: 'Website',
     webapp: 'Web App',
     data: 'Data Analysis'
+  };
+
+  // Helper to get feature names from IDs
+  const getFeatureNames = (featureIds: string[]): string[] => {
+    const allFeatures = Object.values(serviceFeatures).flatMap(categories =>
+      categories.flatMap(cat => cat.features)
+    );
+    return featureIds.map(id => {
+      const feature = allFeatures.find(f => f.id === id);
+      return feature ? feature.name : id;
+    });
   };
 
   const handleServiceTypeToggle = (type: ServiceType) => {
@@ -64,21 +77,44 @@ const ServiceCalculator = () => {
     setIsSubmitting(false);
   };
 
-  const handleQuoteSubmit = async (data: any) => {
+  const handleQuoteSubmit = async (data: { email: string; name?: string; phone?: string; notes?: string }) => {
     setIsSubmitting(true);
     
-    // TODO: Integrate with backend to save quote request
-    // For now, simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    console.log('Quote request:', {
-      serviceTypes: selectedServiceTypes,
-      features: selectedFeatures,
-      contact: data
-    });
-    
-    setIsSubmitting(false);
-    setCurrentStep('success');
+    try {
+      const { data: response, error } = await supabase.functions.invoke('send-quote-request', {
+        body: {
+          email: data.email,
+          name: data.name,
+          phone: data.phone,
+          notes: data.notes,
+          serviceTypes: selectedServiceTypes.map(t => serviceTypeLabels[t]),
+          features: getFeatureNames(selectedFeatures)
+        }
+      });
+
+      if (error) {
+        console.error('Error sending quote request:', error);
+        toast({
+          title: "Error",
+          description: "Failed to submit your request. Please try again.",
+          variant: "destructive"
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      console.log('Quote request sent:', response);
+      setIsSubmitting(false);
+      setCurrentStep('success');
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again later.",
+        variant: "destructive"
+      });
+      setIsSubmitting(false);
+    }
   };
 
   const canProceedToPreview = selectedFeatures.length > 0;
