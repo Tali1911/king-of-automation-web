@@ -122,7 +122,7 @@ const TermsOfServicePage = () => {
                   </p>
                   <div className="bg-gray-100 p-4 rounded-lg mt-4">
                     <p className="text-gray-700">
-                      <strong>Email:</strong> ruciukoome@gmail.com<br />
+                      <strong>Email:</strong> naftali@nafarrosolutions.com<br />
                       <strong>Address:</strong> Nairobi, Kenya
                     </p>
                   </div>

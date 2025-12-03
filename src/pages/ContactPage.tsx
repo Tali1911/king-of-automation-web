@@ -37,7 +37,7 @@ const ContactPage = () => {
     );
     
     // Open default mail client
-    window.location.href = `mailto:ruciukoome@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:naftali@nafarrosolutions.com?subject=${subject}&body=${body}`;
   };
   const contactPageSchema = {
     "@context": "https://schema.org",
@@ -111,7 +111,7 @@ const ContactPage = () => {
                 </div>
                  <div>
                    <h3 className="font-semibold text-lg mb-1">Email</h3>
-                   <a href="mailto:ruciukoome@gmail.com" className="text-gray-600 hover:text-primary transition-colors">ruciukoome@gmail.com</a>
+                   <a href="mailto:naftali@nafarrosolutions.com" className="text-gray-600 hover:text-primary transition-colors">naftali@nafarrosolutions.com</a>
                  </div>
               </div>
               

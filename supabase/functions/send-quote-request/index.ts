@@ -108,7 +108,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
     // Email to NafArro team (notification)
     const teamEmailResponse = await resend.emails.send({
       from: "NafArro Solutions <info@nafarrosolutions.com>",
-      to: ["ruciukoome@gmail.com"],
+      to: ["naftali@nafarrosolutions.com"],
       subject: `New Quote Request from ${name || email}`,
       html: `
         <!DOCTYPE html>
