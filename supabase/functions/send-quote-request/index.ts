@@ -1,4 +1,5 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+// Setup type definitions for built-in Supabase Runtime APIs
+import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { Resend } from "https://esm.sh/resend@2.0.0";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
@@ -7,6 +8,7 @@ const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
 interface QuoteRequestData {
@@ -18,10 +20,15 @@ interface QuoteRequestData {
   features: string[];
 }
 
-const handler = async (req: Request): Promise<Response> => {
+console.info("send-quote-request function started");
+
+Deno.serve(async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
-    return new Response("ok", { status: 200, headers: corsHeaders });
+    return new Response(null, { 
+      status: 204,
+      headers: corsHeaders 
+    });
   }
 
   try {
@@ -31,7 +38,7 @@ const handler = async (req: Request): Promise<Response> => {
     const { email, name, phone, notes, serviceTypes, features } = data;
 
     // Build features list HTML
-    const featuresHtml = features.length > 0 
+    const featuresHtml = features && features.length > 0 
       ? `<ul style="margin: 0; padding-left: 20px;">${features.map(f => `<li>${f}</li>`).join('')}</ul>`
       : '<p>No specific features selected</p>';
 
@@ -143,7 +150,7 @@ const handler = async (req: Request): Promise<Response> => {
               <p style="margin: 10px 0 5px 0; font-weight: 600; color: #374151;">Service Types:</p>
               <p style="margin: 0; color: #6b7280;">${serviceTypes.join(', ')}</p>
               
-              <p style="margin: 15px 0 5px 0; font-weight: 600; color: #374151;">Selected Features (${features.length}):</p>
+              <p style="margin: 15px 0 5px 0; font-weight: 600; color: #374151;">Selected Features (${features?.length || 0}):</p>
               ${featuresHtml}
               
               ${notes ? `
@@ -187,6 +194,4 @@ const handler = async (req: Request): Promise<Response> => {
       }
     );
   }
-};
-
-serve(handler);
+});
