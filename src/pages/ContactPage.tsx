@@ -56,7 +56,7 @@ const ContactPage = () => {
       ],
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "1234 Tech Avenue",
+        "streetAddress": "Nairobi,Kenya",
         "addressLocality": "Innovation City",
         "postalCode": "98765",
         "addressCountry": "US"
@@ -121,7 +121,7 @@ const ContactPage = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg mb-1">Office</h3>
-                  <p className="text-gray-600">1234 Tech Avenue<br />Innovation City, IC 98765</p>
+                  <p className="text-gray-600">Nairobi,Kenya</p>
                 </div>
               </div>
             </div>

@@ -85,7 +85,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <MapPin size={20} className="mr-2 mt-1 flex-shrink-0" />
-                <span className="text-gray-300">1234 Tech Avenue, Innovation City, IC 98765</span>
+                <span className="text-gray-300"> Nairobi, Kenya</span>
               </li>
               <li className="flex items-center">
                 <Phone size={20} className="mr-2 flex-shrink-0" />
