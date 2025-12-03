@@ -1,13 +1,8 @@
-// Setup type definitions for built-in Supabase Runtime APIs
-import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { Resend } from "https://esm.sh/resend@2.0.0";
-
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
@@ -20,18 +15,21 @@ interface QuoteRequestData {
   features: string[];
 }
 
-console.info("send-quote-request function started");
-
 Deno.serve(async (req: Request): Promise<Response> => {
-  // Handle CORS preflight requests
+  console.log("Request received:", req.method);
+  
+  // Handle CORS preflight requests FIRST
   if (req.method === "OPTIONS") {
+    console.log("Handling OPTIONS preflight");
     return new Response(null, { 
-      status: 204,
+      status: 200,
       headers: corsHeaders 
     });
   }
 
   try {
+    const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+    
     const data: QuoteRequestData = await req.json();
     console.log("Received quote request:", data);
 
@@ -184,10 +182,11 @@ Deno.serve(async (req: Request): Promise<Response> => {
         headers: { "Content-Type": "application/json", ...corsHeaders },
       }
     );
-  } catch (error: any) {
-    console.error("Error in send-quote-request function:", error);
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    console.error("Error in send-quote-request function:", errorMessage);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: errorMessage }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
