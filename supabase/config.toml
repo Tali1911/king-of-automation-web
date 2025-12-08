@@ -9,3 +9,6 @@ max_rows = 1000
 
 [functions.send-quote-request]
 verify_jwt = false
+
+[functions.send-consultation-request]
+verify_jwt = false

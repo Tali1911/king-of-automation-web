@@ -35,22 +35,11 @@ const ConsultationPage = () => {
     "@context": "https://schema.org",
     "@type": "Service",
     "name": "Business Automation Consultation",
-    "description": "Professional consultation services for business automation and digital transformation",
+    "description": "Free professional consultation services for business automation and digital transformation",
     "provider": {
       "@type": "Organization",
-      "name": "Automation Solutions",
-      "url": "https://your-domain.com"
-    },
-    "offers": {
-      "@type": "Offer",
-      "price": "50",
-      "priceCurrency": "USD",
-      "priceSpecification": {
-        "@type": "UnitPriceSpecification",
-        "price": "50",
-        "priceCurrency": "USD",
-        "unitText": "per hour"
-      }
+      "name": "NafArro Solutions",
+      "url": "https://nafarrosolutions.com"
     },
     "serviceType": "Business Consultation",
     "category": "Automation Services"
@@ -59,9 +48,9 @@ const ConsultationPage = () => {
   return (
     <>
       <SEO 
-        title="Book a Consultation - Expert Automation Advice"
-        description="Schedule a consultation with our automation experts. Get personalized guidance on business automation solutions. $50/hour professional consultation services."
-        keywords="consultation, automation expert, business consultation, automation advice, digital transformation"
+        title="Book a Free Consultation - Expert Automation Advice"
+        description="Schedule a free consultation with our automation experts. Get personalized guidance on business automation solutions for your organization."
+        keywords="consultation, automation expert, business consultation, automation advice, digital transformation, free consultation"
         canonical="/consultation"
         schemaData={consultationSchema}
       />
@@ -71,7 +60,7 @@ const ConsultationPage = () => {
         <section className="py-20">
           <div className="container-custom text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-primary mb-6">
-              Expert Automation Consultation
+              Free Automation Consultation
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
               Get professional guidance on automating your business processes. Our experts will help you identify opportunities, 

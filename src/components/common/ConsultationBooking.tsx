@@ -5,12 +5,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Calendar, Clock, DollarSign, User, Mail, Phone, MessageSquare } from 'lucide-react';
+import { Calendar, Clock, User, Mail, Phone, MessageSquare, CheckCircle, Loader2 } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
-import PaymentForm from './PaymentForm';
+import { supabase } from '@/integrations/supabase/client';
 
 const ConsultationBooking = () => {
-  const [currentStep, setCurrentStep] = useState<'booking' | 'payment' | 'confirmation'>('booking');
+  const [currentStep, setCurrentStep] = useState<'booking' | 'confirmation'>('booking');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,7 +22,6 @@ const ConsultationBooking = () => {
     message: ''
   });
 
-  const hourlyRate = 50;
   const timeSlots = [
     '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'
   ];
@@ -39,11 +39,7 @@ const ConsultationBooking = () => {
     }));
   };
 
-  const calculateTotal = () => {
-    return hourlyRate * parseInt(formData.duration);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation
@@ -56,32 +52,42 @@ const ConsultationBooking = () => {
       return;
     }
 
-    // Move to payment step
-    setCurrentStep('payment');
+    setIsSubmitting(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('send-consultation-request', {
+        body: formData
+      });
+
+      if (error) throw error;
+
+      setCurrentStep('confirmation');
+      toast({
+        title: "Request Sent!",
+        description: "Your consultation request has been submitted. We'll contact you shortly.",
+      });
+    } catch (error: any) {
+      console.error('Error sending consultation request:', error);
+      toast({
+        title: "Error",
+        description: "Failed to send consultation request. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handlePaymentComplete = () => {
-    setCurrentStep('confirmation');
-    toast({
-      title: "Payment Successful!",
-      description: `Your consultation has been booked and paid for. You'll receive a confirmation email shortly.`,
+  // Format date for display
+  const formatDate = (dateString: string) => {
+    if (!dateString) return '';
+    return new Date(dateString).toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     });
   };
-
-  const handleBackToBooking = () => {
-    setCurrentStep('booking');
-  };
-
-  // Show payment form
-  if (currentStep === 'payment') {
-    return (
-      <PaymentForm 
-        amount={calculateTotal()} 
-        onBack={handleBackToBooking}
-        onPaymentComplete={handlePaymentComplete}
-      />
-    );
-  }
 
   // Show confirmation
   if (currentStep === 'confirmation') {
@@ -90,23 +96,30 @@ const ConsultationBooking = () => {
         <Card className="border-green-200">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl text-green-600 flex items-center justify-center gap-2">
-              <DollarSign className="h-6 w-6" />
-              Booking Confirmed!
+              <CheckCircle className="h-6 w-6" />
+              Request Submitted!
             </CardTitle>
             <CardDescription className="text-lg">
-              Your consultation has been successfully booked and paid for.
+              Your consultation request has been received.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="bg-green-50 p-4 rounded-lg">
               <h3 className="font-semibold text-green-800">Booking Details:</h3>
-              <p className="text-green-700">Date: {formData.date}</p>
+              <p className="text-green-700">Date: {formatDate(formData.date)}</p>
               <p className="text-green-700">Time: {formData.time}</p>
               <p className="text-green-700">Duration: {formData.duration} hour(s)</p>
-              <p className="text-green-700">Total Paid: ${calculateTotal()}</p>
+            </div>
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <h3 className="font-semibold text-blue-800">What's Next?</h3>
+              <ul className="text-blue-700 list-disc list-inside mt-2 space-y-1">
+                <li>Our team will review your request</li>
+                <li>We'll confirm availability for your requested time</li>
+                <li>You'll receive a confirmation email with meeting details</li>
+              </ul>
             </div>
             <p className="text-muted-foreground text-center">
-              You'll receive a confirmation email with meeting details shortly.
+              A confirmation email has been sent to <strong>{formData.email}</strong>
             </p>
             <Button 
               onClick={() => {
@@ -137,18 +150,14 @@ const ConsultationBooking = () => {
         <CardHeader className="text-center">
           <CardTitle className="text-2xl text-primary flex items-center justify-center gap-2">
             <Calendar className="h-6 w-6" />
-            Book a Consultation
+            Request a Consultation
           </CardTitle>
           <CardDescription className="text-lg">
-            Schedule a consultation with our automation experts
+            Schedule a free consultation with our automation experts
           </CardDescription>
           <div className="bg-primary/5 p-4 rounded-lg mt-4">
-            <div className="flex items-center justify-center gap-2 text-primary font-semibold">
-              <DollarSign className="h-5 w-5" />
-              <span className="text-xl">${hourlyRate}/hour</span>
-            </div>
-            <p className="text-sm text-muted-foreground mt-1">
-              Professional consultation on business automation solutions
+            <p className="text-sm text-muted-foreground">
+              Tell us about your business needs and we'll help you find the right automation solutions.
             </p>
           </div>
         </CardHeader>
@@ -168,6 +177,7 @@ const ConsultationBooking = () => {
                   onChange={(e) => handleInputChange('name', e.target.value)}
                   placeholder="Enter your full name"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               
@@ -183,6 +193,7 @@ const ConsultationBooking = () => {
                   onChange={(e) => handleInputChange('email', e.target.value)}
                   placeholder="Enter your email"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
             </div>
@@ -197,6 +208,7 @@ const ConsultationBooking = () => {
                 value={formData.phone}
                 onChange={(e) => handleInputChange('phone', e.target.value)}
                 placeholder="Enter your phone number"
+                disabled={isSubmitting}
               />
             </div>
 
@@ -205,7 +217,7 @@ const ConsultationBooking = () => {
               <div className="space-y-2">
                 <Label htmlFor="date" className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />
-                  Date *
+                  Preferred Date *
                 </Label>
                 <Input
                   id="date"
@@ -214,15 +226,20 @@ const ConsultationBooking = () => {
                   onChange={(e) => handleInputChange('date', e.target.value)}
                   min={new Date().toISOString().split('T')[0]}
                   required
+                  disabled={isSubmitting}
                 />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="time" className="flex items-center gap-2">
                   <Clock className="h-4 w-4" />
-                  Time *
+                  Preferred Time *
                 </Label>
-                <Select value={formData.time} onValueChange={(value) => handleInputChange('time', value)}>
+                <Select 
+                  value={formData.time} 
+                  onValueChange={(value) => handleInputChange('time', value)}
+                  disabled={isSubmitting}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select time" />
                   </SelectTrigger>
@@ -238,7 +255,11 @@ const ConsultationBooking = () => {
 
               <div className="space-y-2">
                 <Label htmlFor="duration">Duration</Label>
-                <Select value={formData.duration} onValueChange={(value) => handleInputChange('duration', value)}>
+                <Select 
+                  value={formData.duration} 
+                  onValueChange={(value) => handleInputChange('duration', value)}
+                  disabled={isSubmitting}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select duration" />
                   </SelectTrigger>
@@ -257,34 +278,31 @@ const ConsultationBooking = () => {
             <div className="space-y-2">
               <Label htmlFor="message" className="flex items-center gap-2">
                 <MessageSquare className="h-4 w-4" />
-                Message (Optional)
+                Tell us about your needs (Optional)
               </Label>
               <Textarea
                 id="message"
                 value={formData.message}
                 onChange={(e) => handleInputChange('message', e.target.value)}
-                placeholder="Tell us about your automation needs..."
+                placeholder="Describe your business and the automation challenges you're facing..."
                 rows={4}
+                disabled={isSubmitting}
               />
             </div>
 
-            {/* Pricing Summary */}
-            <div className="bg-muted p-4 rounded-lg">
-              <div className="flex justify-between items-center">
-                <span className="font-medium">Total Cost:</span>
-                <span className="text-xl font-bold text-primary">
-                  ${calculateTotal()}
-                </span>
-              </div>
-              <p className="text-sm text-muted-foreground mt-1">
-                {formData.duration} hour(s) × ${hourlyRate}/hour
-              </p>
-            </div>
-
             {/* Submit Button */}
-            <Button type="submit" className="w-full" size="lg">
-              <DollarSign className="h-4 w-4 mr-2" />
-              Proceed to Payment
+            <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Sending Request...
+                </>
+              ) : (
+                <>
+                  <Calendar className="h-4 w-4 mr-2" />
+                  Request Consultation
+                </>
+              )}
             </Button>
           </form>
         </CardContent>
