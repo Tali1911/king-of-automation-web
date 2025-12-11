@@ -1,6 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
-import { create, getNumericDate } from "https://deno.land/x/djwt@v3.0.2/mod.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -17,6 +16,12 @@ interface ConsultationRequest {
   message: string;
 }
 
+// Base64URL encode
+function base64UrlEncode(str: string): string {
+  const base64 = btoa(str);
+  return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+}
+
 // Helper to get Google OAuth2 access token using service account
 async function getGoogleAccessToken(): Promise<string> {
   const serviceAccountEmail = Deno.env.get("GOOGLE_SERVICE_ACCOUNT_EMAIL");
@@ -25,6 +30,8 @@ async function getGoogleAccessToken(): Promise<string> {
   if (!serviceAccountEmail || !privateKeyPem) {
     throw new Error("Google Calendar credentials not configured");
   }
+
+  console.log("Starting Google OAuth2 flow...");
 
   // Clean the private key (handle escaped newlines from environment variable)
   const cleanedPrivateKey = privateKeyPem.replace(/\\n/g, "\n");
@@ -48,17 +55,33 @@ async function getGoogleAccessToken(): Promise<string> {
   );
 
   const now = Math.floor(Date.now() / 1000);
-  const jwt = await create(
-    { alg: "RS256", typ: "JWT" },
-    {
-      iss: serviceAccountEmail,
-      scope: "https://www.googleapis.com/auth/calendar",
-      aud: "https://oauth2.googleapis.com/token",
-      iat: now,
-      exp: now + 3600,
-    },
-    cryptoKey
+  
+  // Create JWT header and payload
+  const header = { alg: "RS256", typ: "JWT" };
+  const payload = {
+    iss: serviceAccountEmail,
+    scope: "https://www.googleapis.com/auth/calendar",
+    aud: "https://oauth2.googleapis.com/token",
+    iat: now,
+    exp: now + 3600,
+  };
+
+  const encodedHeader = base64UrlEncode(JSON.stringify(header));
+  const encodedPayload = base64UrlEncode(JSON.stringify(payload));
+  const signatureInput = `${encodedHeader}.${encodedPayload}`;
+
+  // Sign the JWT
+  const signatureBuffer = await crypto.subtle.sign(
+    "RSASSA-PKCS1-v1_5",
+    cryptoKey,
+    new TextEncoder().encode(signatureInput)
   );
+  
+  const signature = base64UrlEncode(
+    String.fromCharCode(...new Uint8Array(signatureBuffer))
+  );
+  
+  const jwt = `${signatureInput}.${signature}`;
 
   // Exchange JWT for access token
   const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
@@ -77,6 +100,7 @@ async function getGoogleAccessToken(): Promise<string> {
   }
 
   const tokenData = await tokenResponse.json();
+  console.log("Successfully obtained Google access token");
   return tokenData.access_token;
 }
 
