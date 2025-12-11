@@ -90,18 +90,27 @@ async function createCalendarEvent(
     throw new Error("Google Calendar ID not configured");
   }
 
-  // Parse the time (e.g., "09:00 AM" -> hours and minutes)
-  const timeParts = time.match(/(\d+):(\d+)\s*(AM|PM)/i);
-  if (!timeParts) {
+  // Parse the time - handles both 24-hour ("17:00") and 12-hour ("09:00 AM") formats
+  let hours: number;
+  let minutes: number;
+
+  const time24Match = time.match(/^(\d{1,2}):(\d{2})$/);
+  const time12Match = time.match(/(\d+):(\d+)\s*(AM|PM)/i);
+
+  if (time24Match) {
+    // 24-hour format (e.g., "17:00")
+    hours = parseInt(time24Match[1]);
+    minutes = parseInt(time24Match[2]);
+  } else if (time12Match) {
+    // 12-hour format (e.g., "09:00 AM")
+    hours = parseInt(time12Match[1]);
+    minutes = parseInt(time12Match[2]);
+    const period = time12Match[3].toUpperCase();
+    if (period === "PM" && hours !== 12) hours += 12;
+    if (period === "AM" && hours === 12) hours = 0;
+  } else {
     throw new Error("Invalid time format");
   }
-
-  let hours = parseInt(timeParts[1]);
-  const minutes = parseInt(timeParts[2]);
-  const period = timeParts[3].toUpperCase();
-
-  if (period === "PM" && hours !== 12) hours += 12;
-  if (period === "AM" && hours === 12) hours = 0;
 
   // Create start datetime
   const startDate = new Date(date);
