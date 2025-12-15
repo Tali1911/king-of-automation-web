@@ -1,9 +1,8 @@
-import { Resend } from "https://esm.sh/resend@2.0.0";
+import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
 interface QuoteRequestData {
@@ -15,21 +14,46 @@ interface QuoteRequestData {
   features: string[];
 }
 
-Deno.serve(async (req: Request): Promise<Response> => {
+// Helper to send email via Resend API
+async function sendEmail(params: {
+  from: string;
+  to: string[];
+  subject: string;
+  html: string;
+}): Promise<{ id: string }> {
+  const apiKey = Deno.env.get("RESEND_API_KEY");
+  if (!apiKey) {
+    throw new Error("RESEND_API_KEY not configured");
+  }
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(params),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error("Resend API error:", errorText);
+    throw new Error(`Failed to send email: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+const handler = async (req: Request): Promise<Response> => {
   console.log("Request received:", req.method);
   
-  // Handle CORS preflight requests FIRST
+  // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     console.log("Handling OPTIONS preflight");
-    return new Response(null, { 
-      status: 200,
-      headers: corsHeaders 
-    });
+    return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
-    
     const data: QuoteRequestData = await req.json();
     console.log("Received quote request:", data);
 
@@ -41,7 +65,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
       : '<p>No specific features selected</p>';
 
     // Email to the client (confirmation)
-    const clientEmailResponse = await resend.emails.send({
+    const clientEmailResponse = await sendEmail({
       from: "NafArro Solutions <info@nafarrosolutions.com>",
       to: [email],
       subject: "We've Received Your Quote Request - NafArro Solutions",
@@ -106,7 +130,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
     console.log("Client email sent:", clientEmailResponse);
 
     // Email to NafArro team (notification)
-    const teamEmailResponse = await resend.emails.send({
+    const teamEmailResponse = await sendEmail({
       from: "NafArro Solutions <info@nafarrosolutions.com>",
       to: ["naftali@nafarrosolutions.com"],
       subject: `New Quote Request from ${name || email}`,
@@ -193,4 +217,6 @@ Deno.serve(async (req: Request): Promise<Response> => {
       }
     );
   }
-});
+};
+
+serve(handler);
