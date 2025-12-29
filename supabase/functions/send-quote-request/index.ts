@@ -26,6 +26,8 @@ async function sendEmail(params: {
     throw new Error("RESEND_API_KEY not configured");
   }
 
+  console.log("Sending email with params:", JSON.stringify(params));
+  
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -35,13 +37,15 @@ async function sendEmail(params: {
     body: JSON.stringify(params),
   });
 
+  const responseText = await response.text();
+  console.log("Resend API response:", response.status, responseText);
+
   if (!response.ok) {
-    const errorText = await response.text();
-    console.error("Resend API error:", errorText);
-    throw new Error(`Failed to send email: ${response.status}`);
+    console.error("Resend API error:", responseText);
+    throw new Error(`Failed to send email: ${response.status} - ${responseText}`);
   }
 
-  return response.json();
+  return JSON.parse(responseText);
 }
 
 const handler = async (req: Request): Promise<Response> => {
