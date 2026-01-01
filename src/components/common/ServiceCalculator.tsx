@@ -123,7 +123,7 @@ const ServiceCalculator = () => {
     <Collapsible 
       open={isOpen} 
       onOpenChange={setIsOpen}
-      className="fixed bottom-6 left-6 z-40 w-80 md:w-96 shadow-xl rounded-xl max-h-[calc(100vh-100px)] overflow-auto"
+      className="fixed bottom-20 left-4 right-4 sm:right-auto sm:left-6 sm:bottom-6 z-40 w-auto sm:w-80 md:w-96 shadow-xl rounded-xl max-h-[calc(100vh-100px)] overflow-auto"
     >
       <CollapsibleTrigger 
         data-calculator-trigger
