@@ -125,7 +125,10 @@ const ServiceCalculator = () => {
       onOpenChange={setIsOpen}
       className="fixed bottom-6 left-6 z-40 w-80 md:w-96 shadow-xl rounded-xl max-h-[calc(100vh-100px)] overflow-auto"
     >
-      <CollapsibleTrigger className="bg-primary text-primary-foreground p-3 rounded-t-xl w-full flex justify-between items-center hover:opacity-90 transition-opacity">
+      <CollapsibleTrigger 
+        data-calculator-trigger
+        className="bg-primary text-primary-foreground p-3 rounded-t-xl w-full flex justify-between items-center hover:opacity-90 transition-opacity"
+      >
         <span className="font-medium text-sm">Build Your Requirements</span>
         <span className="text-xs bg-background text-foreground px-2 py-1 rounded-full">
           {isOpen ? "Close" : "Open"}
