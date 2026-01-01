@@ -124,28 +124,36 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="container-custom z-10">
+      <div className="container-custom z-10 px-6 md:px-8">
         <div className="max-w-3xl opacity-0" ref={titleRef}>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 md:mb-3 tracking-tight">
             NafArro Solutions
           </h1>
         </div>
         
         <div className="max-w-3xl opacity-0" ref={sloganRef}>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-secondary mb-6">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-secondary mb-4 md:mb-6 tracking-wide">
             King of Automation
           </h2>
         </div>
         
         <div className="max-w-2xl opacity-0" ref={descRef}>
-          <p className="text-lg md:text-xl text-gray-200 mb-8">
+          <p className="text-base sm:text-lg md:text-xl text-gray-200/90 mb-6 md:mb-8 leading-relaxed">
             We transform manual processes into automated workflows, saving you time, reducing errors, and increasing productivity with cutting-edge technology solutions.
           </p>
         </div>
         
-        <div className="flex flex-col sm:flex-row gap-4 opacity-0" ref={ctaRef}>
-          <Link to="/contact" className="btn-primary text-center">Schedule Consultation</Link>
-          <Link to="/services" className="bg-transparent border border-white text-white font-medium py-2 px-6 rounded transition-all hover:bg-white/10 hover:shadow-lg hover:-translate-y-1 text-center">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 opacity-0 max-w-md sm:max-w-none" ref={ctaRef}>
+          <Link 
+            to="/contact" 
+            className="btn-primary text-center py-3 px-6 text-sm sm:text-base font-semibold rounded-lg shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all duration-300"
+          >
+            Schedule Consultation
+          </Link>
+          <Link 
+            to="/services" 
+            className="bg-white/10 backdrop-blur-sm border border-white/30 text-white font-medium py-3 px-6 text-sm sm:text-base rounded-lg transition-all duration-300 hover:bg-white/20 hover:border-white/50 hover:shadow-lg hover:-translate-y-0.5 text-center"
+          >
             Explore Services
           </Link>
         </div>
