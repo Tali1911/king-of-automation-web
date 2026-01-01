@@ -120,6 +120,7 @@ const Chatbot = () => {
       {/* Chat button */}
       <button
         onClick={toggleChat}
+        data-chatbot-trigger
         className="bg-primary text-white rounded-full p-4 shadow-lg hover:bg-primary/90 transition-all"
         aria-label="Chat with us"
       >
