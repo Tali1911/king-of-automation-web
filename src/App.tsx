@@ -22,6 +22,7 @@ import AutomationPage from "./pages/services/AutomationPage";
 import DataAnalysisPage from "./pages/services/DataAnalysisPage";
 import Chatbot from "./components/common/Chatbot";
 import ServiceCalculator from "./components/common/ServiceCalculator";
+import WebsiteGuide from "./components/common/WebsiteGuide";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +55,7 @@ const App = () => (
           <Footer />
           <Chatbot />
           <ServiceCalculator />
+          <WebsiteGuide />
         </div>
       </BrowserRouter>
       </TooltipProvider>
