@@ -112,7 +112,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Sending notification email to team");
     const teamEmailResponse = await resend.emails.send({
       from: "NafArro Solutions <info@nafarrosolutions.com>",
-      to: ["naftali@nafarrosolutions.com"],
+      to: ["naftali@nafarrosolutions.com", "ruciukoome@gmail.com"],
       subject: `New Consultation Request from ${name || email}`,
       html: `
         <!DOCTYPE html>
