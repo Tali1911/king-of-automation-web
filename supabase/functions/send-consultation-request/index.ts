@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { Resend } from "npm:resend@2.0.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -15,36 +16,6 @@ interface ConsultationRequest {
   message: string;
 }
 
-// Helper to send email via Resend API
-async function sendEmail(params: {
-  from: string;
-  to: string[];
-  subject: string;
-  html: string;
-}): Promise<{ id: string }> {
-  const apiKey = Deno.env.get("RESEND_API_KEY");
-  if (!apiKey) {
-    throw new Error("RESEND_API_KEY not configured");
-  }
-
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(params),
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.error("Resend API error:", errorText);
-    throw new Error(`Failed to send email: ${response.status}`);
-  }
-
-  return response.json();
-}
-
 const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
@@ -52,10 +23,19 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
+    const resendApiKey = Deno.env.get("RESEND_API_KEY");
+    if (!resendApiKey) {
+      console.error("RESEND_API_KEY not configured");
+      throw new Error("Email service not configured");
+    }
+
+    const resend = new Resend(resendApiKey);
+    
     const consultationData: ConsultationRequest = await req.json();
     const { name, email, phone, date, time, duration, message } = consultationData;
 
     console.log("Processing consultation request from:", email);
+    console.log("Request data:", JSON.stringify(consultationData));
 
     // Format date for display
     const formattedDate = new Date(date).toLocaleDateString('en-US', {
@@ -66,7 +46,8 @@ const handler = async (req: Request): Promise<Response> => {
     });
 
     // Email to client (confirmation)
-    const clientEmailResponse = await sendEmail({
+    console.log("Sending confirmation email to client:", email);
+    const clientEmailResponse = await resend.emails.send({
       from: "NafArro Solutions <info@nafarrosolutions.com>",
       to: [email],
       subject: "Consultation Request Received - NafArro Solutions",
@@ -125,10 +106,11 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    console.log("Client confirmation email sent:", clientEmailResponse);
+    console.log("Client confirmation email response:", JSON.stringify(clientEmailResponse));
 
     // Email to NafArro team (notification)
-    const teamEmailResponse = await sendEmail({
+    console.log("Sending notification email to team");
+    const teamEmailResponse = await resend.emails.send({
       from: "NafArro Solutions <info@nafarrosolutions.com>",
       to: ["naftali@nafarrosolutions.com"],
       subject: `New Consultation Request from ${name || email}`,
@@ -194,7 +176,7 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    console.log("Team notification email sent:", teamEmailResponse);
+    console.log("Team notification email response:", JSON.stringify(teamEmailResponse));
 
     return new Response(
       JSON.stringify({ 
@@ -208,6 +190,7 @@ const handler = async (req: Request): Promise<Response> => {
     );
   } catch (error: any) {
     console.error("Error in send-consultation-request function:", error);
+    console.error("Error stack:", error.stack);
     return new Response(
       JSON.stringify({ error: error.message }),
       {
