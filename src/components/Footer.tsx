@@ -6,8 +6,7 @@ import { Button } from '@/components/ui/button';
 const Footer = () => {
   const handleRestartTour = () => {
     // Clear the guide completion status from localStorage
-    localStorage.removeItem('nafarro-guide-completed');
-    localStorage.removeItem('nafarro-guide-dismissed');
+    localStorage.removeItem('naffaro-guide-seen');
     // Reload the page to trigger the guide
     window.location.reload();
   };
