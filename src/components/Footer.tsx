@@ -1,7 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, RotateCcw } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
 const Footer = () => {
+  const handleRestartTour = () => {
+    // Clear the guide completion status from localStorage
+    localStorage.removeItem('nafarro-guide-completed');
+    localStorage.removeItem('nafarro-guide-dismissed');
+    // Reload the page to trigger the guide
+    window.location.reload();
+  };
   return <footer className="bg-primary text-white pt-12 pb-6">
       <div className="container-custom">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -103,11 +112,20 @@ const Footer = () => {
 
         {/* Bottom Footer */}
         <div className="mt-12 pt-6 border-t border-gray-700">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm mb-4 md:mb-0">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-gray-400 text-sm mb-2 md:mb-0">
               &copy; {new Date().getFullYear()} NafArro Solutions. All rights reserved.
             </p>
-            <div className="flex space-x-6">
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleRestartTour}
+                className="text-gray-400 text-sm hover:text-secondary transition-colors h-auto py-1 px-2"
+              >
+                <RotateCcw className="h-3 w-3 mr-1" />
+                Restart Tour
+              </Button>
               <Link to="/privacy-policy" className="text-gray-400 text-sm hover:text-secondary transition-colors">
                 Privacy Policy
               </Link>
