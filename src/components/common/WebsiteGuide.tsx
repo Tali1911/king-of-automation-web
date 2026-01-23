@@ -13,6 +13,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 interface GuideStep {
   title: string;
   description: string;
+  mobileDescription?: string; // Optional mobile-specific description
   icon: React.ReactNode;
   selector?: string; // CSS selector for the element to highlight
 }
@@ -26,18 +27,21 @@ const guideSteps: GuideStep[] = [
   {
     title: "Navigation Menu",
     description: "Use the navigation bar to explore different sections of our website. Access Services, Portfolio, About Us, Blog, and Contact pages easily from here.",
+    mobileDescription: "Tap the menu icon (☰) in the top right corner to open the navigation. From there, you can access Services, Portfolio, About Us, Blog, and Contact pages.",
     icon: <span className="text-3xl">🧭</span>,
     selector: "nav",
   },
   {
     title: "Explore Our Services",
     description: "Click on 'Services' to discover our offerings: Web Development, Business Automation, and Data Analysis. Each service is designed to streamline your operations.",
+    mobileDescription: "Open the menu (☰) and tap 'Services' to discover our offerings: Web Development, Business Automation, and Data Analysis. Each service is designed to streamline your operations.",
     icon: <span className="text-3xl">🛠️</span>,
     selector: "[href='/services']",
   },
   {
     title: "View Our Portfolio",
     description: "Check out our Portfolio to see real projects we've delivered for clients. From church management systems to GPS tracking solutions - see what we can build for you.",
+    mobileDescription: "Open the menu (☰) and tap 'Portfolio' to see real projects we've delivered. From church management systems to GPS tracking solutions - see what we can build for you.",
     icon: <span className="text-3xl">💼</span>,
     selector: "[href='/portfolio']",
   },
@@ -50,18 +54,21 @@ const guideSteps: GuideStep[] = [
   {
     title: "Book a Consultation",
     description: "Ready to discuss your project? Visit our Consultation page to schedule a meeting with our team. We'll contact you to confirm your preferred time.",
+    mobileDescription: "Ready to discuss your project? Open the menu (☰) and tap 'Consultation' to schedule a meeting with our team. We'll contact you to confirm your preferred time.",
     icon: <span className="text-3xl">📅</span>,
     selector: "[href='/consultation']",
   },
   {
     title: "Need Help? Chat With Us!",
     description: "Have questions? Click the chat icon in the bottom right corner anytime to get instant assistance navigating the site or learning about our services.",
+    mobileDescription: "Have questions? Tap the chat icon in the bottom right corner anytime to get instant assistance navigating the site or learning about our services.",
     icon: <span className="text-3xl">💬</span>,
     selector: "[data-chatbot-trigger]",
   },
   {
     title: "You're All Set! 🎉",
     description: "You now know your way around! Feel free to explore at your own pace. If you ever need this guide again, just refresh the page and click 'Take the Tour' in the welcome popup.",
+    mobileDescription: "You now know your way around! Feel free to explore at your own pace. If you ever need this guide again, just refresh the page and tap 'Take the Tour' in the welcome popup.",
     icon: <span className="text-3xl">✨</span>,
   },
 ];
@@ -167,6 +174,14 @@ const WebsiteGuide = () => {
   };
 
   const currentGuideStep = guideSteps[currentStep];
+  
+  // Get the appropriate description based on device type
+  const getStepDescription = (step: GuideStep): string => {
+    if (isMobile && step.mobileDescription) {
+      return step.mobileDescription;
+    }
+    return step.description;
+  };
 
   return (
     <>
@@ -291,7 +306,7 @@ const WebsiteGuide = () => {
               {currentGuideStep.title}
             </h3>
             <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-              {currentGuideStep.description}
+              {getStepDescription(currentGuideStep)}
             </p>
 
             {/* Step counter */}
