@@ -8,6 +8,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface GuideStep {
   title: string;
@@ -77,6 +78,10 @@ const WebsiteGuide = () => {
   const [showGuide, setShowGuide] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [spotlightPosition, setSpotlightPosition] = useState<SpotlightPosition | null>(null);
+  const isMobile = useIsMobile();
+
+  // Navigation selectors that are hidden on mobile (inside hamburger menu)
+  const mobileHiddenSelectors = ['nav', "[href='/services']", "[href='/portfolio']", "[href='/consultation']"];
 
   useEffect(() => {
     const hasSeenGuide = localStorage.getItem('naffaro-guide-seen');
@@ -90,7 +95,12 @@ const WebsiteGuide = () => {
 
   const updateSpotlight = useCallback(() => {
     const currentGuideStep = guideSteps[currentStep];
-    if (currentGuideStep.selector && showGuide) {
+    
+    // On mobile, skip spotlight for navigation elements hidden in hamburger menu
+    const shouldSkipSpotlight = isMobile && currentGuideStep.selector && 
+      mobileHiddenSelectors.includes(currentGuideStep.selector);
+    
+    if (currentGuideStep.selector && showGuide && !shouldSkipSpotlight) {
       const element = document.querySelector(currentGuideStep.selector);
       if (element) {
         const rect = element.getBoundingClientRect();
@@ -110,7 +120,7 @@ const WebsiteGuide = () => {
     } else {
       setSpotlightPosition(null);
     }
-  }, [currentStep, showGuide]);
+  }, [currentStep, showGuide, isMobile]);
 
   useEffect(() => {
     updateSpotlight();
@@ -162,7 +172,7 @@ const WebsiteGuide = () => {
     <>
       {/* Welcome Dialog */}
       <Dialog open={showWelcome} onOpenChange={setShowWelcome}>
-        <DialogContent className="sm:max-w-md bg-background border-primary/20">
+        <DialogContent className="sm:max-w-md max-w-[calc(100vw-32px)] mx-auto bg-background border-primary/20">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-primary flex items-center gap-2">
               <Sparkles className="h-6 w-6 text-accent" />
@@ -241,11 +251,9 @@ const WebsiteGuide = () => {
       {/* Guide Steps Panel */}
       {showGuide && (
         <div 
-          className="fixed z-[70] bg-background border border-primary/20 rounded-xl shadow-2xl p-6 max-w-md w-[90vw] animate-fade-in"
+          className="fixed z-[70] bg-background border border-primary/20 rounded-xl shadow-2xl p-4 sm:p-6 max-w-sm sm:max-w-md w-[calc(100vw-32px)] sm:w-[90vw] animate-fade-in left-4 right-4 sm:left-auto sm:right-6"
           style={{
-            bottom: spotlightPosition ? '24px' : '50%',
-            right: '24px',
-            transform: spotlightPosition ? 'none' : 'translateY(50%)',
+            bottom: '16px',
           }}
         >
           <button
@@ -292,21 +300,21 @@ const WebsiteGuide = () => {
             </p>
 
             {/* Navigation buttons */}
-            <div className="flex gap-3 w-full">
+            <div className="flex gap-2 sm:gap-3 w-full">
               <Button
                 variant="outline"
                 onClick={prevStep}
                 disabled={currentStep === 0}
-                className="flex-1 border-muted-foreground/30"
-                size="sm"
+                className="flex-1 border-muted-foreground/30 min-h-[44px]"
+                size="default"
               >
                 <ChevronLeft className="h-4 w-4 mr-1" />
                 Back
               </Button>
               <Button
                 onClick={nextStep}
-                className="flex-1 bg-primary hover:bg-primary/90"
-                size="sm"
+                className="flex-1 bg-primary hover:bg-primary/90 min-h-[44px]"
+                size="default"
               >
                 {currentStep === guideSteps.length - 1 ? (
                   "Get Started"
