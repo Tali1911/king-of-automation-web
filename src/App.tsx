@@ -24,6 +24,14 @@ import Chatbot from "./components/common/Chatbot";
 import ServiceCalculator from "./components/common/ServiceCalculator";
 import WebsiteGuide from "./components/common/WebsiteGuide";
 
+// Admin imports
+import AdminLoginPage from "./pages/admin/AdminLoginPage";
+import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
+import AdminContentPage from "./pages/admin/AdminContentPage";
+import AdminUsersPage from "./pages/admin/AdminUsersPage";
+import AdminSettingsPage from "./pages/admin/AdminSettingsPage";
+import { ProtectedAdminRoute } from "./components/admin/ProtectedAdminRoute";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -33,30 +41,73 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="flex flex-col min-h-screen">
-          <NavBar />
-          <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/services" element={<ServicesPage />} />
-              <Route path="/portfolio" element={<PortfolioPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/consultation" element={<ConsultationPage />} />
-              <Route path="/blog" element={<BlogPage />} />
-              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-              <Route path="/terms-of-service" element={<TermsOfServicePage />} />
-              <Route path="/services/web-development" element={<WebDevelopmentPage />} />
-              <Route path="/services/automation" element={<AutomationPage />} />
-              <Route path="/services/data-analysis" element={<DataAnalysisPage />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-          <Chatbot />
-          <ServiceCalculator />
-          <WebsiteGuide />
-        </div>
+        <Routes>
+          {/* Admin Routes - No NavBar/Footer */}
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedAdminRoute>
+                <AdminDashboardPage />
+              </ProtectedAdminRoute>
+            }
+          />
+          <Route
+            path="/admin/content"
+            element={
+              <ProtectedAdminRoute>
+                <AdminContentPage />
+              </ProtectedAdminRoute>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <ProtectedAdminRoute requireAdmin>
+                <AdminUsersPage />
+              </ProtectedAdminRoute>
+            }
+          />
+          <Route
+            path="/admin/settings"
+            element={
+              <ProtectedAdminRoute>
+                <AdminSettingsPage />
+              </ProtectedAdminRoute>
+            }
+          />
+
+          {/* Public Routes */}
+          <Route
+            path="/*"
+            element={
+              <div className="flex flex-col min-h-screen">
+                <NavBar />
+                <main className="flex-grow">
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/about" element={<AboutPage />} />
+                    <Route path="/services" element={<ServicesPage />} />
+                    <Route path="/portfolio" element={<PortfolioPage />} />
+                    <Route path="/contact" element={<ContactPage />} />
+                    <Route path="/consultation" element={<ConsultationPage />} />
+                    <Route path="/blog" element={<BlogPage />} />
+                    <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                    <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+                    <Route path="/services/web-development" element={<WebDevelopmentPage />} />
+                    <Route path="/services/automation" element={<AutomationPage />} />
+                    <Route path="/services/data-analysis" element={<DataAnalysisPage />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </main>
+                <Footer />
+                <Chatbot />
+                <ServiceCalculator />
+                <WebsiteGuide />
+              </div>
+            }
+          />
+        </Routes>
       </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
