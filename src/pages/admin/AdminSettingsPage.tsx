@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { AdminLayout } from '@/components/admin/AdminLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -5,15 +6,67 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
+import { useSiteSettings } from '@/hooks/useSiteSettings';
 import { 
-  Settings, 
   Globe, 
   Bell, 
   Palette,
-  Save
+  Save,
+  Settings,
+  Loader2
 } from 'lucide-react';
 
 export default function AdminSettingsPage() {
+  const { settings, isLoading, isSaving, saveAllSettings } = useSiteSettings();
+  
+  const [formData, setFormData] = useState({
+    siteName: settings.siteName,
+    siteEmail: settings.siteEmail,
+    siteDescription: settings.siteDescription,
+    notifyConsultations: settings.notifyConsultations,
+    notifyQuotes: settings.notifyQuotes,
+    notifyContact: settings.notifyContact,
+    maintenanceMode: settings.maintenanceMode,
+    showGuide: settings.showGuide,
+  });
+
+  // Update form when settings load
+  useState(() => {
+    setFormData({
+      siteName: settings.siteName,
+      siteEmail: settings.siteEmail,
+      siteDescription: settings.siteDescription,
+      notifyConsultations: settings.notifyConsultations,
+      notifyQuotes: settings.notifyQuotes,
+      notifyContact: settings.notifyContact,
+      maintenanceMode: settings.maintenanceMode,
+      showGuide: settings.showGuide,
+    });
+  });
+
+  const handleSaveSiteSettings = async () => {
+    await saveAllSettings({
+      siteName: formData.siteName,
+      siteEmail: formData.siteEmail,
+      siteDescription: formData.siteDescription,
+    });
+  };
+
+  const handleToggle = async (key: keyof typeof formData, value: boolean) => {
+    setFormData(prev => ({ ...prev, [key]: value }));
+    await saveAllSettings({ [key]: value });
+  };
+
+  if (isLoading) {
+    return (
+      <AdminLayout>
+        <div className="flex items-center justify-center py-12">
+          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+        </div>
+      </AdminLayout>
+    );
+  }
+
   return (
     <AdminLayout>
       <div className="space-y-6">
@@ -43,7 +96,8 @@ export default function AdminSettingsPage() {
                   <Label htmlFor="siteName">Site Name</Label>
                   <Input
                     id="siteName"
-                    defaultValue="NafArro Solutions"
+                    value={formData.siteName}
+                    onChange={(e) => setFormData(prev => ({ ...prev, siteName: e.target.value }))}
                   />
                 </div>
                 <div className="space-y-2">
@@ -51,7 +105,8 @@ export default function AdminSettingsPage() {
                   <Input
                     id="siteEmail"
                     type="email"
-                    defaultValue="info@nafarrosolutions.com"
+                    value={formData.siteEmail}
+                    onChange={(e) => setFormData(prev => ({ ...prev, siteEmail: e.target.value }))}
                   />
                 </div>
               </div>
@@ -59,12 +114,13 @@ export default function AdminSettingsPage() {
                 <Label htmlFor="siteDescription">Site Description</Label>
                 <Textarea
                   id="siteDescription"
-                  defaultValue="Web Development, Automation & Data Analysis Solutions"
+                  value={formData.siteDescription}
+                  onChange={(e) => setFormData(prev => ({ ...prev, siteDescription: e.target.value }))}
                   rows={3}
                 />
               </div>
-              <Button className="gap-2">
-                <Save className="h-4 w-4" />
+              <Button className="gap-2" onClick={handleSaveSiteSettings} disabled={isSaving}>
+                {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
                 Save Changes
               </Button>
             </CardContent>
@@ -89,7 +145,10 @@ export default function AdminSettingsPage() {
                     Receive email when someone books a consultation
                   </p>
                 </div>
-                <Switch defaultChecked />
+                <Switch 
+                  checked={formData.notifyConsultations}
+                  onCheckedChange={(checked) => handleToggle('notifyConsultations', checked)}
+                />
               </div>
               <div className="flex items-center justify-between">
                 <div>
@@ -98,7 +157,10 @@ export default function AdminSettingsPage() {
                     Receive email when someone requests a quote
                   </p>
                 </div>
-                <Switch defaultChecked />
+                <Switch 
+                  checked={formData.notifyQuotes}
+                  onCheckedChange={(checked) => handleToggle('notifyQuotes', checked)}
+                />
               </div>
               <div className="flex items-center justify-between">
                 <div>
@@ -107,7 +169,10 @@ export default function AdminSettingsPage() {
                     Receive email when someone submits the contact form
                   </p>
                 </div>
-                <Switch defaultChecked />
+                <Switch 
+                  checked={formData.notifyContact}
+                  onCheckedChange={(checked) => handleToggle('notifyContact', checked)}
+                />
               </div>
             </CardContent>
           </Card>
@@ -131,7 +196,10 @@ export default function AdminSettingsPage() {
                     Show a maintenance page to visitors
                   </p>
                 </div>
-                <Switch />
+                <Switch 
+                  checked={formData.maintenanceMode}
+                  onCheckedChange={(checked) => handleToggle('maintenanceMode', checked)}
+                />
               </div>
               <div className="flex items-center justify-between">
                 <div>
@@ -140,7 +208,10 @@ export default function AdminSettingsPage() {
                     Display the interactive guide for new visitors
                   </p>
                 </div>
-                <Switch defaultChecked />
+                <Switch 
+                  checked={formData.showGuide}
+                  onCheckedChange={(checked) => handleToggle('showGuide', checked)}
+                />
               </div>
             </CardContent>
           </Card>
