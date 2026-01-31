@@ -1,65 +1,112 @@
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AdminLayout } from '@/components/admin/AdminLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { useBlogPosts } from '@/hooks/useBlogPosts';
+import { supabase } from '@/integrations/supabase/client';
 import { 
   FileText, 
   Users, 
   Eye, 
   TrendingUp,
   Calendar,
-  ArrowUpRight
+  ArrowUpRight,
+  Loader2
 } from 'lucide-react';
+import { format } from 'date-fns';
 
-const statsCards = [
-  {
-    title: 'Total Pages',
-    value: '12',
-    description: 'Active pages on site',
-    icon: FileText,
-    trend: '+2 this month',
-    trendUp: true,
-  },
-  {
-    title: 'Blog Posts',
-    value: '8',
-    description: 'Published articles',
-    icon: Calendar,
-    trend: '+3 this month',
-    trendUp: true,
-  },
-  {
-    title: 'Page Views',
-    value: '2,847',
-    description: 'Last 30 days',
-    icon: Eye,
-    trend: '+12% vs last month',
-    trendUp: true,
-  },
-  {
-    title: 'Consultations',
-    value: '24',
-    description: 'Requests received',
-    icon: Users,
-    trend: '+5 this week',
-    trendUp: true,
-  },
-];
-
-const recentActivity = [
-  { action: 'Updated homepage hero section', time: '2 hours ago', user: 'Admin' },
-  { action: 'Published new blog post', time: '1 day ago', user: 'Admin' },
-  { action: 'Updated services page pricing', time: '3 days ago', user: 'Admin' },
-  { action: 'Added new portfolio item', time: '5 days ago', user: 'Admin' },
-  { action: 'Updated about page content', time: '1 week ago', user: 'Admin' },
-];
-
-const quickActions = [
-  { label: 'Edit Homepage', path: '/admin/content?page=home' },
-  { label: 'Add Blog Post', path: '/admin/content?page=blog&action=new' },
-  { label: 'Update Services', path: '/admin/content?page=services' },
-  { label: 'View Analytics', path: '/admin/settings' },
-];
+interface DashboardStats {
+  totalPages: number;
+  blogPosts: number;
+  consultations: number;
+}
 
 export default function AdminDashboardPage() {
+  const navigate = useNavigate();
+  const { posts, isLoading: postsLoading } = useBlogPosts();
+  const [stats, setStats] = useState<DashboardStats>({
+    totalPages: 6, // Static pages count
+    blogPosts: 0,
+    consultations: 0,
+  });
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        // Get blog post count
+        const blogCount = posts.length;
+        
+        setStats({
+          totalPages: 6,
+          blogPosts: blogCount,
+          consultations: 0, // Would need a consultations table
+        });
+      } catch (err) {
+        console.error('Failed to fetch stats:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (!postsLoading) {
+      fetchStats();
+    }
+  }, [posts, postsLoading]);
+
+  const publishedPosts = posts.filter(p => p.status === 'published');
+  const draftPosts = posts.filter(p => p.status === 'draft');
+  const recentPosts = posts.slice(0, 5);
+
+  const statsCards = [
+    {
+      title: 'Total Pages',
+      value: stats.totalPages.toString(),
+      description: 'Active pages on site',
+      icon: FileText,
+      trend: 'Static pages',
+    },
+    {
+      title: 'Blog Posts',
+      value: stats.blogPosts.toString(),
+      description: `${publishedPosts.length} published, ${draftPosts.length} drafts`,
+      icon: Calendar,
+      trend: `${publishedPosts.length} live`,
+    },
+    {
+      title: 'Page Views',
+      value: '—',
+      description: 'Analytics coming soon',
+      icon: Eye,
+      trend: 'Connect analytics',
+    },
+    {
+      title: 'Consultations',
+      value: '—',
+      description: 'Track in Supabase',
+      icon: Users,
+      trend: 'View in database',
+    },
+  ];
+
+  const quickActions = [
+    { label: 'Edit Content', path: '/admin/content' },
+    { label: 'Add Blog Post', path: '/admin/content', state: { tab: 'blog' } },
+    { label: 'Upload Media', path: '/admin/content', state: { tab: 'media' } },
+    { label: 'Manage Settings', path: '/admin/settings' },
+  ];
+
+  if (isLoading || postsLoading) {
+    return (
+      <AdminLayout>
+        <div className="flex items-center justify-center py-12">
+          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+        </div>
+      </AdminLayout>
+    );
+  }
+
   return (
     <AdminLayout>
       <div className="space-y-8">
@@ -89,10 +136,8 @@ export default function AdminDashboardPage() {
                     {stat.description}
                   </p>
                   <div className="flex items-center gap-1 mt-2">
-                    {stat.trendUp && (
-                      <TrendingUp className="h-3 w-3 text-green-500" />
-                    )}
-                    <span className="text-xs text-green-500">{stat.trend}</span>
+                    <TrendingUp className="h-3 w-3 text-primary" />
+                    <span className="text-xs text-primary">{stat.trend}</span>
                   </div>
                 </CardContent>
               </Card>
@@ -101,28 +146,32 @@ export default function AdminDashboardPage() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          {/* Recent Activity */}
+          {/* Recent Blog Posts */}
           <Card>
             <CardHeader>
-              <CardTitle>Recent Activity</CardTitle>
-              <CardDescription>Latest updates to your website</CardDescription>
+              <CardTitle>Recent Blog Posts</CardTitle>
+              <CardDescription>Latest posts from your blog</CardDescription>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-4">
-                {recentActivity.map((activity, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <div className="h-2 w-2 mt-2 rounded-full bg-primary" />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-foreground">
-                        {activity.action}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {activity.time} • {activity.user}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              {recentPosts.length === 0 ? (
+                <p className="text-sm text-muted-foreground py-4">No blog posts yet. Create your first post!</p>
+              ) : (
+                <ul className="space-y-4">
+                  {recentPosts.map((post) => (
+                    <li key={post.id} className="flex items-start gap-3">
+                      <div className={`h-2 w-2 mt-2 rounded-full ${post.status === 'published' ? 'bg-primary' : 'bg-muted-foreground'}`} />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-foreground truncate">
+                          {post.title}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {format(new Date(post.created_at), 'MMM d, yyyy')} • {post.status}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </CardContent>
           </Card>
 
@@ -138,7 +187,7 @@ export default function AdminDashboardPage() {
                   <button
                     key={action.label}
                     className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-muted transition-colors text-left"
-                    onClick={() => {/* Navigate to action.path */}}
+                    onClick={() => navigate(action.path, { state: action.state })}
                   >
                     <span className="text-sm font-medium">{action.label}</span>
                     <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
@@ -156,9 +205,12 @@ export default function AdminDashboardPage() {
               <div>
                 <h3 className="font-semibold text-foreground">Content Management</h3>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Navigate to the Content section to edit pages, blog posts, and other website content.
+                  Navigate to the Content section to edit pages, blog posts, and manage your media library.
                 </p>
               </div>
+              <Button onClick={() => navigate('/admin/content')}>
+                Go to Content
+              </Button>
             </div>
           </CardContent>
         </Card>

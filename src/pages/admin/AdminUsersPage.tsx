@@ -9,24 +9,40 @@ import {
   UserPlus, 
   Shield, 
   ShieldCheck,
-  Mail,
-  AlertTriangle
+  AlertTriangle,
+  Loader2,
+  Trash2
 } from 'lucide-react';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
-
-const mockUsers = [
-  { 
-    id: '1', 
-    email: 'admin@nafarrosolutions.com', 
-    role: 'admin',
-    createdAt: '2024-01-01'
-  },
-];
+import { useAdminUsers } from '@/hooks/useAdminUsers';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { format } from 'date-fns';
 
 export default function AdminUsersPage() {
-  const { isAdmin } = useAdminAuth();
-  const [inviteEmail, setInviteEmail] = useState('');
-  const [inviteRole, setInviteRole] = useState<'admin' | 'moderator'>('moderator');
+  const { isAdmin, user: currentUser } = useAdminAuth();
+  const { users, isLoading, addUserRole, removeUserRole, updateUserRole } = useAdminUsers();
+  
+  const [newUserId, setNewUserId] = useState('');
+  const [newUserRole, setNewUserRole] = useState<'admin' | 'moderator'>('moderator');
+  const [isAdding, setIsAdding] = useState(false);
+  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   if (!isAdmin) {
     return (
@@ -42,10 +58,28 @@ export default function AdminUsersPage() {
     );
   }
 
-  const handleInvite = () => {
-    // In a real implementation, this would call an edge function to invite users
-    alert(`To invite ${inviteEmail} as ${inviteRole}:\n\n1. Create user in Supabase Auth dashboard\n2. Copy their user UUID\n3. Run SQL: INSERT INTO public.user_roles (user_id, role) VALUES ('UUID', '${inviteRole}');`);
-    setInviteEmail('');
+  const handleAddUser = async () => {
+    if (!newUserId.trim()) return;
+    
+    setIsAdding(true);
+    const success = await addUserRole(newUserId.trim(), newUserRole);
+    if (success) {
+      setNewUserId('');
+    }
+    setIsAdding(false);
+  };
+
+  const handleRemoveUser = async () => {
+    if (!deleteConfirm) return;
+    
+    setIsDeleting(true);
+    await removeUserRole(deleteConfirm);
+    setIsDeleting(false);
+    setDeleteConfirm(null);
+  };
+
+  const handleRoleChange = async (id: string, newRole: 'admin' | 'moderator') => {
+    await updateUserRole(id, newRole);
   };
 
   return (
@@ -60,27 +94,29 @@ export default function AdminUsersPage() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          {/* Invite User */}
+          {/* Add User */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <UserPlus className="h-5 w-5" />
-                Invite User
+                Add User Role
               </CardTitle>
               <CardDescription>
-                Add a new administrator or moderator
+                Grant admin portal access to a user
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
+                <Label htmlFor="userId">User ID (UUID)</Label>
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="user@example.com"
-                  value={inviteEmail}
-                  onChange={(e) => setInviteEmail(e.target.value)}
+                  id="userId"
+                  placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                  value={newUserId}
+                  onChange={(e) => setNewUserId(e.target.value)}
                 />
+                <p className="text-xs text-muted-foreground">
+                  Get the UUID from Supabase Auth → Users after creating the user account
+                </p>
               </div>
               
               <div className="space-y-2">
@@ -90,8 +126,8 @@ export default function AdminUsersPage() {
                     <input
                       type="radio"
                       name="role"
-                      checked={inviteRole === 'moderator'}
-                      onChange={() => setInviteRole('moderator')}
+                      checked={newUserRole === 'moderator'}
+                      onChange={() => setNewUserRole('moderator')}
                       className="text-primary"
                     />
                     <Shield className="h-4 w-4 text-muted-foreground" />
@@ -101,8 +137,8 @@ export default function AdminUsersPage() {
                     <input
                       type="radio"
                       name="role"
-                      checked={inviteRole === 'admin'}
-                      onChange={() => setInviteRole('admin')}
+                      checked={newUserRole === 'admin'}
+                      onChange={() => setNewUserRole('admin')}
                       className="text-primary"
                     />
                     <ShieldCheck className="h-4 w-4 text-primary" />
@@ -111,14 +147,10 @@ export default function AdminUsersPage() {
                 </div>
               </div>
 
-              <Button onClick={handleInvite} className="w-full gap-2">
-                <Mail className="h-4 w-4" />
-                Get Invite Instructions
+              <Button onClick={handleAddUser} className="w-full gap-2" disabled={isAdding || !newUserId.trim()}>
+                {isAdding && <Loader2 className="h-4 w-4 animate-spin" />}
+                Add User Role
               </Button>
-
-              <p className="text-xs text-muted-foreground">
-                Note: Currently requires manual user creation in Supabase dashboard.
-              </p>
             </CardContent>
           </Card>
 
@@ -172,50 +204,106 @@ export default function AdminUsersPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-left p-4 font-medium text-muted-foreground">Email</th>
-                    <th className="text-left p-4 font-medium text-muted-foreground">Role</th>
-                    <th className="text-left p-4 font-medium text-muted-foreground">Added</th>
-                    <th className="text-right p-4 font-medium text-muted-foreground">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {mockUsers.map((user) => (
-                    <tr key={user.id} className="border-b last:border-0 hover:bg-muted/50">
-                      <td className="p-4">
-                        <span className="font-medium">{user.email}</span>
-                      </td>
-                      <td className="p-4">
-                        <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
-                          user.role === 'admin' 
-                            ? 'bg-primary/10 text-primary' 
-                            : 'bg-muted text-muted-foreground'
-                        }`}>
-                          {user.role === 'admin' ? (
-                            <ShieldCheck className="h-3 w-3" />
-                          ) : (
-                            <Shield className="h-3 w-3" />
-                          )}
-                          {user.role}
-                        </span>
-                      </td>
-                      <td className="p-4 text-muted-foreground">{user.createdAt}</td>
-                      <td className="p-4 text-right">
-                        <Button variant="ghost" size="sm" disabled>
-                          Remove
-                        </Button>
-                      </td>
+            {isLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+              </div>
+            ) : users.length === 0 ? (
+              <div className="text-center py-8 text-muted-foreground">
+                No users found
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="text-left p-4 font-medium text-muted-foreground">User</th>
+                      <th className="text-left p-4 font-medium text-muted-foreground">Role</th>
+                      <th className="text-left p-4 font-medium text-muted-foreground">Added</th>
+                      <th className="text-right p-4 font-medium text-muted-foreground">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {users.map((user) => {
+                      const isCurrentUser = user.user_id === currentUser?.id;
+                      
+                      return (
+                        <tr key={user.id} className="border-b last:border-0 hover:bg-muted/50">
+                          <td className="p-4">
+                            <span className="font-medium text-sm">
+                              {user.email}
+                              {isCurrentUser && <span className="text-muted-foreground ml-2">(you)</span>}
+                            </span>
+                          </td>
+                          <td className="p-4">
+                            <Select 
+                              value={user.role} 
+                              onValueChange={(value: 'admin' | 'moderator') => handleRoleChange(user.id, value)}
+                              disabled={isCurrentUser}
+                            >
+                              <SelectTrigger className="w-[140px]">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="admin">
+                                  <span className="flex items-center gap-2">
+                                    <ShieldCheck className="h-3 w-3" />
+                                    Admin
+                                  </span>
+                                </SelectItem>
+                                <SelectItem value="moderator">
+                                  <span className="flex items-center gap-2">
+                                    <Shield className="h-3 w-3" />
+                                    Moderator
+                                  </span>
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </td>
+                          <td className="p-4 text-muted-foreground text-sm">
+                            {format(new Date(user.created_at), 'MMM d, yyyy')}
+                          </td>
+                          <td className="p-4 text-right">
+                            <Button 
+                              variant="ghost" 
+                              size="icon"
+                              onClick={() => setDeleteConfirm(user.id)}
+                              disabled={isCurrentUser}
+                              className="text-destructive hover:text-destructive"
+                              title={isCurrentUser ? "Can't remove yourself" : "Remove access"}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
+
+      {/* Delete Confirmation */}
+      <AlertDialog open={!!deleteConfirm} onOpenChange={() => setDeleteConfirm(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Remove User Access</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to remove this user's admin portal access? They will no longer be able to log in to the admin area.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleRemoveUser} disabled={isDeleting}>
+              {isDeleting && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+              Remove Access
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </AdminLayout>
   );
 }
