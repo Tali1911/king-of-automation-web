@@ -31,6 +31,7 @@ import AdminContentPage from "./pages/admin/AdminContentPage";
 import AdminUsersPage from "./pages/admin/AdminUsersPage";
 import AdminSettingsPage from "./pages/admin/AdminSettingsPage";
 import { ProtectedAdminRoute } from "./components/admin/ProtectedAdminRoute";
+import { PageEditor } from "./components/admin/PageEditor";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +58,14 @@ const App = () => (
             element={
               <ProtectedAdminRoute>
                 <AdminContentPage />
+              </ProtectedAdminRoute>
+            }
+          />
+          <Route
+            path="/admin/content/pages/:pageId"
+            element={
+              <ProtectedAdminRoute>
+                <PageEditor />
               </ProtectedAdminRoute>
             }
           />
