@@ -5,8 +5,8 @@ import { useToast } from '@/hooks/use-toast';
 export interface PageSection {
   id: string;
   label: string;
-  type: 'text' | 'textarea' | 'richtext' | 'image' | 'array';
-  defaultValue: string | string[];
+  type: 'text' | 'textarea' | 'richtext' | 'image';
+  defaultValue: string;
 }
 
 export interface PageConfig {
@@ -32,13 +32,15 @@ export const pageConfigs: PageConfig[] = [
     name: 'Home Page',
     path: '/',
     sections: [
-      { id: 'hero_title', label: 'Hero Title', type: 'text', defaultValue: 'Automate Your Business with Smart Solutions' },
-      { id: 'hero_subtitle', label: 'Hero Subtitle', type: 'textarea', defaultValue: 'We build custom automation tools, websites, and data solutions that save time and drive growth.' },
-      { id: 'hero_cta_primary', label: 'Primary CTA Text', type: 'text', defaultValue: 'Get Started' },
-      { id: 'hero_cta_secondary', label: 'Secondary CTA Text', type: 'text', defaultValue: 'View Our Work' },
+      { id: 'hero_title', label: 'Hero Title', type: 'text', defaultValue: 'NafArro Solutions' },
+      { id: 'hero_slogan', label: 'Hero Slogan', type: 'text', defaultValue: 'King of Automation' },
+      { id: 'hero_subtitle', label: 'Hero Subtitle', type: 'textarea', defaultValue: 'We transform manual processes into automated workflows, saving you time, reducing errors, and increasing productivity with cutting-edge technology solutions.' },
+      { id: 'hero_cta_primary', label: 'Primary CTA Text', type: 'text', defaultValue: 'Schedule Consultation' },
+      { id: 'hero_cta_secondary', label: 'Secondary CTA Text', type: 'text', defaultValue: 'Explore Services' },
       { id: 'services_title', label: 'Services Section Title', type: 'text', defaultValue: 'Our Services' },
-      { id: 'services_subtitle', label: 'Services Section Subtitle', type: 'textarea', defaultValue: 'Comprehensive solutions to streamline your business operations' },
-      { id: 'why_choose_title', label: 'Why Choose Us Title', type: 'text', defaultValue: 'Why Choose NafArro Solutions?' },
+      { id: 'services_subtitle', label: 'Services Section Subtitle', type: 'textarea', defaultValue: 'We provide end-to-end solutions to help businesses leverage technology for growth' },
+      { id: 'why_choose_title', label: 'Why Choose Us Title', type: 'text', defaultValue: 'Why Choose Us' },
+      { id: 'why_choose_subtitle', label: 'Why Choose Us Subtitle', type: 'textarea', defaultValue: "We're committed to excellence, innovation, and your success" },
     ],
   },
   {
@@ -47,14 +49,18 @@ export const pageConfigs: PageConfig[] = [
     path: '/about',
     sections: [
       { id: 'hero_title', label: 'Hero Title', type: 'text', defaultValue: 'About NafArro Solutions' },
-      { id: 'hero_subtitle', label: 'Hero Subtitle', type: 'textarea', defaultValue: 'Empowering businesses through innovative technology solutions' },
+      { id: 'hero_subtitle', label: 'Hero Subtitle', type: 'textarea', defaultValue: "We're on a mission to transform businesses through intelligent automation and innovative technology solutions." },
+      { id: 'hero_image', label: 'Hero Background Image', type: 'image', defaultValue: '' },
+      { id: 'story_title', label: 'Story Title', type: 'text', defaultValue: 'Our Story' },
+      { id: 'story_content', label: 'Story Content', type: 'textarea', defaultValue: 'NafArro Solutions was founded with a singular vision: to help businesses leverage the power of automation to achieve greater efficiency and growth.' },
       { id: 'mission_title', label: 'Mission Title', type: 'text', defaultValue: 'Our Mission' },
-      { id: 'mission_content', label: 'Mission Content', type: 'textarea', defaultValue: '' },
+      { id: 'mission_content', label: 'Mission Content', type: 'textarea', defaultValue: 'To empower businesses through innovative automation solutions that drive efficiency, reduce costs, and accelerate growth.' },
       { id: 'vision_title', label: 'Vision Title', type: 'text', defaultValue: 'Our Vision' },
-      { id: 'vision_content', label: 'Vision Content', type: 'textarea', defaultValue: '' },
+      { id: 'vision_content', label: 'Vision Content', type: 'textarea', defaultValue: 'To be recognized as the leading automation solutions provider, known for our technical excellence, innovation, and exceptional client service.' },
       { id: 'founder_name', label: 'Founder Name', type: 'text', defaultValue: 'Naftali Koome' },
       { id: 'founder_title', label: 'Founder Title', type: 'text', defaultValue: 'Founder & Lead Developer' },
       { id: 'founder_bio', label: 'Founder Bio', type: 'textarea', defaultValue: '' },
+      { id: 'founder_image', label: 'Founder Image', type: 'image', defaultValue: '' },
     ],
   },
   {
@@ -63,13 +69,13 @@ export const pageConfigs: PageConfig[] = [
     path: '/services',
     sections: [
       { id: 'hero_title', label: 'Hero Title', type: 'text', defaultValue: 'Our Services' },
-      { id: 'hero_subtitle', label: 'Hero Subtitle', type: 'textarea', defaultValue: 'Comprehensive solutions tailored to your business needs' },
-      { id: 'web_dev_title', label: 'Web Development Title', type: 'text', defaultValue: 'Web Development' },
-      { id: 'web_dev_description', label: 'Web Development Description', type: 'textarea', defaultValue: '' },
-      { id: 'automation_title', label: 'Automation Title', type: 'text', defaultValue: 'Business Automation' },
-      { id: 'automation_description', label: 'Automation Description', type: 'textarea', defaultValue: '' },
-      { id: 'data_title', label: 'Data Analysis Title', type: 'text', defaultValue: 'Data Analysis' },
-      { id: 'data_description', label: 'Data Analysis Description', type: 'textarea', defaultValue: '' },
+      { id: 'hero_subtitle', label: 'Hero Subtitle', type: 'textarea', defaultValue: 'We provide end-to-end technology solutions tailored to your specific business needs, focusing on automation, efficiency, and growth.' },
+      { id: 'web_dev_title', label: 'Web Development Title', type: 'text', defaultValue: 'Website Development for Branding' },
+      { id: 'web_dev_description', label: 'Web Development Description', type: 'textarea', defaultValue: 'We create custom, responsive websites that reflect your brand identity and engage your audience.' },
+      { id: 'automation_title', label: 'Automation Title', type: 'text', defaultValue: 'Web Applications for Automation' },
+      { id: 'automation_description', label: 'Automation Description', type: 'textarea', defaultValue: 'Transform manual processes into efficient automated workflows with our custom web applications.' },
+      { id: 'data_title', label: 'Data Analysis Title', type: 'text', defaultValue: 'Data Analysis Services' },
+      { id: 'data_description', label: 'Data Analysis Description', type: 'textarea', defaultValue: 'Unlock insights from your data to drive strategic decision-making.' },
     ],
   },
   {
@@ -78,9 +84,9 @@ export const pageConfigs: PageConfig[] = [
     path: '/portfolio',
     sections: [
       { id: 'hero_title', label: 'Hero Title', type: 'text', defaultValue: 'Our Portfolio' },
-      { id: 'hero_subtitle', label: 'Hero Subtitle', type: 'textarea', defaultValue: 'Explore our recent projects and success stories' },
-      { id: 'cta_title', label: 'CTA Section Title', type: 'text', defaultValue: 'Ready to Start Your Project?' },
-      { id: 'cta_description', label: 'CTA Description', type: 'textarea', defaultValue: '' },
+      { id: 'hero_subtitle', label: 'Hero Subtitle', type: 'textarea', defaultValue: 'Explore our successful projects and see how we\'ve helped businesses transform through technology and automation.' },
+      { id: 'cta_title', label: 'CTA Section Title', type: 'text', defaultValue: "Let's Build Something Amazing Together" },
+      { id: 'cta_description', label: 'CTA Description', type: 'textarea', defaultValue: 'Ready to join our growing list of satisfied clients? Contact us today to discuss your project.' },
     ],
   },
   {
@@ -89,11 +95,11 @@ export const pageConfigs: PageConfig[] = [
     path: '/contact',
     sections: [
       { id: 'hero_title', label: 'Hero Title', type: 'text', defaultValue: 'Contact Us' },
-      { id: 'hero_subtitle', label: 'Hero Subtitle', type: 'textarea', defaultValue: 'Get in touch with our team' },
-      { id: 'form_title', label: 'Form Title', type: 'text', defaultValue: 'Send us a message' },
-      { id: 'email', label: 'Contact Email', type: 'text', defaultValue: 'info@nafarrosolutions.com' },
-      { id: 'phone', label: 'Contact Phone', type: 'text', defaultValue: '' },
-      { id: 'address', label: 'Address', type: 'textarea', defaultValue: '' },
+      { id: 'hero_subtitle', label: 'Hero Subtitle', type: 'textarea', defaultValue: 'Have questions or ready to get started? Reach out to our team for expert assistance.' },
+      { id: 'form_title', label: 'Form Title', type: 'text', defaultValue: 'Send a Message' },
+      { id: 'email', label: 'Contact Email', type: 'text', defaultValue: 'naftali@nafarrosolutions.com' },
+      { id: 'phone', label: 'Contact Phone', type: 'text', defaultValue: '+254 701 443 446' },
+      { id: 'address', label: 'Address', type: 'text', defaultValue: 'Nairobi, Kenya' },
     ],
   },
   {
@@ -101,10 +107,10 @@ export const pageConfigs: PageConfig[] = [
     name: 'Blog Page',
     path: '/blog',
     sections: [
-      { id: 'hero_title', label: 'Hero Title', type: 'text', defaultValue: 'Our Blog' },
-      { id: 'hero_subtitle', label: 'Hero Subtitle', type: 'textarea', defaultValue: 'Insights, tips, and news from NafArro Solutions' },
+      { id: 'hero_title', label: 'Hero Title', type: 'text', defaultValue: 'Blog & Resources' },
+      { id: 'hero_subtitle', label: 'Hero Subtitle', type: 'textarea', defaultValue: 'Insights, tutorials, and industry trends in automation, web development, and data analysis' },
       { id: 'newsletter_title', label: 'Newsletter Title', type: 'text', defaultValue: 'Subscribe to Our Newsletter' },
-      { id: 'newsletter_description', label: 'Newsletter Description', type: 'textarea', defaultValue: '' },
+      { id: 'newsletter_description', label: 'Newsletter Description', type: 'textarea', defaultValue: 'Get the latest insights and updates delivered to your inbox.' },
     ],
   },
 ];
@@ -259,5 +265,10 @@ export function usePublicPageContent(pageId: string) {
     fetchContent();
   }, [pageId]);
 
-  return { content, isLoading };
+  // Helper to get content with fallback to default
+  const getContent = (sectionId: string, defaultValue: string = ''): string => {
+    return content[sectionId] || defaultValue;
+  };
+
+  return { content, isLoading, getContent };
 }

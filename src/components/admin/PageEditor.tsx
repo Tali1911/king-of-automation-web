@@ -9,6 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Separator } from '@/components/ui/separator';
 import { AdminLayout } from './AdminLayout';
 import { usePageContent, pageConfigs, PageSection } from '@/hooks/usePageContent';
+import { ImageUploadField } from './ImageUploadField';
 import { Link } from 'react-router-dom';
 
 export function PageEditor() {
@@ -24,7 +25,7 @@ export function PageEditor() {
     if (!isLoading && pageConfig) {
       const initialData: Record<string, string> = {};
       pageConfig.sections.forEach(section => {
-        initialData[section.id] = content[section.id] || (typeof section.defaultValue === 'string' ? section.defaultValue : '');
+        initialData[section.id] = content[section.id] || section.defaultValue;
       });
       setFormData(initialData);
       setHasChanges(false);
@@ -47,26 +48,45 @@ export function PageEditor() {
     const value = formData[section.id] || '';
 
     switch (section.type) {
+      case 'image':
+        return (
+          <ImageUploadField
+            id={section.id}
+            label={section.label}
+            value={value}
+            onChange={(newValue) => handleChange(section.id, newValue)}
+          />
+        );
       case 'textarea':
       case 'richtext':
         return (
-          <Textarea
-            id={section.id}
-            value={value}
-            onChange={(e) => handleChange(section.id, e.target.value)}
-            placeholder={`Enter ${section.label.toLowerCase()}...`}
-            className="min-h-[100px] resize-y"
-          />
+          <>
+            <Label htmlFor={section.id} className="text-sm font-medium">
+              {section.label}
+            </Label>
+            <Textarea
+              id={section.id}
+              value={value}
+              onChange={(e) => handleChange(section.id, e.target.value)}
+              placeholder={`Enter ${section.label.toLowerCase()}...`}
+              className="min-h-[100px] resize-y"
+            />
+          </>
         );
       case 'text':
       default:
         return (
-          <Input
-            id={section.id}
-            value={value}
-            onChange={(e) => handleChange(section.id, e.target.value)}
-            placeholder={`Enter ${section.label.toLowerCase()}...`}
-          />
+          <>
+            <Label htmlFor={section.id} className="text-sm font-medium">
+              {section.label}
+            </Label>
+            <Input
+              id={section.id}
+              value={value}
+              onChange={(e) => handleChange(section.id, e.target.value)}
+              placeholder={`Enter ${section.label.toLowerCase()}...`}
+            />
+          </>
         );
     }
   };
@@ -145,13 +165,10 @@ export function PageEditor() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              {pageConfig.sections.map((section, index) => (
+            {pageConfig.sections.map((section, index) => (
                 <div key={section.id}>
                   {index > 0 && <Separator className="mb-6" />}
                   <div className="space-y-2">
-                    <Label htmlFor={section.id} className="text-sm font-medium">
-                      {section.label}
-                    </Label>
                     {renderField(section)}
                   </div>
                 </div>

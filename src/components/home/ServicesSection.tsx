@@ -1,7 +1,7 @@
-
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Code, BarChart3, Globe } from 'lucide-react';
+import { usePublicPageContent } from '@/hooks/usePageContent';
 
 // Helper function to check if an element is in viewport
 const isInViewport = (element: HTMLElement): boolean => {
@@ -12,6 +12,8 @@ const isInViewport = (element: HTMLElement): boolean => {
 };
 
 const ServicesSection = () => {
+  const { getContent } = usePublicPageContent('home');
+
   useEffect(() => {
     const animateOnScroll = () => {
       const elements = document.querySelectorAll('.animate-on-scroll');
@@ -24,13 +26,15 @@ const ServicesSection = () => {
     };
 
     window.addEventListener('scroll', animateOnScroll);
-    // Initial check
     animateOnScroll();
 
     return () => {
       window.removeEventListener('scroll', animateOnScroll);
     };
   }, []);
+
+  const sectionTitle = getContent('services_title', 'Our Services');
+  const sectionSubtitle = getContent('services_subtitle', 'We provide end-to-end solutions to help businesses leverage technology for growth');
 
   const services = [
     {
@@ -61,9 +65,9 @@ const ServicesSection = () => {
     <section id="services" className="py-20 bg-muted">
       <div className="container-custom">
         <div className="text-center mb-16 animate-on-scroll">
-          <h2 className="section-title">Our Services</h2>
+          <h2 className="section-title">{sectionTitle}</h2>
           <p className="section-subtitle mx-auto">
-            We provide end-to-end solutions to help businesses leverage technology for growth
+            {sectionSubtitle}
           </p>
         </div>
 
