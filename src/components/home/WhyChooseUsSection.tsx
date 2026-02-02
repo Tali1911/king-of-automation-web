@@ -1,8 +1,10 @@
-
 import React, { useEffect } from 'react';
 import { Check, Clock, Code, Users } from 'lucide-react';
+import { usePublicPageContent } from '@/hooks/usePageContent';
 
 const WhyChooseUsSection = () => {
+  const { getContent } = usePublicPageContent('home');
+
   useEffect(() => {
     const animateOnScroll = () => {
       const elements = document.querySelectorAll('.animate-on-scroll');
@@ -16,13 +18,15 @@ const WhyChooseUsSection = () => {
     };
 
     window.addEventListener('scroll', animateOnScroll);
-    // Initial check
     animateOnScroll();
 
     return () => {
       window.removeEventListener('scroll', animateOnScroll);
     };
   }, []);
+
+  const sectionTitle = getContent('why_choose_title', 'Why Choose Us');
+  const sectionSubtitle = getContent('why_choose_subtitle', "We're committed to excellence, innovation, and your success");
 
   const reasons = [
     {
@@ -55,9 +59,9 @@ const WhyChooseUsSection = () => {
     <section className="py-20 bg-white">
       <div className="container-custom">
         <div className="text-center mb-16 animate-on-scroll">
-          <h2 className="section-title">Why Choose Us</h2>
+          <h2 className="section-title">{sectionTitle}</h2>
           <p className="section-subtitle mx-auto">
-            We're committed to excellence, innovation, and your success
+            {sectionSubtitle}
           </p>
         </div>
 

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { ExternalLink, Github } from 'lucide-react';
 import creditManagementScreenshot from '../assets/credit-management-screenshot.png';
@@ -6,10 +5,17 @@ import churchManagementScreenshot from '../assets/church-management-screenshot.p
 import actionPointScreenshot from '../assets/action-point-screenshot.png';
 import cedarempowerhandsScreenshot from '../assets/cedarempowerhands-screenshot.png';
 import gpsTrackerScreenshot from '../assets/gps-tracker-screenshot.png';
+import { usePublicPageContent } from '@/hooks/usePageContent';
 
 const PortfolioPage = () => {
+  const { getContent } = usePublicPageContent('portfolio');
   const [filter, setFilter] = useState<string>('all');
   
+  const heroTitle = getContent('hero_title', 'Our Portfolio');
+  const heroSubtitle = getContent('hero_subtitle', "Explore our successful projects and see how we've helped businesses transform through technology and automation.");
+  const ctaTitle = getContent('cta_title', "Let's Build Something Amazing Together");
+  const ctaDescription = getContent('cta_description', 'Ready to join our growing list of satisfied clients? Contact us today to discuss your project.');
+
   // Animation on scroll functionality
   useEffect(() => {
     const animateOnScroll = () => {
@@ -24,7 +30,6 @@ const PortfolioPage = () => {
     };
 
     window.addEventListener('scroll', animateOnScroll);
-    // Initial check
     animateOnScroll();
 
     return () => {
@@ -104,9 +109,9 @@ const PortfolioPage = () => {
       {/* Portfolio Header */}
       <div className="bg-primary text-white py-16">
         <div className="container-custom">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">Our Portfolio</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">{heroTitle}</h1>
           <p className="text-xl text-gray-300 max-w-3xl animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Explore our successful projects and see how we've helped businesses transform through technology and automation.
+            {heroSubtitle}
           </p>
         </div>
       </div>
@@ -230,9 +235,9 @@ const PortfolioPage = () => {
       <section className="py-16 bg-muted">
         <div className="container-custom">
           <div className="text-center animate-on-scroll">
-            <h2 className="text-3xl font-bold mb-6 text-primary">Let's Build Something Amazing Together</h2>
+            <h2 className="text-3xl font-bold mb-6 text-primary">{ctaTitle}</h2>
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Ready to join our growing list of satisfied clients? Contact us today to discuss your project.
+              {ctaDescription}
             </p>
             <a 
               href="/contact" 
