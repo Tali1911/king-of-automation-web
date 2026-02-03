@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github, Loader2 } from 'lucide-react';
+import { usePublicPageContent } from '@/hooks/usePageContent';
+import { usePublicPortfolioProjects } from '@/hooks/usePortfolioProjects';
+
+// Fallback images for projects without uploaded images
 import creditManagementScreenshot from '../assets/credit-management-screenshot.png';
 import churchManagementScreenshot from '../assets/church-management-screenshot.png';
 import actionPointScreenshot from '../assets/action-point-screenshot.png';
 import cedarempowerhandsScreenshot from '../assets/cedarempowerhands-screenshot.png';
 import gpsTrackerScreenshot from '../assets/gps-tracker-screenshot.png';
-import { usePublicPageContent } from '@/hooks/usePageContent';
+
+const fallbackImages: Record<string, string> = {
+  'Credit Management System': creditManagementScreenshot,
+  'Church Management System': churchManagementScreenshot,
+  'Action Point Follow-up': actionPointScreenshot,
+  'cedarempowerhands.org': cedarempowerhandsScreenshot,
+  'GPS Community Bond': gpsTrackerScreenshot,
+};
 
 const PortfolioPage = () => {
   const { getContent } = usePublicPageContent('portfolio');
+  const { projects, isLoading: projectsLoading } = usePublicPortfolioProjects();
   const [filter, setFilter] = useState<string>('all');
   
   const heroTitle = getContent('hero_title', 'Our Portfolio');
@@ -42,63 +54,76 @@ const PortfolioPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const portfolioItems = [
-    {
-      id: 1,
-      title: 'Credit Management System',
-      category: "automation",
-      image: creditManagementScreenshot,
-      description: 'Web-based case management improving collection efficiency and analytics.',
-      technologies: ['React', 'TypeScript', 'Supabase', 'Tailwind', 'Vite'],
-      results: "Improved collection efficiency and comprehensive analytics",
-      liveUrl: 'https://cmsyst.netlify.app/',
-      githubUrl: 'https://github.com/Tali1911/collection-management-system'
-    },
-    {
-      id: 2,
-      title: 'Church Management System',
-      category: "automation",
-      image: churchManagementScreenshot,
-      description: 'Automating and managing church resources and departments on one platform.',
-      technologies: ['React', 'TypeScript', 'Supabase', 'Tailwind', 'Vite'],
-      results: "Centralized management of church operations and resources",
-      liveUrl: 'https://tot123.netlify.app/',
-      githubUrl: 'https://github.com/Tali1911/Complete_Church_MS'
-    },
-    {
-      id: 3,
-      title: 'Action Point Follow-up',
-      category: "automation",
-      image: actionPointScreenshot,
-      description: 'Action item tracking with advanced filtering and email notifications.',
-      technologies: ['React', 'Node', 'JWT', 'PostgreSQL', 'Sendgrid'],
-      results: "Streamlined action item tracking with automated notifications",
-      liveUrl: 'https://actionpoints.netlify.app/auth',
-      githubUrl: 'https://github.com/Tali1911/Agenda_action_point'
-    },
-    {
-      id: 4,
-      title: 'cedarempowerhands.org',
-      category: "website",
-      image: cedarempowerhandsScreenshot,
-      description: "Website empowering Kenya's Youth through skills and sustainability.",
-      technologies: ['React', 'TypeScript', 'Tailwind', 'Vite'],
-      results: "Platform for youth empowerment and sustainability initiatives",
-      liveUrl: 'https://cedarempowerhands.org/',
-      githubUrl: 'https://github.com/Tali1911/cedar-empower-reach'
-    },
-    {
-      id: 5,
-      title: 'GPS Community Bond',
-      category: "automation",
-      image: gpsTrackerScreenshot,
-      description: 'GPS tracking app for walks with social features and detailed analytics.',
-      technologies: ['React', 'TypeScript', 'Supabase', 'Tailwind', 'Leaflet.js', 'geo.json'],
-      results: "Community engagement through GPS tracking and social features",
-      liveUrl: 'https://walktracking.netlify.app/',
-      githubUrl: 'https://github.com/Tali1911/Prayerwalk_Tracker'
-    }
-  ];
+  // Use database projects if available, otherwise fall back to hardcoded
+  const portfolioItems = projects.length > 0 
+    ? projects.map(p => ({
+        id: p.id,
+        title: p.title,
+        category: p.category,
+        image: p.image_url || fallbackImages[p.title] || '/placeholder.svg',
+        description: p.description || '',
+        technologies: p.technologies || [],
+        results: p.results || '',
+        liveUrl: p.live_url,
+        githubUrl: p.github_url,
+      }))
+    : [
+        {
+          id: '1',
+          title: 'Credit Management System',
+          category: "automation",
+          image: creditManagementScreenshot,
+          description: 'Web-based case management improving collection efficiency and analytics.',
+          technologies: ['React', 'TypeScript', 'Supabase', 'Tailwind', 'Vite'],
+          results: "Improved collection efficiency and comprehensive analytics",
+          liveUrl: 'https://cmsyst.netlify.app/',
+          githubUrl: 'https://github.com/Tali1911/collection-management-system'
+        },
+        {
+          id: '2',
+          title: 'Church Management System',
+          category: "automation",
+          image: churchManagementScreenshot,
+          description: 'Automating and managing church resources and departments on one platform.',
+          technologies: ['React', 'TypeScript', 'Supabase', 'Tailwind', 'Vite'],
+          results: "Centralized management of church operations and resources",
+          liveUrl: 'https://tot123.netlify.app/',
+          githubUrl: 'https://github.com/Tali1911/Complete_Church_MS'
+        },
+        {
+          id: '3',
+          title: 'Action Point Follow-up',
+          category: "automation",
+          image: actionPointScreenshot,
+          description: 'Action item tracking with advanced filtering and email notifications.',
+          technologies: ['React', 'Node', 'JWT', 'PostgreSQL', 'Sendgrid'],
+          results: "Streamlined action item tracking with automated notifications",
+          liveUrl: 'https://actionpoints.netlify.app/auth',
+          githubUrl: 'https://github.com/Tali1911/Agenda_action_point'
+        },
+        {
+          id: '4',
+          title: 'cedarempowerhands.org',
+          category: "website",
+          image: cedarempowerhandsScreenshot,
+          description: "Website empowering Kenya's Youth through skills and sustainability.",
+          technologies: ['React', 'TypeScript', 'Tailwind', 'Vite'],
+          results: "Platform for youth empowerment and sustainability initiatives",
+          liveUrl: 'https://cedarempowerhands.org/',
+          githubUrl: 'https://github.com/Tali1911/cedar-empower-reach'
+        },
+        {
+          id: '5',
+          title: 'GPS Community Bond',
+          category: "automation",
+          image: gpsTrackerScreenshot,
+          description: 'GPS tracking app for walks with social features and detailed analytics.',
+          technologies: ['React', 'TypeScript', 'Supabase', 'Tailwind', 'Leaflet.js', 'geo.json'],
+          results: "Community engagement through GPS tracking and social features",
+          liveUrl: 'https://walktracking.netlify.app/',
+          githubUrl: 'https://github.com/Tali1911/Prayerwalk_Tracker'
+        }
+      ];
 
   const filteredItems = filter === 'all' 
     ? portfolioItems 
@@ -157,77 +182,83 @@ const PortfolioPage = () => {
       {/* Portfolio Grid */}
       <section className="py-16">
         <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredItems.map((item, index) => (
-              <div 
-                key={item.id}
-                className="group bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl animate-on-scroll"
-                style={{ transitionDelay: `${index * 0.1}s` }}
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <img 
-                    src={item.image} 
-                    alt={item.title} 
-                    className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
-                  />
-                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                    <div className="flex gap-3">
-                      {item.liveUrl && (
-                        <a 
-                          href={item.liveUrl} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="p-2 bg-white rounded-full text-primary hover:bg-primary hover:text-white transition-colors"
-                        >
-                          <ExternalLink className="w-5 h-5" />
-                        </a>
-                      )}
-                      {item.githubUrl && (
-                        <a 
-                          href={item.githubUrl} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="p-2 bg-white rounded-full text-primary hover:bg-primary hover:text-white transition-colors"
-                        >
-                          <Github className="w-5 h-5" />
-                        </a>
-                      )}
+          {projectsLoading ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredItems.map((item, index) => (
+                <div 
+                  key={item.id}
+                  className="group bg-white rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl animate-on-scroll"
+                  style={{ transitionDelay: `${index * 0.1}s` }}
+                >
+                  <div className="relative h-64 overflow-hidden">
+                    <img 
+                      src={item.image} 
+                      alt={item.title} 
+                      className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                    />
+                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                      <div className="flex gap-3">
+                        {item.liveUrl && (
+                          <a 
+                            href={item.liveUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="p-2 bg-white rounded-full text-primary hover:bg-primary hover:text-white transition-colors"
+                          >
+                            <ExternalLink className="w-5 h-5" />
+                          </a>
+                        )}
+                        {item.githubUrl && (
+                          <a 
+                            href={item.githubUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="p-2 bg-white rounded-full text-primary hover:bg-primary hover:text-white transition-colors"
+                          >
+                            <Github className="w-5 h-5" />
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="p-6">
-                  <div className="mb-4">
-                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
-                      item.category === 'website' 
-                        ? 'bg-blue-100 text-blue-800' 
-                        : 'bg-green-100 text-green-800'
-                    }`}>
-                      {item.category === 'website' ? 'Website' : 'Automation'}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2 text-primary">{item.title}</h3>
-                  <p className="text-gray-600 mb-4">{item.description}</p>
-                  
-                  {item.results && (
-                    <div className="mb-4 p-3 bg-green-50 rounded-lg">
-                      <p className="text-green-800 text-sm font-medium">Results: {item.results}</p>
-                    </div>
-                  )}
-                  
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {item.technologies.map((tech, idx) => (
-                      <span 
-                        key={idx}
-                        className="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full"
-                      >
-                        {tech}
+                  <div className="p-6">
+                    <div className="mb-4">
+                      <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
+                        item.category === 'website' 
+                          ? 'bg-blue-100 text-blue-800' 
+                          : 'bg-green-100 text-green-800'
+                      }`}>
+                        {item.category === 'website' ? 'Website' : 'Automation'}
                       </span>
-                    ))}
+                    </div>
+                    <h3 className="text-xl font-bold mb-2 text-primary">{item.title}</h3>
+                    <p className="text-gray-600 mb-4">{item.description}</p>
+                    
+                    {item.results && (
+                      <div className="mb-4 p-3 bg-green-50 rounded-lg">
+                        <p className="text-green-800 text-sm font-medium">Results: {item.results}</p>
+                      </div>
+                    )}
+                    
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {item.technologies.map((tech, idx) => (
+                        <span 
+                          key={idx}
+                          className="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
