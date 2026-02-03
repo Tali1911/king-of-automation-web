@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PagesTab } from '@/components/admin/PagesTab';
 import { BlogPostsTab } from '@/components/admin/BlogPostsTab';
 import { MediaLibraryTab } from '@/components/admin/MediaLibraryTab';
+import { PortfolioProjectsTab } from '@/components/admin/PortfolioProjectsTab';
 
 export default function AdminContentPage() {
   const [activeTab, setActiveTab] = useState('pages');
@@ -25,12 +26,17 @@ export default function AdminContentPage() {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList>
             <TabsTrigger value="pages">Pages</TabsTrigger>
+            <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
             <TabsTrigger value="blog">Blog Posts</TabsTrigger>
             <TabsTrigger value="media">Media Library</TabsTrigger>
           </TabsList>
 
           <TabsContent value="pages">
             <PagesTab />
+          </TabsContent>
+
+          <TabsContent value="portfolio">
+            <PortfolioProjectsTab />
           </TabsContent>
 
           <TabsContent value="blog">
