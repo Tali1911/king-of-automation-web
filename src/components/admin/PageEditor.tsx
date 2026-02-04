@@ -3,13 +3,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Save, Eye, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { AdminLayout } from './AdminLayout';
 import { usePageContent, pageConfigs, PageSection } from '@/hooks/usePageContent';
 import { ImageUploadField } from './ImageUploadField';
+import { RichTextEditor } from './RichTextEditor';
 import { Link } from 'react-router-dom';
 
 export function PageEditor() {
@@ -64,12 +64,10 @@ export function PageEditor() {
             <Label htmlFor={section.id} className="text-sm font-medium">
               {section.label}
             </Label>
-            <Textarea
-              id={section.id}
+            <RichTextEditor
               value={value}
-              onChange={(e) => handleChange(section.id, e.target.value)}
+              onChange={(newValue) => handleChange(section.id, newValue)}
               placeholder={`Enter ${section.label.toLowerCase()}...`}
-              className="min-h-[100px] resize-y"
             />
           </>
         );
