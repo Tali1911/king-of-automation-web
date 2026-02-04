@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { ArrowLeft, Save, Loader2, Plus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { ImageUploadField } from './ImageUploadField';
+import { RichTextEditor } from './RichTextEditor';
 import { PortfolioProject } from '@/hooks/usePortfolioProjects';
 
 interface PortfolioProjectEditorProps {
@@ -139,23 +139,19 @@ export function PortfolioProjectEditor({
 
               <div className="space-y-2">
                 <Label htmlFor="description">Description</Label>
-                <Textarea
-                  id="description"
+                <RichTextEditor
                   value={formData.description}
-                  onChange={(e) => handleChange('description', e.target.value)}
+                  onChange={(value) => handleChange('description', value)}
                   placeholder="Brief description of the project"
-                  rows={3}
                 />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="results">Results / Impact</Label>
-                <Textarea
-                  id="results"
+                <RichTextEditor
                   value={formData.results}
-                  onChange={(e) => handleChange('results', e.target.value)}
+                  onChange={(value) => handleChange('results', value)}
                   placeholder="Describe the impact or results achieved"
-                  rows={2}
                 />
               </div>
             </CardContent>

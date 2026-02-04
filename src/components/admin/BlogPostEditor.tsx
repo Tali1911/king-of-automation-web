@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/select';
 import { BlogPost, BlogPostInput } from '@/hooks/useBlogPosts';
 import { Loader2 } from 'lucide-react';
+import { RichTextEditor } from './RichTextEditor';
 
 interface BlogPostEditorProps {
   post?: BlogPost | null;
@@ -124,13 +125,10 @@ export function BlogPostEditor({ post, isOpen, onClose, onSave }: BlogPostEditor
 
           <div className="space-y-2">
             <Label htmlFor="content">Content</Label>
-            <Textarea
-              id="content"
+            <RichTextEditor
               value={content}
-              onChange={(e) => setContent(e.target.value)}
+              onChange={setContent}
               placeholder="Write your blog post content here..."
-              rows={10}
-              className="font-mono text-sm"
             />
           </div>
 
