@@ -152,6 +152,49 @@ export function usePortfolioProjects() {
     }
   };
 
+  const reorderProjects = async (reorderedProjects: PortfolioProject[]): Promise<boolean> => {
+    // Optimistically update local state
+    setProjects(reorderedProjects);
+    
+    try {
+      // Update display_order for each project
+      const updates = reorderedProjects.map((project, index) => 
+        supabase
+          .from('portfolio_projects')
+          .update({ display_order: index, updated_at: new Date().toISOString() })
+          .eq('id', project.id)
+      );
+
+      const results = await Promise.all(updates);
+      const hasError = results.some(r => r.error);
+      
+      if (hasError) {
+        // Revert on error
+        await fetchProjects();
+        toast({
+          title: 'Error',
+          description: 'Failed to save new order',
+          variant: 'destructive',
+        });
+        return false;
+      }
+
+      toast({
+        title: 'Success',
+        description: 'Project order updated',
+      });
+      return true;
+    } catch (err) {
+      await fetchProjects();
+      toast({
+        title: 'Error',
+        description: 'Failed to save new order',
+        variant: 'destructive',
+      });
+      return false;
+    }
+  };
+
   useEffect(() => {
     fetchProjects();
   }, [fetchProjects]);
@@ -163,6 +206,7 @@ export function usePortfolioProjects() {
     createProject,
     updateProject,
     deleteProject,
+    reorderProjects,
     refetch: fetchProjects,
   };
 }
