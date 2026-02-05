@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ExternalLink, Github, Loader2 } from 'lucide-react';
 import { usePublicPageContent } from '@/hooks/usePageContent';
 import { usePublicPortfolioProjects } from '@/hooks/usePortfolioProjects';
+ import { HtmlContent } from '@/components/common/HtmlContent';
 
 // Fallback images for projects without uploaded images
 import creditManagementScreenshot from '../assets/credit-management-screenshot.png';
@@ -236,11 +237,22 @@ const PortfolioPage = () => {
                       </span>
                     </div>
                     <h3 className="text-xl font-bold mb-2 text-primary">{item.title}</h3>
-                    <p className="text-gray-600 mb-4">{item.description}</p>
+                     <HtmlContent 
+                       content={item.description} 
+                       maxLength={120} 
+                       className="text-gray-600 mb-4"
+                       dialogTitle={item.title}
+                     />
                     
                     {item.results && (
-                      <div className="mb-4 p-3 bg-green-50 rounded-lg">
-                        <p className="text-green-800 text-sm font-medium">Results: {item.results}</p>
+                       <div className="mb-4 p-3 bg-accent/10 rounded-lg">
+                         <span className="text-accent text-sm font-medium">Results: </span>
+                         <HtmlContent 
+                           content={item.results} 
+                           maxLength={100} 
+                           className="text-accent text-sm inline"
+                           dialogTitle={`${item.title} - Results`}
+                         />
                       </div>
                     )}
                     
