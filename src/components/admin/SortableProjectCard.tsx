@@ -1,10 +1,11 @@
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import { GripVertical, Edit, Trash2, Eye, EyeOff, ExternalLink, Github } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { PortfolioProject } from '@/hooks/usePortfolioProjects';
+ import { useSortable } from '@dnd-kit/sortable';
+ import { CSS } from '@dnd-kit/utilities';
+ import { GripVertical, Edit, Trash2, Eye, EyeOff, ExternalLink, Github } from 'lucide-react';
+ import { Button } from '@/components/ui/button';
+ import { Card, CardContent } from '@/components/ui/card';
+ import { Badge } from '@/components/ui/badge';
+ import { PortfolioProject } from '@/hooks/usePortfolioProjects';
+ import { HtmlContent } from '@/components/common/HtmlContent';
 
 interface SortableProjectCardProps {
   project: PortfolioProject;
@@ -76,9 +77,16 @@ export function SortableProjectCard({
               <Badge variant="outline">Draft</Badge>
             )}
           </div>
-          <p className="text-sm text-muted-foreground truncate">
-            {project.description || 'No description'}
-          </p>
+           {project.description ? (
+             <HtmlContent 
+               content={project.description} 
+               maxLength={80} 
+               className="text-sm text-muted-foreground"
+               dialogTitle={project.title}
+             />
+           ) : (
+             <p className="text-sm text-muted-foreground">No description</p>
+           )}
           <div className="flex gap-2 mt-1">
             {project.technologies?.slice(0, 3).map((tech) => (
               <span key={tech} className="text-xs bg-muted px-2 py-0.5 rounded">
