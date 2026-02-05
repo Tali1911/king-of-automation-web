@@ -3,6 +3,13 @@ import { ExternalLink, Github, Loader2 } from 'lucide-react';
 import { usePublicPageContent } from '@/hooks/usePageContent';
 import { usePublicPortfolioProjects } from '@/hooks/usePortfolioProjects';
  import { HtmlContent } from '@/components/common/HtmlContent';
+ import {
+   Dialog,
+   DialogContent,
+   DialogHeader,
+   DialogTitle,
+ } from '@/components/ui/dialog';
+ import { Button } from '@/components/ui/button';
 
 // Fallback images for projects without uploaded images
 import creditManagementScreenshot from '../assets/credit-management-screenshot.png';
@@ -257,7 +264,7 @@ const PortfolioPage = () => {
                     )}
                     
                     <div className="flex flex-wrap gap-2 mt-4">
-                      {item.technologies.map((tech, idx) => (
+                       {item.technologies.slice(0, 3).map((tech, idx) => (
                         <span 
                           key={idx}
                           className="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full"
@@ -265,6 +272,12 @@ const PortfolioPage = () => {
                           {tech}
                         </span>
                       ))}
+                       {item.technologies.length > 3 && (
+                         <TechnologiesPopup 
+                           technologies={item.technologies} 
+                           title={item.title} 
+                         />
+                       )}
                     </div>
                   </div>
                 </div>
@@ -296,3 +309,45 @@ const PortfolioPage = () => {
 };
 
 export default PortfolioPage;
+ 
+ // Technologies popup component
+ function TechnologiesPopup({ 
+   technologies, 
+   title 
+ }: { 
+   technologies: string[]; 
+   title: string; 
+ }) {
+   const [isOpen, setIsOpen] = useState(false);
+ 
+   return (
+     <>
+       <Button
+         variant="ghost"
+         size="sm"
+         onClick={() => setIsOpen(true)}
+         className="text-xs px-2 py-0.5 h-auto text-muted-foreground hover:text-primary"
+       >
+         +{technologies.length - 3} more
+       </Button>
+ 
+       <Dialog open={isOpen} onOpenChange={setIsOpen}>
+         <DialogContent className="max-w-md">
+           <DialogHeader>
+             <DialogTitle>{title} - Technologies</DialogTitle>
+           </DialogHeader>
+           <div className="flex flex-wrap gap-2">
+             {technologies.map((tech, idx) => (
+               <span 
+                 key={idx}
+                 className="bg-muted text-foreground text-sm px-3 py-1.5 rounded-full"
+               >
+                 {tech}
+               </span>
+             ))}
+           </div>
+         </DialogContent>
+       </Dialog>
+     </>
+   );
+ }
