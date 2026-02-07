@@ -21,35 +21,73 @@ export function useMediaLibrary() {
     setIsLoading(true);
 
     try {
-      const { data, error } = await supabase.storage
-        .from('media')
-        .list('', {
+      // Fetch files from root and page-content subfolder
+      const [rootResult, subfolderResult] = await Promise.all([
+        supabase.storage.from('media').list('', {
           limit: 100,
           sortBy: { column: 'created_at', order: 'desc' },
-        });
+        }),
+        supabase.storage.from('media').list('page-content', {
+          limit: 100,
+          sortBy: { column: 'created_at', order: 'desc' },
+        }),
+      ]);
 
-      if (error) {
-        throw error;
+      if (rootResult.error) {
+        console.error('Root list error:', rootResult.error);
+      }
+      if (subfolderResult.error) {
+        console.error('Subfolder list error:', subfolderResult.error);
       }
 
-      const filesWithUrls: MediaFile[] = (data || [])
-        .filter(file => file.name !== '.emptyFolderPlaceholder')
-        .map(file => {
+      const allFiles: MediaFile[] = [];
+
+      // Process root files
+      (rootResult.data || [])
+        .filter(file => file.name !== '.emptyFolderPlaceholder' && !file.id?.includes('folder'))
+        .forEach(file => {
+          // Skip if it's a folder (folders have null metadata)
+          if (file.metadata === null && file.id === null) return;
+          
           const { data: urlData } = supabase.storage
             .from('media')
             .getPublicUrl(file.name);
 
-          return {
-            id: file.id,
+          allFiles.push({
+            id: file.id || file.name,
             name: file.name,
             url: urlData.publicUrl,
             size: file.metadata?.size || 0,
             type: file.metadata?.mimetype || 'unknown',
             created_at: file.created_at,
-          };
+          });
         });
 
-      setFiles(filesWithUrls);
+      // Process page-content subfolder files
+      (subfolderResult.data || [])
+        .filter(file => file.name !== '.emptyFolderPlaceholder')
+        .forEach(file => {
+          if (file.metadata === null && file.id === null) return;
+          
+          const fullPath = `page-content/${file.name}`;
+          const { data: urlData } = supabase.storage
+            .from('media')
+            .getPublicUrl(fullPath);
+
+          allFiles.push({
+            id: file.id || file.name,
+            name: fullPath,
+            url: urlData.publicUrl,
+            size: file.metadata?.size || 0,
+            type: file.metadata?.mimetype || 'unknown',
+            created_at: file.created_at,
+          });
+        });
+
+      // Sort by created_at descending
+      allFiles.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+
+      setFiles(allFiles);
     } catch (err) {
       console.error('Failed to fetch media files:', err);
       toast({
