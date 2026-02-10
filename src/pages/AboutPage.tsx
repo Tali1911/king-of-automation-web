@@ -5,9 +5,11 @@ import SEO from '../components/SEO';
 import founderImage from '../assets/founder-naftali-koome.jpg';
 import { usePublicPageContent } from '@/hooks/usePageContent';
 import { RenderHtml } from '@/components/common/HtmlContent';
-
 const AboutPage = () => {
-  const { getContent, content } = usePublicPageContent('about');
+  const {
+    getContent,
+    content
+  } = usePublicPageContent('about');
 
   // Animation on scroll functionality
   useEffect(() => {
@@ -31,7 +33,6 @@ const AboutPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
   const heroTitle = getContent('hero_title', 'About NafArro Solutions');
   const heroSubtitle = getContent('hero_subtitle', "We're on a mission to transform businesses through intelligent automation and innovative technology solutions.");
   const storyTitle = getContent('story_title', 'Our Story');
@@ -44,30 +45,23 @@ const AboutPage = () => {
   const founderTitle = getContent('founder_title', 'Founder & Lead Developer');
   const founderBio = getContent('founder_bio', 'With a BSc in Computer Science and from The Catholic University of Eastern Africa, Lang\'ata, Naftali brings over half a decade of hands-on experience in software development and business automation.');
   const founderImageUrl = content['founder_image'];
-
-  const coreValues = [
-    {
-      icon: <CheckCircle size={40} className="text-secondary" />,
-      title: "Quality",
-      description: "We never compromise on the quality of our solutions, ensuring reliable, efficient, and secure applications."
-    },
-    {
-      icon: <Clock size={40} className="text-secondary" />,
-      title: "Timeliness",
-      description: "We understand the value of time and are committed to delivering projects on or before deadlines."
-    },
-    {
-      icon: <Users size={40} className="text-secondary" />,
-      title: "Collaboration",
-      description: "We work closely with our clients, encouraging open communication and feedback throughout the process."
-    },
-    {
-      icon: <Award size={40} className="text-secondary" />,
-      title: "Excellence",
-      description: "We strive for excellence in every aspect of our work, from code quality to client satisfaction."
-    }
-  ];
-
+  const coreValues = [{
+    icon: <CheckCircle size={40} className="text-secondary" />,
+    title: "Quality",
+    description: "We never compromise on the quality of our solutions, ensuring reliable, efficient, and secure applications."
+  }, {
+    icon: <Clock size={40} className="text-secondary" />,
+    title: "Timeliness",
+    description: "We understand the value of time and are committed to delivering projects on or before deadlines."
+  }, {
+    icon: <Users size={40} className="text-secondary" />,
+    title: "Collaboration",
+    description: "We work closely with our clients, encouraging open communication and feedback throughout the process."
+  }, {
+    icon: <Award size={40} className="text-secondary" />,
+    title: "Excellence",
+    description: "We strive for excellence in every aspect of our work, from code quality to client satisfaction."
+  }];
   const aboutPageSchema = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
@@ -90,16 +84,8 @@ const AboutPage = () => {
       "knowsAbout": ["Business Process Automation", "Web Development", "Data Analysis", "React Development", "Node.js", "Express", "MongoDB", "Supabase"]
     }
   };
-
-  return (
-    <>
-      <SEO 
-        title="About NafArro Solutions - Your Automation Experts | King of Automation" 
-        description="Learn about NafArro Solutions, leading automation specialists transforming businesses through intelligent technology solutions. Discover our mission, values, and commitment to excellence." 
-        keywords="about nafarro solutions, automation experts, company story, mission vision, core values, technology specialists, business automation company" 
-        canonical={typeof window !== 'undefined' ? window.location.href : ''} 
-        schemaData={aboutPageSchema} 
-      />
+  return <>
+      <SEO title="About NafArro Solutions - Your Automation Experts | King of Automation" description="Learn about NafArro Solutions, leading automation specialists transforming businesses through intelligent technology solutions. Discover our mission, values, and commitment to excellence." keywords="about nafarro solutions, automation experts, company story, mission vision, core values, technology specialists, business automation company" canonical={typeof window !== 'undefined' ? window.location.href : ''} schemaData={aboutPageSchema} />
       <div className="pt-20">
         {/* About Header */}
         <div className="bg-primary text-white py-16">
@@ -125,11 +111,7 @@ const AboutPage = () => {
               </div>
               
               <div className="rounded-lg overflow-hidden shadow-xl animate-on-scroll">
-                <img 
-                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" 
-                  alt="Team collaboration" 
-                  className="w-full h-auto" 
-                />
+                <img alt="Team collaboration" className="w-full h-auto" src="/lovable-uploads/c3e2aec1-cfb1-4841-8d57-5f075f5db03d.png" />
               </div>
             </div>
           </div>
@@ -146,12 +128,9 @@ const AboutPage = () => {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {coreValues.map((value, index) => (
-                <div 
-                  key={index} 
-                  className="bg-white p-8 rounded-lg shadow-md flex items-start space-x-5 animate-on-scroll" 
-                  style={{ transitionDelay: `${index * 0.2}s` }}
-                >
+              {coreValues.map((value, index) => <div key={index} className="bg-white p-8 rounded-lg shadow-md flex items-start space-x-5 animate-on-scroll" style={{
+              transitionDelay: `${index * 0.2}s`
+            }}>
                   <div className="flex-shrink-0 p-3 bg-primary/5 rounded-lg">
                     {value.icon}
                   </div>
@@ -159,8 +138,7 @@ const AboutPage = () => {
                     <h3 className="text-xl font-bold mb-2 text-primary">{value.title}</h3>
                     <p className="text-gray-600">{value.description}</p>
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </div>
         </section>
@@ -177,7 +155,9 @@ const AboutPage = () => {
                 </p>
               </div>
               
-              <div className="bg-accent p-8 rounded-lg text-white animate-on-scroll" style={{ transitionDelay: '0.3s' }}>
+              <div className="bg-accent p-8 rounded-lg text-white animate-on-scroll" style={{
+              transitionDelay: '0.3s'
+            }}>
                 <h3 className="text-2xl font-bold mb-4">{visionTitle}</h3>
                 <RenderHtml content={visionContent} className="text-gray-200 mb-4" />
                 <p className="text-gray-200">
@@ -231,11 +211,7 @@ const AboutPage = () => {
               <div className="order-1 lg:order-2 animate-on-scroll">
                 <div className="relative">
                   <div className="w-80 h-80 mx-auto rounded-2xl overflow-hidden shadow-2xl">
-                    <img 
-                      src={founderImageUrl || founderImage} 
-                      alt={`${founderName}, Founder of NafArro Solutions`} 
-                      className="w-full h-full object-cover" 
-                    />
+                    <img src={founderImageUrl || founderImage} alt={`${founderName}, Founder of NafArro Solutions`} className="w-full h-full object-cover" />
                   </div>
                   <div className="absolute -bottom-4 -right-4 bg-primary text-white p-4 rounded-lg shadow-lg">
                     <p className="text-sm font-medium">5+ Years</p>
@@ -262,8 +238,6 @@ const AboutPage = () => {
           </div>
         </section>
       </div>
-    </>
-  );
+    </>;
 };
-
 export default AboutPage;
