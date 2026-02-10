@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import founderImage from '../assets/founder-naftali-koome.jpg';
 import { usePublicPageContent } from '@/hooks/usePageContent';
+import { RenderHtml } from '@/components/common/HtmlContent';
 
 const AboutPage = () => {
   const { getContent, content } = usePublicPageContent('about');
@@ -104,9 +105,7 @@ const AboutPage = () => {
         <div className="bg-primary text-white py-16">
           <div className="container-custom">
             <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">{heroTitle}</h1>
-            <p className="text-xl text-gray-300 max-w-3xl animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              {heroSubtitle}
-            </p>
+            <RenderHtml content={heroSubtitle} className="text-xl text-gray-300 max-w-3xl animate-fade-in [&]:prose-invert" />
           </div>
         </div>
 
@@ -116,9 +115,7 @@ const AboutPage = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="animate-on-scroll">
                 <h2 className="text-3xl font-bold mb-6 text-primary">{storyTitle}</h2>
-                <p className="text-gray-700 mb-4">
-                  {storyContent}
-                </p>
+                <RenderHtml content={storyContent} className="text-gray-700 mb-4" />
                 <p className="text-gray-700 mb-4">
                   Our journey started when we recognized a common challenge across industries – businesses were spending valuable time on repetitive tasks that could be automated. We saw an opportunity to make a difference by creating custom solutions that would free up human resources for more creative and strategic work.
                 </p>
@@ -174,9 +171,7 @@ const AboutPage = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <div className="bg-primary p-8 rounded-lg text-white animate-on-scroll">
                 <h3 className="text-2xl font-bold mb-4">{missionTitle}</h3>
-                <p className="text-gray-200 mb-4">
-                  {missionContent}
-                </p>
+                <RenderHtml content={missionContent} className="text-gray-200 mb-4" />
                 <p className="text-gray-200">
                   We're committed to delivering high-quality, customized applications that solve real problems and create tangible value for our clients.
                 </p>
@@ -184,9 +179,7 @@ const AboutPage = () => {
               
               <div className="bg-accent p-8 rounded-lg text-white animate-on-scroll" style={{ transitionDelay: '0.3s' }}>
                 <h3 className="text-2xl font-bold mb-4">{visionTitle}</h3>
-                <p className="text-gray-200 mb-4">
-                  {visionContent}
-                </p>
+                <RenderHtml content={visionContent} className="text-gray-200 mb-4" />
                 <p className="text-gray-200">
                   We envision a future where businesses of all sizes can harness the power of automation to thrive in an increasingly digital world.
                 </p>
@@ -211,7 +204,7 @@ const AboutPage = () => {
                 <p className="text-lg text-accent mb-4 font-medium">{founderTitle}</p>
                 
                 <div className="space-y-4 text-gray-700">
-                  <p>{founderBio || "With a BSc in Computer Science and from The Catholic University of Eastern Africa, Lang'ata, Naftali brings over half a decade of hands-on experience in software development and business automation."}</p>
+                  <RenderHtml content={founderBio || "With a BSc in Computer Science and from The Catholic University of Eastern Africa, Lang'ata, Naftali brings over half a decade of hands-on experience in software development and business automation."} className="text-gray-700" />
                   
                   <p>
                     His expertise spans across full-stack development, database management, and enterprise-level automation solutions. Having worked on diverse projects ranging from church management systems to GPS tracking applications, Naftali understands the unique challenges businesses face in the digital age.
