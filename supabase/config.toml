@@ -12,3 +12,6 @@ verify_jwt = false
 
 [functions.send-consultation-request]
 verify_jwt = false
+
+[functions.track-visit]
+verify_jwt = false

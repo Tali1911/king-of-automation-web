@@ -14,6 +14,7 @@ import {
   ArrowUpRight,
   Loader2
 } from 'lucide-react';
+import { PageAnalyticsWidget } from '@/components/admin/PageAnalyticsWidget';
 import { format } from 'date-fns';
 
 interface DashboardStats {
@@ -196,6 +197,12 @@ export default function AdminDashboardPage() {
               </div>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Page Analytics */}
+        <div>
+          <h2 className="text-xl font-semibold text-foreground mb-4">Page Analytics</h2>
+          <PageAnalyticsWidget />
         </div>
 
         {/* Info Banner */}

@@ -23,6 +23,7 @@ import DataAnalysisPage from "./pages/services/DataAnalysisPage";
 import Chatbot from "./components/common/Chatbot";
 import ServiceCalculator from "./components/common/ServiceCalculator";
 import WebsiteGuide from "./components/common/WebsiteGuide";
+import { PageTracker } from "./components/common/PageTracker";
 
 // Admin imports
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
@@ -113,6 +114,7 @@ const App = () => (
                 <Chatbot />
                 <ServiceCalculator />
                 <WebsiteGuide />
+                <PageTracker />
               </div>
             }
           />
