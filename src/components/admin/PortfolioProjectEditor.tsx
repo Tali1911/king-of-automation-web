@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { ImageUploadField } from './ImageUploadField';
 import { RichTextEditor } from './RichTextEditor';
 import { PortfolioProject } from '@/hooks/usePortfolioProjects';
+import { usePortfolioCategories } from '@/hooks/usePortfolioCategories';
 
 interface PortfolioProjectEditorProps {
   project: PortfolioProject;
@@ -38,6 +39,7 @@ export function PortfolioProjectEditor({
   });
   const [newTech, setNewTech] = useState('');
   const [hasChanges, setHasChanges] = useState(false);
+  const { categories } = usePortfolioCategories();
 
   const handleChange = <K extends keyof typeof formData>(
     key: K,
@@ -131,8 +133,16 @@ export function PortfolioProjectEditor({
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="website">Website</SelectItem>
-                    <SelectItem value="automation">Automation</SelectItem>
+                    {categories.map((cat) => (
+                      <SelectItem key={cat.id} value={cat.slug}>
+                        {cat.name}
+                      </SelectItem>
+                    ))}
+                    {categories.length === 0 && (
+                      <SelectItem value="uncategorized" disabled>
+                        No categories — add some in Portfolio tab
+                      </SelectItem>
+                    )}
                   </SelectContent>
                 </Select>
               </div>
