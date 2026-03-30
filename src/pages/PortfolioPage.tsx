@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ExternalLink, Github, Loader2 } from 'lucide-react';
 import { usePublicPageContent } from '@/hooks/usePageContent';
 import { usePublicPortfolioProjects } from '@/hooks/usePortfolioProjects';
+import { usePublicPortfolioCategories } from '@/hooks/usePortfolioCategories';
  import { HtmlContent } from '@/components/common/HtmlContent';
  import {
    Dialog,
@@ -29,6 +30,7 @@ const fallbackImages: Record<string, string> = {
 const PortfolioPage = () => {
   const { getContent } = usePublicPageContent('portfolio');
   const { projects, isLoading: projectsLoading } = usePublicPortfolioProjects();
+  const { categories } = usePublicPortfolioCategories();
   const [filter, setFilter] = useState<string>('all');
   
   const heroTitle = getContent('hero_title', 'Our Portfolio');
@@ -163,26 +165,19 @@ const PortfolioPage = () => {
             >
               All Projects ({portfolioItems.length})
             </button>
-            <button
-              onClick={() => setFilter('website')}
-              className={`px-6 py-2 rounded-md font-medium transition-all ${
-                filter === 'website' 
-                  ? 'bg-primary text-white' 
-                  : 'bg-white text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              Websites ({portfolioItems.filter(item => item.category === 'website').length})
-            </button>
-            <button
-              onClick={() => setFilter('automation')}
-              className={`px-6 py-2 rounded-md font-medium transition-all ${
-                filter === 'automation' 
-                  ? 'bg-primary text-white' 
-                  : 'bg-white text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              Automation ({portfolioItems.filter(item => item.category === 'automation').length})
-            </button>
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setFilter(cat.slug)}
+                className={`px-6 py-2 rounded-md font-medium transition-all ${
+                  filter === cat.slug
+                    ? 'bg-primary text-white' 
+                    : 'bg-white text-gray-700 hover:bg-gray-100'
+                }`}
+              >
+                {cat.name} ({portfolioItems.filter(item => item.category === cat.slug).length})
+              </button>
+            ))}
           </div>
         </div>
       </section>
@@ -235,12 +230,8 @@ const PortfolioPage = () => {
                   </div>
                   <div className="p-6">
                     <div className="mb-4">
-                      <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
-                        item.category === 'website' 
-                          ? 'bg-blue-100 text-blue-800' 
-                          : 'bg-green-100 text-green-800'
-                      }`}>
-                        {item.category === 'website' ? 'Website' : 'Automation'}
+                      <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                        {categories.find(c => c.slug === item.category)?.name || item.category}
                       </span>
                     </div>
                     <h3 className="text-xl font-bold mb-2 text-primary">{item.title}</h3>

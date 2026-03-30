@@ -30,6 +30,7 @@ import {
 import { usePortfolioProjects, PortfolioProject } from '@/hooks/usePortfolioProjects';
 import { PortfolioProjectEditor } from './PortfolioProjectEditor';
 import { SortableProjectCard } from './SortableProjectCard';
+import { PortfolioCategoriesManager } from './PortfolioCategoriesManager';
 
 export function PortfolioProjectsTab() {
   const { projects, isLoading, isSaving, createProject, updateProject, deleteProject, reorderProjects } = usePortfolioProjects();
@@ -122,6 +123,9 @@ export function PortfolioProjectsTab() {
 
   return (
     <div className="space-y-6">
+      {/* Category Manager */}
+      <PortfolioCategoriesManager />
+
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-semibold">Portfolio Projects</h2>
