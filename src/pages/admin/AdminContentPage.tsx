@@ -5,6 +5,7 @@ import { PagesTab } from '@/components/admin/PagesTab';
 import { BlogPostsTab } from '@/components/admin/BlogPostsTab';
 import { MediaLibraryTab } from '@/components/admin/MediaLibraryTab';
 import { PortfolioProjectsTab } from '@/components/admin/PortfolioProjectsTab';
+import { InvoicesTab } from '@/components/admin/InvoicesTab';
 
 export default function AdminContentPage() {
   const [activeTab, setActiveTab] = useState('pages');
