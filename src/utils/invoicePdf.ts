@@ -54,7 +54,7 @@ export function generateInvoicePdf(invoice: Invoice): jsPDF {
   doc.text(new Date(invoice.date_issued).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }), rightCol, y, { align: 'right' });
   doc.text(new Date(invoice.payment_due).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }), rightCol, y + 5, { align: 'right' });
 
-  const statusColor = invoice.status === 'paid' ? [0, 128, 0] as const : invoice.status === 'overdue' ? [200, 0, 0] as const : NAVY;
+  const statusColor: [number, number, number] = invoice.status === 'paid' ? [0, 128, 0] : invoice.status === 'overdue' ? [200, 0, 0] : NAVY;
   doc.setTextColor(...statusColor);
   doc.text(invoice.status.toUpperCase(), rightCol, y + 10, { align: 'right' });
 
