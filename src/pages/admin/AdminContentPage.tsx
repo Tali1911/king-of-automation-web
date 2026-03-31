@@ -48,6 +48,10 @@ export default function AdminContentPage() {
           <TabsContent value="media">
             <MediaLibraryTab />
           </TabsContent>
+
+          <TabsContent value="invoices">
+            <InvoicesTab />
+          </TabsContent>
         </Tabs>
       </div>
     </AdminLayout>
