@@ -1,12 +1,12 @@
 import jsPDF from 'jspdf';
 import type { Invoice } from '@/hooks/useInvoices';
 
-const NAVY = [10, 36, 99] as const;
-const DARK = [30, 30, 30] as const;
-const GRAY = [100, 100, 100] as const;
-const LIGHT_GRAY = [200, 200, 200] as const;
-const WHITE = [255, 255, 255] as const;
-const TABLE_BG = [245, 247, 250] as const;
+const NAVY: [number, number, number] = [10, 36, 99];
+const DARK: [number, number, number] = [30, 30, 30];
+const GRAY: [number, number, number] = [100, 100, 100];
+const LIGHT_GRAY: [number, number, number] = [200, 200, 200];
+const WHITE: [number, number, number] = [255, 255, 255];
+const TABLE_BG: [number, number, number] = [245, 247, 250];
 
 function formatCurrency(amount: number, currency: string) {
   return `${currency} ${amount.toLocaleString('en-KE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
