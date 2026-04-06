@@ -161,6 +161,7 @@ export function BlogPostsTab() {
 
       {/* Blog Post Editor */}
       <BlogPostEditor
+        key={editingPost?.id || 'new'}
         post={editingPost}
         isOpen={editorOpen}
         onClose={() => {
