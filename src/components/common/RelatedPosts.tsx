@@ -4,14 +4,12 @@ import { useBlogPosts } from '@/hooks/useBlogPosts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface RelatedPostsProps {
-  category?: string;
   excludeSlug?: string;
   limit?: number;
   title?: string;
 }
 
 const RelatedPosts: React.FC<RelatedPostsProps> = ({
-  category,
   excludeSlug,
   limit = 3,
   title = 'From the Blog',
@@ -21,14 +19,10 @@ const RelatedPosts: React.FC<RelatedPostsProps> = ({
   if (isLoading) return null;
 
   const published = (posts || []).filter(
-    (p: any) => p.status === 'published' && p.slug !== excludeSlug
+    (p) => p.status === 'published' && p.slug !== excludeSlug
   );
 
-  const filtered = category
-    ? published.filter((p: any) => p.category === category)
-    : published;
-
-  const list = (filtered.length >= limit ? filtered : published).slice(0, limit);
+  const list = published.slice(0, limit);
 
   if (list.length === 0) return null;
 
@@ -48,7 +42,7 @@ const RelatedPosts: React.FC<RelatedPostsProps> = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {list.map((post: any) => (
+          {list.map((post) => (
             <Link
               key={post.id}
               to={`/blog/${post.slug || post.id}`}
@@ -57,11 +51,6 @@ const RelatedPosts: React.FC<RelatedPostsProps> = ({
             >
               <Card className="h-full hover:shadow-lg hover:border-primary transition-all">
                 <CardHeader>
-                  {post.category && (
-                    <span className="text-xs text-primary font-semibold uppercase tracking-wide">
-                      {post.category}
-                    </span>
-                  )}
                   <CardTitle className="text-lg group-hover:text-primary transition-colors">
                     {post.title}
                   </CardTitle>
