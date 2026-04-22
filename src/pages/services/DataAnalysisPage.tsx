@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BarChart3, TrendingUp, ArrowRight, Clock } from 'lucide-react';
 import SEO from '../../components/SEO';
+import RelatedServices from '../../components/common/RelatedServices';
+import RelatedPosts from '../../components/common/RelatedPosts';
 
 const DataAnalysisPage = () => {
   // Scroll to top when page loads
@@ -204,6 +206,8 @@ const DataAnalysisPage = () => {
             </div>
           </div>
         </section>
+        <RelatedServices currentPath="/services/data-analysis" />
+        <RelatedPosts title="Data & Analytics Insights" />
       </div>
     </>
   );
