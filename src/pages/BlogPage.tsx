@@ -6,6 +6,7 @@ import FeaturedPosts from '../components/blog/FeaturedPosts';
 import BlogCategories from '../components/blog/BlogCategories';
 import NewsletterSignup from '../components/blog/NewsletterSignup';
 import RecentPosts from '../components/blog/RecentPosts';
+import RelatedServices from '../components/common/RelatedServices';
 
 const BlogPage = () => {
   // Scroll to top when page loads
@@ -24,6 +25,7 @@ const BlogPage = () => {
       <FeaturedPosts />
       <BlogCategories />
       <RecentPosts />
+      <RelatedServices title="Our Services" />
       <NewsletterSignup />
     </div>
   );

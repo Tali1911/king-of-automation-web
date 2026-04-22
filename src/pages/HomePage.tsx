@@ -8,6 +8,7 @@ import TestimonialsSection from '../components/home/TestimonialsSection';
 import ContactCTASection from '../components/home/ContactCTASection';
 import FAQSection from '../components/common/FAQSection';
 import ServiceBooking from '../components/common/ServiceBooking';
+import RelatedPosts from '../components/common/RelatedPosts';
 import SEO from '../components/SEO';
 import { useNavigate } from 'react-router-dom';
 
@@ -101,6 +102,7 @@ const HomePage = () => {
         <TechStackSection />
         <TestimonialsSection />
         <ServiceBooking />
+        <RelatedPosts title="Latest from Our Blog" limit={3} />
         <FAQSection />
         <ContactCTASection />
       </div>
