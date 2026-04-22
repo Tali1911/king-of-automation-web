@@ -75,7 +75,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="googlebot" content={noindex ? "noindex,nofollow" : "index,follow"} />
       
       {/* Canonical URL */}
-      {canonical && <link rel="canonical" href={canonical} />}
+      <link rel="canonical" href={currentUrl} />
       
       {/* Open Graph Meta Tags */}
       <meta property="og:title" content={title} />
