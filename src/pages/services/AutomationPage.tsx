@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Code, Zap, ArrowRight, CheckCircle } from 'lucide-react';
 import SEO from '../../components/SEO';
+import RelatedServices from '../../components/common/RelatedServices';
+import RelatedPosts from '../../components/common/RelatedPosts';
 
 const AutomationPage = () => {
   // Scroll to top when page loads
@@ -198,6 +200,8 @@ const AutomationPage = () => {
             </div>
           </div>
         </section>
+        <RelatedServices currentPath="/services/automation" />
+        <RelatedPosts title="Automation Insights" />
       </div>
     </>
   );

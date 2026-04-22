@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Globe, CheckCircle, ArrowRight } from 'lucide-react';
 import SEO from '../../components/SEO';
+import RelatedServices from '../../components/common/RelatedServices';
+import RelatedPosts from '../../components/common/RelatedPosts';
 
 const WebDevelopmentPage = () => {
   // Scroll to top when page loads
@@ -169,6 +171,8 @@ const WebDevelopmentPage = () => {
             </div>
           </div>
         </section>
+        <RelatedServices currentPath="/services/web-development" />
+        <RelatedPosts title="Web Development Insights" />
       </div>
     </>
   );
