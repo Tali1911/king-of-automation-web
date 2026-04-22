@@ -89,10 +89,9 @@ const HomePage = () => {
   return (
     <>
       <SEO 
-        title="NafArro Solutions | King of Automation - Business Process Automation Experts"
-        description="Transform your business with NafArro Solutions' automation services. We specialize in website development, web applications, and data analysis using React, Node.js, Express, MongoDB, and Supabase."
-        keywords="automation, business process automation, web development, web applications, data analysis, React development, Node.js, Express, MongoDB, Supabase, custom software, process optimization"
-        canonical={typeof window !== 'undefined' ? window.location.href : ''}
+        title="Business Process Automation | NafArro Solutions"
+        description="NafArro Solutions builds custom websites, web apps & data automation for growing businesses. React, Node.js, Supabase experts based in Kenya."
+        keywords="business process automation, web development Kenya, web applications, data analysis, React developer, Node.js, Supabase, custom software, Nairobi automation"
         schemaData={homePageSchema}
       />
       <div>
