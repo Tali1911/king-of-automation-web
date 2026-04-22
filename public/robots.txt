@@ -10,12 +10,13 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
+User-agent: LinkedInBot
 Allow: /
 
-# Sitemap
-Sitemap: https://your-domain.com/sitemap.xml
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /admin
 
-# Block certain paths (if any)
-# Disallow: /admin/
-# Disallow: /private/
+# Sitemap
+Sitemap: https://nafarrosolutions.com/sitemap.xml
