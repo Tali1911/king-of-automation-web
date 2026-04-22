@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ExternalLink, Github, Loader2 } from 'lucide-react';
+import SEO from '../components/SEO';
 import { usePublicPageContent } from '@/hooks/usePageContent';
 import { usePublicPortfolioProjects } from '@/hooks/usePortfolioProjects';
 import { usePublicPortfolioCategories } from '@/hooks/usePortfolioCategories';
@@ -141,7 +142,11 @@ const PortfolioPage = () => {
 
   return (
     <div className="pt-20">
-      {/* Portfolio Header */}
+      <SEO
+        title="Portfolio | NafArro Solutions"
+        description="Explore NafArro Solutions' portfolio of automation, web development and data analysis projects delivered for clients across industries."
+        keywords="NafArro portfolio, web development projects, automation case studies, React projects Kenya, custom software portfolio"
+      />
       <div className="bg-primary text-white py-16">
         <div className="container-custom">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">{heroTitle}</h1>
