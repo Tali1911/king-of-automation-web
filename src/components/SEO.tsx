@@ -12,18 +12,23 @@ interface SEOProps {
   noindex?: boolean;
 }
 
+const PRODUCTION_URL = "https://nafarrosolutions.com";
+
 const SEO: React.FC<SEOProps> = ({
-  title = "NafArro Solutions | King of Automation",
-  description = "Leading automation specialists providing website development, web applications, and data analysis services. Transform your business with intelligent automation solutions.",
-  keywords = "automation, web development, web applications, data analysis, React, Node.js, Express, MongoDB, Supabase, business automation, process automation",
+  title = "Business Process Automation | NafArro Solutions",
+  description = "NafArro Solutions builds custom websites, web apps & data automation for growing businesses. React, Node.js, Supabase experts based in Kenya.",
+  keywords = "business process automation, web development, web applications, data analysis, React, Node.js, Supabase, custom software, Kenya automation",
   canonical,
   ogImage = "/lovable-uploads/554dc44c-5e9c-440a-8476-ae732b9fd973.png",
   ogType = "website",
   schemaData,
   noindex = false,
 }) => {
-  const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
-  const siteUrl = typeof window !== 'undefined' ? window.location.origin : '';
+  const browserOrigin = typeof window !== 'undefined' ? window.location.origin : PRODUCTION_URL;
+  const browserPath = typeof window !== 'undefined' ? window.location.pathname + window.location.search : '';
+  // Always prefer the production URL for canonical/OG so preview/staging don't pollute SEO
+  const siteUrl = PRODUCTION_URL;
+  const currentUrl = canonical || `${PRODUCTION_URL}${browserPath}`;
   
   const defaultSchemaData = {
     "@context": "https://schema.org",
