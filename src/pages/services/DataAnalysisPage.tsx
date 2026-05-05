@@ -30,7 +30,7 @@ const DataAnalysisPage = () => {
     <>
       <SEO 
         title="Data Analysis Services | NafArro Solutions"
-        description="Unlock insights from your data with our business intelligence and data analysis services. Drive strategic decision-making with custom analytics solutions."
+        description="Turn raw business data into dashboards, insights and automated reports that drive smarter, faster decisions."
         keywords="data analysis, business intelligence, predictive analytics, data visualization, business insights, data science"
         canonical={typeof window !== 'undefined' ? window.location.href : ''}
         schemaData={dataAnalysisSchema}
