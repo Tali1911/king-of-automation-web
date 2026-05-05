@@ -30,7 +30,7 @@ const WebDevelopmentPage = () => {
     <>
       <SEO 
         title="Website Development for Branding | NafArro Solutions"
-        description="Professional website development services that reflect your brand identity and engage your audience. Custom design, mobile-responsive, SEO optimized websites."
+        description="Custom, mobile-responsive, SEO-optimized websites built to reflect your brand and convert visitors into customers."
         keywords="website development, custom web design, brand website, responsive design, SEO optimization, web development Kenya"
         canonical={typeof window !== 'undefined' ? window.location.href : ''}
         schemaData={webDevSchema}

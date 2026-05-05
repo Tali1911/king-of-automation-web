@@ -116,7 +116,7 @@ const ServicesPage = () => {
     <>
       <SEO 
         title="Our Services - Website Development, Web Apps & Data Analysis | NafArro Solutions"
-        description="Discover NafArro Solutions' automation services: custom website development, web application automation, and data analysis. Transform your business with modern technology solutions."
+        description="NafArro Solutions services: custom website development, web app automation and data analysis for growing businesses."
         keywords="website development services, web application automation, data analysis services, custom web development, business process automation, React development, Node.js services"
         canonical={typeof window !== 'undefined' ? window.location.href : ''}
         schemaData={servicesPageSchema}

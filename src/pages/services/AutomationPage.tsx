@@ -30,7 +30,7 @@ const AutomationPage = () => {
     <>
       <SEO 
         title="Web Applications for Automation | NafArro Solutions"
-        description="Transform manual processes into efficient automated workflows with custom web applications. Streamline your business operations and boost productivity."
+        description="Replace manual workflows with custom web apps that streamline operations and boost team productivity."
         keywords="business automation, web applications, workflow automation, process optimization, custom software development, business efficiency"
         canonical={typeof window !== 'undefined' ? window.location.href : ''}
         schemaData={automationSchema}

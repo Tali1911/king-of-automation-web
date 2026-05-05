@@ -72,7 +72,7 @@ const ContactPage = () => {
     <>
       <SEO 
         title="Contact NafArro Solutions - Get Your Automation Project Started Today"
-        description="Contact NafArro Solutions for website development, web application automation, and data analysis services. Get expert consultation and free quotes for your automation project."
+        description="Contact NafArro Solutions for web development, automation and data analysis. Get a free quote and expert consultation."
         keywords="contact nafarro solutions, automation consultation, website development quote, web application development, data analysis consultation, business automation experts"
         canonical={typeof window !== 'undefined' ? window.location.href : ''}
         schemaData={contactPageSchema}
