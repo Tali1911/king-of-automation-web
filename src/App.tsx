@@ -14,6 +14,7 @@ import PortfolioPage from "./pages/PortfolioPage";
 import ContactPage from "./pages/ContactPage";
 import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
+import UnsubscribePage from "./pages/UnsubscribePage";
 import ConsultationPage from "./pages/ConsultationPage";
 import NotFound from "./pages/NotFound";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
@@ -104,6 +105,7 @@ const App = () => (
                     <Route path="/consultation" element={<ConsultationPage />} />
                     <Route path="/blog" element={<BlogPage />} />
                     <Route path="/blog/:id" element={<BlogPostPage />} />
+                    <Route path="/unsubscribe" element={<UnsubscribePage />} />
                     <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
                     <Route path="/terms-of-service" element={<TermsOfServicePage />} />
                     <Route path="/services/web-development" element={<WebDevelopmentPage />} />
