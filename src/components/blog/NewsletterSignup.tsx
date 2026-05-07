@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
@@ -14,13 +14,42 @@ interface NewsletterSignupProps {
   source?: string;
 }
 
+// Client-side throttle: max 3 attempts per 10 minutes per browser
+const RATE_KEY = 'naffaro-newsletter-attempts';
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const RATE_MAX = 3;
+
+const isClientRateLimited = () => {
+  try {
+    const now = Date.now();
+    const raw = localStorage.getItem(RATE_KEY);
+    const arr: number[] = raw ? JSON.parse(raw) : [];
+    const recent = arr.filter((t) => now - t < RATE_WINDOW_MS);
+    if (recent.length >= RATE_MAX) return true;
+    recent.push(now);
+    localStorage.setItem(RATE_KEY, JSON.stringify(recent));
+    return false;
+  } catch {
+    return false;
+  }
+};
+
 const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ source = 'blog' }) => {
   const [email, setEmail] = useState('');
+  const [website, setWebsite] = useState(''); // honeypot
   const [loading, setLoading] = useState(false);
+  const formLoadedAt = useRef<number>(Date.now());
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Honeypot trip — silently no-op
+    if (website.trim().length > 0) {
+      setEmail('');
+      return;
+    }
+
     const parsed = emailSchema.safeParse(email);
     if (!parsed.success) {
       toast({
@@ -31,10 +60,24 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ source = 'blog' }) 
       return;
     }
 
+    if (isClientRateLimited()) {
+      toast({
+        title: 'Too many attempts',
+        description: 'Please wait a few minutes before trying again.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     setLoading(true);
     try {
       const { error } = await supabase.functions.invoke('newsletter-subscribe', {
-        body: { email: parsed.data, source },
+        body: {
+          email: parsed.data,
+          source,
+          website,
+          formLoadedAt: formLoadedAt.current,
+        },
       });
       if (error) throw error;
 
@@ -79,6 +122,30 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ source = 'blog' }) 
             onSubmit={handleSubmit}
             className="flex flex-col md:flex-row gap-4 max-w-md mx-auto"
           >
+            {/* Honeypot field — hidden from real users */}
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                left: '-10000px',
+                top: 'auto',
+                width: 1,
+                height: 1,
+                overflow: 'hidden',
+              }}
+            >
+              <label htmlFor="nl-website">Website</label>
+              <input
+                id="nl-website"
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+              />
+            </div>
+
             <Input
               type="email"
               placeholder="Your email address"
