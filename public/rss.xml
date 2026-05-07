@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NafArro Solutions Blog</title>
+    <link>https://nafarrosolutions.com/blog</link>
+    <atom:link href="https://nafarrosolutions.com/rss.xml" rel="self" type="application/rss+xml" />
+    <description>Insights on business process automation, web development, and data analysis from NafArro Solutions.</description>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 07 May 2026 09:10:01 GMT</lastBuildDate>
+    <item>
+      <title><![CDATA[The Future of Automation in Small Business]]></title>
+      <link>https://nafarrosolutions.com/blog/1</link>
+      <guid isPermaLink="true">https://nafarrosolutions.com/blog/1</guid>
+      <pubDate>Thu, 15 May 2025 00:00:00 GMT</pubDate>
+      <category>Industry Insights</category>
+      <author>info@nafarrosolutions.com (Sarah Johnson)</author>
+      <description><![CDATA[How automation is revolutionizing the way small businesses operate and compete in today's market.]]></description>
+      <content:encoded><![CDATA[<p>Automation is no longer reserved for large enterprises. Small businesses across Kenya and beyond are now using workflow automation, AI assistants, and integrated dashboards to compete with much larger players.</p><p>In this article we explore the key areas where automation delivers the highest ROI for small business: customer onboarding, invoicing, lead follow-up, inventory tracking, and reporting. We also share a practical framework for choosing your first automation project.</p><p>The businesses that win the next decade will be the ones that free their teams from repetitive work so they can focus on strategy, creativity, and customer relationships.</p>]]></content:encoded>
+    </item>
+    <item>
+      <title><![CDATA[10 Processes You Should Automate Today]]></title>
+      <link>https://nafarrosolutions.com/blog/2</link>
+      <guid isPermaLink="true">https://nafarrosolutions.com/blog/2</guid>
+      <pubDate>Sat, 10 May 2025 00:00:00 GMT</pubDate>
+      <category>Tutorials</category>
+      <author>info@nafarrosolutions.com (Michael Chang)</author>
+      <description><![CDATA[A comprehensive guide to identifying and automating repetitive tasks that are costing your business time and money.]]></description>
+      <content:encoded><![CDATA[<p>Most teams are sitting on hours of recoverable time every week. In this guide we walk through ten specific business processes that almost always benefit from automation: invoice generation, appointment reminders, lead qualification, social media scheduling, report distribution, payroll calculations, customer feedback collection, file backups, document approvals, and onboarding checklists.</p><p>For each process we describe the typical pain point, a recommended tooling stack, and rough implementation effort so you can prioritize the quick wins first.</p>]]></content:encoded>
+    </item>
+    <item>
+      <title><![CDATA[Data-Driven Decision Making: A Beginner's Guide]]></title>
+      <link>https://nafarrosolutions.com/blog/3</link>
+      <guid isPermaLink="true">https://nafarrosolutions.com/blog/3</guid>
+      <pubDate>Mon, 05 May 2025 00:00:00 GMT</pubDate>
+      <category>Data Analysis</category>
+      <author>info@nafarrosolutions.com (Elena Rodriguez)</author>
+      <description><![CDATA[Learn how to leverage your business data to make informed decisions and drive growth.]]></description>
+      <content:encoded><![CDATA[<p>Data-driven decision making starts with asking the right questions. Before building dashboards or hiring analysts, define the handful of metrics that actually move your business forward.</p><p>This beginner's guide covers: identifying north-star metrics, choosing the right data sources, cleaning and consolidating data, building simple dashboards, and creating a weekly review rhythm. By the end you'll have a lightweight analytics practice you can actually sustain.</p>]]></content:encoded>
+    </item>
+    <item>
+      <title><![CDATA[5 Ways Automation Can Reduce Operational Costs]]></title>
+      <link>https://nafarrosolutions.com/blog/4</link>
+      <guid isPermaLink="true">https://nafarrosolutions.com/blog/4</guid>
+      <pubDate>Mon, 28 Apr 2025 00:00:00 GMT</pubDate>
+      <category>Industry Insights</category>
+      <author>info@nafarrosolutions.com (Sarah Johnson)</author>
+      <description><![CDATA[Discover how implementing automation in key areas can significantly cut your business expenses.]]></description>
+      <content:encoded><![CDATA[<p>Operational costs quietly eat into margins. Automation attacks them from five angles: reducing manual labour hours, eliminating costly human errors, improving asset utilisation, shortening cash collection cycles, and lowering customer support load through self-service.</p><p>We break down each lever with realistic examples from Kenyan SMEs and explain how to measure the savings so you can build a credible business case for your next automation initiative.</p>]]></content:encoded>
+    </item>
+    <item>
+      <title><![CDATA[Building Your First Automated Workflow with Node.js]]></title>
+      <link>https://nafarrosolutions.com/blog/5</link>
+      <guid isPermaLink="true">https://nafarrosolutions.com/blog/5</guid>
+      <pubDate>Tue, 22 Apr 2025 00:00:00 GMT</pubDate>
+      <category>Tutorials</category>
+      <author>info@nafarrosolutions.com (Michael Chang)</author>
+      <description><![CDATA[A technical tutorial on creating efficient automated workflows using Node.js and Express.]]></description>
+      <content:encoded><![CDATA[<p>In this hands-on tutorial we build a small but production-ready workflow in Node.js. The workflow watches an inbox, parses incoming purchase orders, writes them to a database, and notifies the operations team on Slack.</p><p>Along the way we cover project structure, environment configuration, error handling, retries, and basic observability. You'll finish with a template you can adapt to dozens of internal automation use-cases.</p>]]></content:encoded>
+    </item>
+    <item>
+      <title><![CDATA[The Role of AI in Modern Business Automation]]></title>
+      <link>https://nafarrosolutions.com/blog/6</link>
+      <guid isPermaLink="true">https://nafarrosolutions.com/blog/6</guid>
+      <pubDate>Fri, 18 Apr 2025 00:00:00 GMT</pubDate>
+      <category>Industry Insights</category>
+      <author>info@nafarrosolutions.com (Sarah Johnson)</author>
+      <description><![CDATA[Exploring how artificial intelligence is enhancing automation capabilities for businesses of all sizes.]]></description>
+      <content:encoded><![CDATA[<p>AI is changing what 'automation' even means. Where traditional automation handled rigid, rule-based tasks, AI now lets us automate fuzzy work: classifying tickets, summarising meetings, drafting replies, extracting data from messy documents.</p><p>This article maps the AI capabilities most relevant to small and mid-sized businesses today and gives you a checklist for evaluating where AI-powered automation will actually pay back.</p>]]></content:encoded>
+    </item>
+    <item>
+      <title><![CDATA[User Experience Best Practices for Business Applications]]></title>
+      <link>https://nafarrosolutions.com/blog/7</link>
+      <guid isPermaLink="true">https://nafarrosolutions.com/blog/7</guid>
+      <pubDate>Tue, 15 Apr 2025 00:00:00 GMT</pubDate>
+      <category>Web Development</category>
+      <author>info@nafarrosolutions.com (Elena Rodriguez)</author>
+      <description><![CDATA[Key principles to ensure your automated business applications provide excellent user experience.]]></description>
+      <content:encoded><![CDATA[<p>Internal tools deserve the same care as customer-facing products. We cover the UX principles that make business applications a joy to use: clear information hierarchy, fast feedback, forgiving forms, sensible defaults, keyboard friendliness, and thoughtful empty states.</p><p>Apply these and adoption of your automation tools will accelerate dramatically.</p>]]></content:encoded>
+    </item>
+    <item>
+      <title><![CDATA[Visualizing Data: Creating Effective Dashboards]]></title>
+      <link>https://nafarrosolutions.com/blog/8</link>
+      <guid isPermaLink="true">https://nafarrosolutions.com/blog/8</guid>
+      <pubDate>Thu, 10 Apr 2025 00:00:00 GMT</pubDate>
+      <category>Data Analysis</category>
+      <author>info@nafarrosolutions.com (Elena Rodriguez)</author>
+      <description><![CDATA[Learn how to design informative and user-friendly dashboards for your business data.]]></description>
+      <content:encoded><![CDATA[<p>A great dashboard answers a question in under five seconds. We share our team's checklist for building dashboards that get used: pick one audience, lead with the headline metric, choose chart types deliberately, annotate anomalies, and make filters obvious.</p><p>Includes worked examples for sales, operations, and customer-success dashboards.</p>]]></content:encoded>
+    </item>
+  </channel>
+</rss>
