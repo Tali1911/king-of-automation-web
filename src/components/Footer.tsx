@@ -63,6 +63,16 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                <a
+                  href="/rss.xml"
+                  className="text-gray-300 hover:text-secondary transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  RSS Feed
+                </a>
+              </li>
+              <li>
                 <Link to="/contact" className="text-gray-300 hover:text-secondary transition-colors">
                   Contact
                 </Link>

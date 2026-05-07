@@ -5,6 +5,7 @@ import SEO from '../components/SEO';
 import { Button } from '@/components/ui/button';
 import { getBlogPostById, blogPosts } from '@/data/blogPosts';
 import RelatedServices from '../components/common/RelatedServices';
+import NewsletterSignup from '../components/blog/NewsletterSignup';
 
 const BlogPostPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -93,6 +94,7 @@ const BlogPostPage = () => {
         </div>
       </section>
 
+      <NewsletterSignup source="blog-post" />
       <RelatedServices title="Explore Our Services" />
     </div>
   );
