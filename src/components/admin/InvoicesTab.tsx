@@ -5,9 +5,10 @@ import { InvoiceEditor } from './InvoiceEditor';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { Plus, Download, Mail, Trash2, Edit, FileText } from 'lucide-react';
+import { Plus, Download, Mail, Trash2, Edit, FileText, Sparkles } from 'lucide-react';
 import { downloadInvoicePdf } from '@/utils/invoicePdf';
 import { supabase } from '@/integrations/supabase/client';
+import { milestone2Prefill } from '@/data/invoicePrefills';
 import { useToast } from '@/hooks/use-toast';
 import {
   AlertDialog,
@@ -38,6 +39,11 @@ export function InvoicesTab() {
   const handleNew = () => {
     setIsNew(true);
     setEditing(null);
+  };
+
+  const handleNewPrefilled = () => {
+    setEditing({ invoice_number: generateInvoiceNumber(), ...milestone2Prefill } as Invoice);
+    setIsNew(false);
   };
 
   const handleEdit = async (invoice: Invoice) => {
@@ -99,9 +105,14 @@ export function InvoicesTab() {
           <h2 className="text-xl font-bold text-foreground">Invoices</h2>
           <p className="text-sm text-muted-foreground">Create, manage, and send invoices to clients</p>
         </div>
-        <Button onClick={handleNew}>
-          <Plus className="h-4 w-4 mr-2" /> New Invoice
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={handleNewPrefilled}>
+            <Sparkles className="h-4 w-4 mr-2" /> Milestone 2 Prefill
+          </Button>
+          <Button onClick={handleNew}>
+            <Plus className="h-4 w-4 mr-2" /> New Invoice
+          </Button>
+        </div>
       </div>
 
       {isLoading ? (
