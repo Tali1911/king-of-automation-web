@@ -5,9 +5,10 @@ import { InvoiceEditor } from './InvoiceEditor';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { Plus, Download, Mail, Trash2, Edit, FileText } from 'lucide-react';
+import { Plus, Download, Mail, Trash2, Edit, FileText, Sparkles } from 'lucide-react';
 import { downloadInvoicePdf } from '@/utils/invoicePdf';
 import { supabase } from '@/integrations/supabase/client';
+import { milestone2Prefill } from '@/data/invoicePrefills';
 import { useToast } from '@/hooks/use-toast';
 import {
   AlertDialog,
