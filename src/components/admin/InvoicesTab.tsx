@@ -105,9 +105,14 @@ export function InvoicesTab() {
           <h2 className="text-xl font-bold text-foreground">Invoices</h2>
           <p className="text-sm text-muted-foreground">Create, manage, and send invoices to clients</p>
         </div>
-        <Button onClick={handleNew}>
-          <Plus className="h-4 w-4 mr-2" /> New Invoice
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={handleNewPrefilled}>
+            <Sparkles className="h-4 w-4 mr-2" /> Milestone 2 Prefill
+          </Button>
+          <Button onClick={handleNew}>
+            <Plus className="h-4 w-4 mr-2" /> New Invoice
+          </Button>
+        </div>
       </div>
 
       {isLoading ? (
