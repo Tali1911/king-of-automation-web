@@ -41,6 +41,11 @@ export function InvoicesTab() {
     setEditing(null);
   };
 
+  const handleNewPrefilled = () => {
+    setEditing({ invoice_number: '', ...milestone2Prefill } as Invoice);
+    setIsNew(false);
+  };
+
   const handleEdit = async (invoice: Invoice) => {
     const full = await fetchInvoiceWithItems(invoice.id!);
     setEditing(full);
