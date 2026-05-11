@@ -42,7 +42,7 @@ export function InvoicesTab() {
   };
 
   const handleNewPrefilled = () => {
-    setEditing({ invoice_number: '', ...milestone2Prefill } as Invoice);
+    setEditing({ invoice_number: generateInvoiceNumber(), ...milestone2Prefill } as Invoice);
     setIsNew(false);
   };
 
