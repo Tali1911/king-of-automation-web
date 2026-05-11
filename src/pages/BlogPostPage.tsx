@@ -71,7 +71,7 @@ const BlogPostPage = () => {
         description={post.excerpt}
         keywords={`${post.category}, ${post.title}, NafArro Solutions blog`}
         canonical={postUrl}
-        ogImage={post.image}
+        
         ogType="article"
         schemaData={{ "@context": "https://schema.org", "@graph": [articleSchema, breadcrumbSchema] }}
       />
