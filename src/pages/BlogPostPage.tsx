@@ -21,12 +21,59 @@ const BlogPostPage = () => {
 
   const related = blogPosts.filter((p) => p.id !== post.id).slice(0, 3);
 
+  const postUrl = `https://nafarrosolutions.com/blog/${post.id}`;
+  const isoDate = (() => {
+    const d = new Date(post.date);
+    return isNaN(d.getTime()) ? new Date().toISOString() : d.toISOString();
+  })();
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": { "@type": "WebPage", "@id": postUrl },
+    "headline": post.title,
+    "description": post.excerpt,
+    "image": [post.image],
+    "datePublished": isoDate,
+    "dateModified": isoDate,
+    "author": {
+      "@type": "Person",
+      "name": post.author,
+      "jobTitle": post.authorRole,
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "NafArro Solutions",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://nafarrosolutions.com/lovable-uploads/554dc44c-5e9c-440a-8476-ae732b9fd973.png",
+      },
+    },
+    "articleSection": post.category,
+    "url": postUrl,
+    "inLanguage": "en-US",
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://nafarrosolutions.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://nafarrosolutions.com/blog" },
+      { "@type": "ListItem", "position": 3, "name": post.title, "item": postUrl },
+    ],
+  };
+
   return (
     <div className="min-h-screen">
       <SEO
         title={`${post.title} | NafArro Solutions Blog`}
         description={post.excerpt}
         keywords={`${post.category}, ${post.title}, NafArro Solutions blog`}
+        canonical={postUrl}
+        ogImage={post.image}
+        ogType="article"
+        schemaData={{ "@context": "https://schema.org", "@graph": [articleSchema, breadcrumbSchema] }}
       />
 
       <article className="bg-background">
