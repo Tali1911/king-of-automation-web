@@ -19,4 +19,4 @@ Disallow: /admin/
 Disallow: /admin
 
 # Sitemap
-Sitemap: https://nafarrosolutions.com/sitemap.xml
+Sitemap: https://king-of-automation-web.lovable.app/sitemap.xml
