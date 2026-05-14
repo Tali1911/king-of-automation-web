@@ -78,7 +78,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="og:description" content={description} />
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={currentUrl} />
-      <meta property="og:image" content={`${siteUrl}${ogImage}`} />
+      <meta property="og:image" content={ogImageUrl} />
       <meta property="og:image:alt" content="NafArro Solutions - Automation Specialists" />
       <meta property="og:site_name" content="NafArro Solutions" />
       <meta property="og:locale" content="en_US" />
@@ -89,7 +89,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:creator" content="@nafarrosolutions" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
+      <meta name="twitter:image" content={ogImageUrl} />
       <meta name="twitter:image:alt" content="NafArro Solutions - Automation Specialists" />
       
       {/* Additional Meta Tags */}
