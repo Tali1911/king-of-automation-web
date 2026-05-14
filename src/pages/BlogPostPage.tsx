@@ -67,7 +67,7 @@ const BlogPostPage = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title={`${post.title} | NafArro Solutions Blog`}
+        title={`${post.title} | NafArro Blog`}
         description={post.excerpt}
         keywords={`${post.category}, ${post.title}, NafArro Solutions blog`}
         canonical={postUrl}

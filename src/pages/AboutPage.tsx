@@ -85,7 +85,7 @@ const AboutPage = () => {
     }
   };
   return <>
-      <SEO title="About NafArro Solutions - Your Automation Experts | King of Automation" description="Meet NafArro Solutions: automation specialists helping businesses grow through web, app and data solutions built around your goals." keywords="about nafarro solutions, automation experts, company story, mission vision, core values, technology specialists, business automation company" canonical={typeof window !== 'undefined' ? window.location.href : ''} schemaData={aboutPageSchema} />
+      <SEO title="About NafArro Solutions | Automation Experts" description="Meet NafArro Solutions: automation specialists helping businesses grow through web, app and data solutions built around your goals." keywords="about nafarro solutions, automation experts, company story, mission vision, core values, technology specialists, business automation company" canonical={typeof window !== 'undefined' ? window.location.href : ''} schemaData={aboutPageSchema} />
       <div className="pt-20">
         {/* About Header */}
         <div className="bg-primary text-white py-16">

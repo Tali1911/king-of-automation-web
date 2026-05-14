@@ -71,7 +71,7 @@ const ContactPage = () => {
   return (
     <>
       <SEO 
-        title="Contact NafArro Solutions - Get Your Automation Project Started Today"
+        title="Contact NafArro Solutions | Start Your Project"
         description="Contact NafArro Solutions for web development, automation and data analysis. Get a free quote and expert consultation."
         keywords="contact nafarro solutions, automation consultation, website development quote, web application development, data analysis consultation, business automation experts"
         canonical={typeof window !== 'undefined' ? window.location.href : ''}

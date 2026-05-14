@@ -115,7 +115,7 @@ const ServicesPage = () => {
   return (
     <>
       <SEO 
-        title="Our Services - Website Development, Web Apps & Data Analysis | NafArro Solutions"
+        title="Web Dev, Apps & Data Services | NafArro Solutions"
         description="NafArro Solutions services: custom website development, web app automation and data analysis for growing businesses."
         keywords="website development services, web application automation, data analysis services, custom web development, business process automation, React development, Node.js services"
         canonical={typeof window !== 'undefined' ? window.location.href : ''}

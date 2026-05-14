@@ -1,0 +1,24 @@
+# NafArro Solutions
+
+> Kenya-based technology partner building business process automation, custom websites, web applications, and data analysis solutions for growing businesses worldwide.
+
+NafArro Solutions ("King of Automation") helps small and mid-sized companies replace manual workflows with reliable software. We specialize in React, Node.js, TypeScript, and Supabase, and serve clients across East Africa and globally. Engagements start with a free consultation and are quoted by email — we do not display public pricing.
+
+## Pages
+
+- [Home](/): Overview of services, expertise, and client outcomes.
+- [About](/about): Company story, mission, and team.
+- [Services](/services): Full catalogue of automation, web, and data services.
+- [Web Development](/services/web-development): Custom websites and SEO-friendly marketing sites.
+- [Web Applications & Automation](/services/automation): Internal tools and workflow automation.
+- [Data Analysis & Reporting](/services/data-analysis): Dashboards, ETL, and automated reporting.
+- [Portfolio](/portfolio): Selected client projects and case studies.
+- [Blog](/blog): Articles on automation, web development, and data analysis.
+- [Consultation](/consultation): Book a free discovery call.
+- [Contact](/contact): Email, phone, and inquiry form.
+
+## Optional
+
+- [Privacy Policy](/privacy-policy)
+- [Terms of Service](/terms-of-service)
+- [RSS Feed](/rss.xml)
