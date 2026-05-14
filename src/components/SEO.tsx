@@ -26,42 +26,38 @@ const SEO: React.FC<SEOProps> = ({
 }) => {
   const browserOrigin = typeof window !== 'undefined' ? window.location.origin : PRODUCTION_URL;
   const browserPath = typeof window !== 'undefined' ? window.location.pathname + window.location.search : '';
-  // Always prefer the production URL for canonical/OG so preview/staging don't pollute SEO
   const siteUrl = PRODUCTION_URL;
   const currentUrl = canonical || `${PRODUCTION_URL}${browserPath}`;
-  
+  const isAbsolute = /^https?:\/\//i.test(ogImage);
+  const ogImageUrl = isAbsolute ? ogImage : `${siteUrl}${ogImage}`;
+
   const defaultSchemaData = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "NafArro Solutions",
-    "description": "Leading automation specialists providing innovative technology solutions",
+    "alternateName": "King of Automation",
+    "description": "Business process automation, web development and data analysis specialists based in Kenya.",
     "url": siteUrl,
     "logo": `${siteUrl}/lovable-uploads/554dc44c-5e9c-440a-8476-ae732b9fd973.png`,
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "Customer Service",
-      "telephone": "+1-555-NAFARRO",
-      "email": "info@nafarrosolutions.com"
+      "email": "info@nafarrosolutions.com",
+      "areaServed": "Worldwide",
+      "availableLanguage": ["English"]
     },
     "address": {
       "@type": "PostalAddress",
-      "addressCountry": "US"
+      "addressLocality": "Nairobi",
+      "addressCountry": "KE"
     },
     "sameAs": [
       "https://twitter.com/nafarrosolutions",
       "https://linkedin.com/company/nafarrosolutions"
     ],
-    "founder": {
-      "@type": "Person",
-      "name": "NafArro Team"
-    },
     "foundingDate": "2023",
-    "numberOfEmployees": "10-50",
     "industry": "Technology Services",
-    "serviceArea": {
-      "@type": "Place",
-      "name": "Worldwide"
-    }
+    "areaServed": { "@type": "Place", "name": "Worldwide" }
   };
 
   return (
