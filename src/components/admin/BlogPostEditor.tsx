@@ -72,6 +72,10 @@ export function BlogPostEditor({ post, isOpen, onClose, onSave }: BlogPostEditor
       excerpt: excerpt.trim() || undefined,
       featured_image: featuredImage.trim() || undefined,
       status,
+      author: author.trim() || undefined,
+      author_role: authorRole.trim() || undefined,
+      category: category.trim() || undefined,
+      read_time: readTime.trim() || undefined,
     });
 
     setIsSaving(false);
