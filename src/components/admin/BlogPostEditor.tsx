@@ -36,6 +36,10 @@ export function BlogPostEditor({ post, isOpen, onClose, onSave }: BlogPostEditor
   const [excerpt, setExcerpt] = useState(post?.excerpt || '');
   const [status, setStatus] = useState<'draft' | 'published'>(post?.status || 'draft');
   const [featuredImage, setFeaturedImage] = useState(post?.featured_image || '');
+  const [author, setAuthor] = useState(post?.author || '');
+  const [authorRole, setAuthorRole] = useState(post?.author_role || '');
+  const [category, setCategory] = useState(post?.category || '');
+  const [readTime, setReadTime] = useState(post?.read_time || '');
   const [isSaving, setIsSaving] = useState(false);
 
   const generateSlug = (text: string) => {
