@@ -165,6 +165,45 @@ export function BlogPostEditor({ post, isOpen, onClose, onSave }: BlogPostEditor
             </div>
           </div>
 
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="author">Author</Label>
+              <Input
+                id="author"
+                value={author}
+                onChange={(e) => setAuthor(e.target.value)}
+                placeholder="e.g. Sarah Johnson"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="authorRole">Author Role</Label>
+              <Input
+                id="authorRole"
+                value={authorRole}
+                onChange={(e) => setAuthorRole(e.target.value)}
+                placeholder="e.g. CTO at NafArro Solutions"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="category">Category</Label>
+              <Input
+                id="category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                placeholder="e.g. Industry Insights"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="readTime">Read Time</Label>
+              <Input
+                id="readTime"
+                value={readTime}
+                onChange={(e) => setReadTime(e.target.value)}
+                placeholder="e.g. 5 min read"
+              />
+            </div>
+          </div>
+
           <DialogFooter>
             <Button type="button" variant="outline" onClick={onClose}>
               Cancel
