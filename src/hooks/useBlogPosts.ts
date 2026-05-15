@@ -11,6 +11,10 @@ export interface BlogPost {
   featured_image: string | null;
   status: 'draft' | 'published';
   author_id: string | null;
+  author: string | null;
+  author_role: string | null;
+  category: string | null;
+  read_time: string | null;
   published_at: string | null;
   created_at: string;
   updated_at: string;
@@ -23,6 +27,10 @@ export interface BlogPostInput {
   excerpt?: string;
   featured_image?: string;
   status?: 'draft' | 'published';
+  author?: string;
+  author_role?: string;
+  category?: string;
+  read_time?: string;
 }
 
 export function useBlogPosts() {
