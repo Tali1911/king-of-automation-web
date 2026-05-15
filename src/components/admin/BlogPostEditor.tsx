@@ -36,6 +36,10 @@ export function BlogPostEditor({ post, isOpen, onClose, onSave }: BlogPostEditor
   const [excerpt, setExcerpt] = useState(post?.excerpt || '');
   const [status, setStatus] = useState<'draft' | 'published'>(post?.status || 'draft');
   const [featuredImage, setFeaturedImage] = useState(post?.featured_image || '');
+  const [author, setAuthor] = useState(post?.author || '');
+  const [authorRole, setAuthorRole] = useState(post?.author_role || '');
+  const [category, setCategory] = useState(post?.category || '');
+  const [readTime, setReadTime] = useState(post?.read_time || '');
   const [isSaving, setIsSaving] = useState(false);
 
   const generateSlug = (text: string) => {
@@ -68,6 +72,10 @@ export function BlogPostEditor({ post, isOpen, onClose, onSave }: BlogPostEditor
       excerpt: excerpt.trim() || undefined,
       featured_image: featuredImage.trim() || undefined,
       status,
+      author: author.trim() || undefined,
+      author_role: authorRole.trim() || undefined,
+      category: category.trim() || undefined,
+      read_time: readTime.trim() || undefined,
     });
 
     setIsSaving(false);
@@ -154,6 +162,45 @@ export function BlogPostEditor({ post, isOpen, onClose, onSave }: BlogPostEditor
                   <SelectItem value="published">Published</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="author">Author</Label>
+              <Input
+                id="author"
+                value={author}
+                onChange={(e) => setAuthor(e.target.value)}
+                placeholder="e.g. Sarah Johnson"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="authorRole">Author Role</Label>
+              <Input
+                id="authorRole"
+                value={authorRole}
+                onChange={(e) => setAuthorRole(e.target.value)}
+                placeholder="e.g. CTO at NafArro Solutions"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="category">Category</Label>
+              <Input
+                id="category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                placeholder="e.g. Industry Insights"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="readTime">Read Time</Label>
+              <Input
+                id="readTime"
+                value={readTime}
+                onChange={(e) => setReadTime(e.target.value)}
+                placeholder="e.g. 5 min read"
+              />
             </div>
           </div>
 
