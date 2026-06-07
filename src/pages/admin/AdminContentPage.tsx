@@ -6,6 +6,7 @@ import { BlogPostsTab } from '@/components/admin/BlogPostsTab';
 import { MediaLibraryTab } from '@/components/admin/MediaLibraryTab';
 import { PortfolioProjectsTab } from '@/components/admin/PortfolioProjectsTab';
 import { InvoicesTab } from '@/components/admin/InvoicesTab';
+import { QuotationsTab } from '@/components/admin/QuotationsTab';
 
 export default function AdminContentPage() {
   const [activeTab, setActiveTab] = useState('pages');
@@ -30,6 +31,7 @@ export default function AdminContentPage() {
             <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
             <TabsTrigger value="blog">Blog Posts</TabsTrigger>
             <TabsTrigger value="media">Media Library</TabsTrigger>
+            <TabsTrigger value="quotations">Quotations</TabsTrigger>
             <TabsTrigger value="invoices">Invoices</TabsTrigger>
           </TabsList>
 
@@ -47,6 +49,10 @@ export default function AdminContentPage() {
 
           <TabsContent value="media">
             <MediaLibraryTab />
+          </TabsContent>
+
+          <TabsContent value="quotations">
+            <QuotationsTab />
           </TabsContent>
 
           <TabsContent value="invoices">
