@@ -1,32 +1,45 @@
-## Goal
-Move the 8 hardcoded blog posts in `src/data/blogPosts.ts` into the `blog_posts` Supabase table so they show up in the admin Blog CMS and can be edited like any other post.
+# Add Quotations to Admin
 
-## Approach
+Mirror the existing Invoices feature so admins can create, edit, download, email, and (optionally) convert quotations into invoices before billing clients.
 
-1. **Seed the database** — Insert all 8 static posts into the `blog_posts` table using the insert tool (data operation, not schema). Each post will be mapped:
-   - `title`, `excerpt`, `content` → direct copy
-   - `slug` → generated from title (e.g. `the-future-of-automation-in-small-business`)
-   - `featured_image` → `image` URL
-   - `status` → `published`
-   - `published_at` → parsed from the `date` field (e.g. "May 15, 2025")
-   - `created_at` → same as published_at to preserve order
-   - `author_id` → null (static authors like "Sarah Johnson" aren't real admin users)
-   - Idempotent: use `ON CONFLICT (slug) DO NOTHING` so re-runs are safe.
+## What admins will get
 
-2. **Update public blog pages to read from DB** — Currently `BlogPage`, `FeaturedPosts`, `RecentPosts`, `RelatedPosts`, and `BlogPostPage` likely read from the static `blogPosts.ts`. After seeding, these need to fetch from `blog_posts` (filtered to `status = 'published'`) so edits in the CMS actually surface on the public site. Otherwise seeding alone is cosmetic — admin can edit, but visitors still see the static file.
-   - Reuse existing `useBlogPosts` hook or create a public `usePublishedBlogPosts` variant (no auth required, RLS already allows public read of published posts — to be confirmed when reading the table policy).
+- A new **Quotations** tab in `/admin/content` (next to Invoices).
+- Create / edit quotations with the same editor UX as invoices: client info, line items (qty, unit price, amount), currency, notes, validity date.
+- Statuses tailored to quotes: `draft`, `sent`, `accepted`, `declined`, `expired`.
+- Actions per quotation: Edit, Download PDF, Send via Email, Delete, and **Convert to Invoice** (creates a new invoice prefilled from the quotation and marks the quote as `accepted`).
+- Auto-generated quote numbers like `QUO-2026-001`.
+- PDF + email templates branded the same as invoices, but labeled "Quotation".
 
-3. **Retire `src/data/blogPosts.ts`** — Once the public pages read from the DB, delete the file (or keep as a one-time seed reference). Author name/role aren't in the schema, so they'll be dropped unless we want to extend the schema (out of scope unless requested).
+## Technical plan
 
-## Technical notes
+### Database (migration)
+Two new tables in `public`, mirroring `invoices` / `invoice_items`:
 
-- Schema fields not present for static data: `author` (name) and `authorRole`. These will be lost unless we add columns. Recommend dropping for now since the CMS doesn't manage them either.
-- `readTime` and `category` are also not in `blog_posts`. Same trade-off — drop unless schema is extended.
-- Seeding runs once via the Supabase insert tool; no migration needed.
+- `quotations`
+  - `id`, `quote_number` (unique), `date_issued`, `valid_until`
+  - `status` (text, default `draft`)
+  - `client_name`, `client_address`, `client_email`
+  - `project_name`, `currency` (default `KES`), `notes`
+  - `converted_invoice_id` (nullable FK → `invoices.id`)
+  - `created_at`, `updated_at`
+- `quotation_items`
+  - `id`, `quotation_id` (FK cascade), `description`, `details`, `qty`, `unit_price`, `amount`, `sort_order`
 
-## Questions before I implement
+GRANTs + RLS: same pattern used for `invoices` (admin-only via `has_role(auth.uid(),'admin')`), plus `GRANT ALL` to `service_role` for edge functions.
 
-1. **Lossy fields** — `author` (e.g. "Sarah Johnson"), `authorRole`, `category`, and `readTime` aren't in the `blog_posts` schema. Options:
-   - (a) Drop them (simplest, fastest)
-   - (b) Add columns to `blog_posts` so they're preserved and editable in the CMS
-2. **Public site rewiring** — Should I also switch the public blog pages (`BlogPage`, post detail, featured/recent/related) to read from the DB so CMS edits actually appear live? Strongly recommended; otherwise seeding has no visible effect on visitors.
+### Frontend
+- `src/hooks/useQuotations.ts` — clone of `useInvoices.ts` (list, fetch-with-items, create, update, delete, status update, `generateQuoteNumber`, plus `convertToInvoice` mutation that inserts an invoice + items via the existing `useInvoices` create path and updates the quote).
+- `src/components/admin/QuotationEditor.tsx` — clone of `InvoiceEditor.tsx` with "Valid Until" instead of "Payment Due" and quote-specific status options.
+- `src/components/admin/QuotationsTab.tsx` — clone of `InvoicesTab.tsx`, adds a **Convert to Invoice** action button.
+- `src/pages/admin/AdminContentPage.tsx` — add a `Quotations` tab between Blog and Invoices.
+- `src/utils/quotationPdf.ts` — clone of `invoicePdf.ts`, header reads "QUOTATION", footer notes validity.
+
+### Edge function
+- `supabase/functions/send-quotation-email/index.ts` — clone of `send-invoice-email`, subject/body reference quotation + validity date, attaches the generated PDF (or reuses the same PDF-by-link pattern already in use for invoices).
+
+### Out of scope
+- No public-facing quote acceptance page (admin-only management for now).
+- No changes to the public site, calculator, or existing invoices logic beyond reading the create path from the convert action.
+
+After approval I'll write the migration, the hook, the editor, the tab, the PDF util, the edge function, and wire the new tab into `AdminContentPage`.
