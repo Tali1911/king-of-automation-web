@@ -37,11 +37,11 @@ const HeroSection = () => {
     }
   }, []);
 
-  const heroTitle = getContent('hero_title', 'NafArro Solutions');
+  const heroTitle = getContent('hero_title', 'Put Your Business on Auto-Pilot');
   const heroSlogan = getContent('hero_slogan', 'King of Automation');
-  const heroSubtitle = getContent('hero_subtitle', 'We transform manual processes into automated workflows, saving you time, reducing errors, and increasing productivity with cutting-edge technology solutions.');
-  const primaryCTA = getContent('hero_cta_primary', 'Schedule Consultation');
-  const secondaryCTA = getContent('hero_cta_secondary', 'Explore Services');
+  const heroSubtitle = getContent('hero_subtitle', 'We build websites and smart tools that run the boring parts of your business for you — emails, invoices, leads, payments, content updates. So you can stop doing repetitive work and focus on growing.');
+  const primaryCTA = getContent('hero_cta_primary', 'Get a Free Quote');
+  const secondaryCTA = getContent('hero_cta_secondary', 'See What We Build');
 
   return (
     <section className="relative h-screen flex items-center overflow-hidden bg-gradient-to-br from-primary via-[#0A3472] to-[#104B8B]">

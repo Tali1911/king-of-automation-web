@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Check, Clock, Code, Users } from 'lucide-react';
+import { Zap, Wallet, Settings, HeartHandshake } from 'lucide-react';
 import { usePublicPageContent } from '@/hooks/usePageContent';
 
 const WhyChooseUsSection = () => {
@@ -25,32 +25,32 @@ const WhyChooseUsSection = () => {
     };
   }, []);
 
-  const sectionTitle = getContent('why_choose_title', 'Why Choose Us');
-  const sectionSubtitle = getContent('why_choose_subtitle', "We're committed to excellence, innovation, and your success");
+  const sectionTitle = getContent('why_choose_title', 'Why Founders Choose NafArro');
+  const sectionSubtitle = getContent('why_choose_subtitle', 'Bold work, honest pricing, and speed you can feel.');
 
   const reasons = [
     {
-      icon: <Code size={40} className="text-secondary" />,
-      title: "Expert Development",
-      description: "Our team comprises skilled developers with expertise in React, Node.js/Express, and Django.",
+      icon: <Zap size={40} className="text-secondary" />,
+      title: "Built Fast",
+      description: "Most projects go live in weeks, not months. We move at the speed of your business.",
       delay: 0
     },
     {
-      icon: <Users size={40} className="text-secondary" />,
-      title: "Client-Focused Approach",
-      description: "We prioritize your specific needs to deliver customized solutions that align with your goals.",
+      icon: <Wallet size={40} className="text-secondary" />,
+      title: "Honest Pricing",
+      description: "Pay once, own forever. No surprise monthly fees, no per-user pricing, no platform lock-in.",
       delay: 0.2
     },
     {
-      icon: <Check size={40} className="text-secondary" />,
-      title: "Quality Assurance",
-      description: "Rigorous testing ensures your applications are reliable, secure, and perform optimally.",
+      icon: <Settings size={40} className="text-secondary" />,
+      title: "You Stay In Control",
+      description: "Every site comes with a simple admin panel so you can edit text, images, and content yourself — no developer needed.",
       delay: 0.4
     },
     {
-      icon: <Clock size={40} className="text-secondary" />,
-      title: "Timely Delivery",
-      description: "We understand the value of your time and are committed to delivering projects on schedule.",
+      icon: <HeartHandshake size={40} className="text-secondary" />,
+      title: "A Real Partner",
+      description: "Direct line to the team that built it. No tickets, no call centers, just people who care about your success.",
       delay: 0.6
     }
   ];
@@ -81,6 +81,28 @@ const WhyChooseUsSection = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Who We Help band */}
+        <div className="mt-16 animate-on-scroll">
+          <div className="rounded-2xl bg-gradient-to-br from-primary to-[#0A3472] p-8 md:p-12 text-center text-white shadow-xl">
+            <h3 className="text-2xl md:text-3xl font-bold mb-3">
+              From solo founders to growing enterprises — anywhere in the world.
+            </h3>
+            <p className="text-gray-200/90 max-w-2xl mx-auto mb-6">
+              If your business runs on repetitive work, we can automate it. No industry too small, no idea too big.
+            </p>
+            <div className="flex flex-wrap justify-center gap-2 md:gap-3">
+              {['Solo Entrepreneurs', 'SMEs', 'Enterprises', 'Remote-friendly', 'Global Delivery'].map((tag) => (
+                <span
+                  key={tag}
+                  className="px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm font-medium backdrop-blur-sm"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

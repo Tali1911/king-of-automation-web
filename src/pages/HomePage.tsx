@@ -1,6 +1,7 @@
 
 import React, { useEffect } from 'react';
 import HeroSection from '../components/home/HeroSection';
+import ProblemsSection from '../components/home/ProblemsSection';
 import ServicesSection from '../components/home/ServicesSection';
 import WhyChooseUsSection from '../components/home/WhyChooseUsSection';
 import TechStackSection from '../components/home/TechStackSection';
@@ -88,13 +89,14 @@ const HomePage = () => {
   return (
     <>
       <SEO 
-        title="Business Process Automation | NafArro Solutions"
-        description="NafArro Solutions builds custom websites, web apps & data automation for growing businesses. React, Node.js, Supabase experts based in Kenya."
-        keywords="business process automation, web development Kenya, web applications, data analysis, React developer, Node.js, Supabase, custom software, Nairobi automation"
+        title="Put Your Business on Auto-Pilot | NafArro Solutions"
+        description="Custom websites and automation tools that handle emails, CRM, invoices, and content for you. Built fast. Honest pricing. Yours forever."
+        keywords="business automation, CRM automation, email automation, custom CMS, replace expensive software, web development, web applications, data analysis"
         schemaData={homePageSchema}
       />
       <div>
         <HeroSection />
+        <ProblemsSection />
         <ServicesSection />
         <WhyChooseUsSection />
         <TechStackSection />

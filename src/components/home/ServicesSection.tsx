@@ -33,28 +33,28 @@ const ServicesSection = () => {
     };
   }, []);
 
-  const sectionTitle = getContent('services_title', 'Our Services');
-  const sectionSubtitle = getContent('services_subtitle', 'We provide end-to-end solutions to help businesses leverage technology for growth');
+  const sectionTitle = getContent('services_title', 'What We Build For You');
+  const sectionSubtitle = getContent('services_subtitle', 'Custom-built tools that work while you sleep — no monthly platform fees, no limits, fully yours.');
 
   const services = [
     {
       icon: <Globe className="w-12 h-12 text-primary" />,
       title: "Website Development",
-      description: "Custom designed and developed websites that reflect your brand identity and engage your audience.",
+      description: "A fast, beautiful website you can update yourself. Built to be found on Google and turn visitors into customers.",
       link: "/services/web-development",
       delay: 0
     },
     {
       icon: <Code className="w-12 h-12 text-primary" />,
-      title: "Web Applications",
-      description: "Transforming manual processes into efficient automated workflows with custom web applications.",
+      title: "Web Apps & Automation",
+      description: "Custom systems that handle your emails, CRM, invoices, payments, and content — automatically. Replace expensive subscriptions with one tool built just for you.",
       link: "/services/automation",
       delay: 0.2
     },
     {
       icon: <BarChart3 className="w-12 h-12 text-primary" />,
       title: "Data Analysis",
-      description: "Unlock insights from your data to drive strategic decision-making and business growth.",
+      description: "Turn your spreadsheets and reports into clear answers, so you actually know what's working in your business.",
       link: "/services/data-analysis",
       comingSoon: true,
       delay: 0.4
