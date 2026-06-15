@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import HeroSection from '../components/home/HeroSection';
 import ProblemsSection from '../components/home/ProblemsSection';
+import PricingSection from '../components/home/PricingSection';
 import ServicesSection from '../components/home/ServicesSection';
 import WhyChooseUsSection from '../components/home/WhyChooseUsSection';
 import TechStackSection from '../components/home/TechStackSection';
