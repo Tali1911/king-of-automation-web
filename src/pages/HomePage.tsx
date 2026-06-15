@@ -100,6 +100,7 @@ const HomePage = () => {
         <ProblemsSection />
         <ServicesSection />
         <WhyChooseUsSection />
+        <PricingSection />
         <TechStackSection />
         <TestimonialsSection />
         <ServiceBooking />
