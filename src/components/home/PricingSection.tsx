@@ -2,6 +2,10 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Check, Rocket, Building2, Landmark } from 'lucide-react';
 
+interface PricingSectionProps {
+  onRequestQuote?: (pkg: 'Starter' | 'Growth' | 'Enterprise' | 'Not sure yet') => void;
+}
+
 const packages = [
   {
     name: 'Starter',
@@ -55,7 +59,7 @@ const packages = [
   },
 ];
 
-const PricingSection = () => {
+const PricingSection = ({ onRequestQuote }: PricingSectionProps = {}) => {
   useEffect(() => {
     const animateOnScroll = () => {
       document.querySelectorAll('.animate-on-scroll').forEach((el) => {
@@ -121,16 +125,17 @@ const PricingSection = () => {
                 ))}
               </ul>
 
-              <Link
-                to="/contact"
-                className={`block text-center font-medium py-3 px-6 rounded-lg transition-all hover:shadow-lg hover:-translate-y-0.5 ${
+              <button
+                type="button"
+                onClick={() => onRequestQuote?.(pkg.name as 'Starter' | 'Growth' | 'Enterprise')}
+                className={`block w-full text-center font-medium py-3 px-6 rounded-lg transition-all hover:shadow-lg hover:-translate-y-0.5 ${
                   pkg.highlighted
                     ? 'bg-white text-primary'
                     : 'bg-primary text-white'
                 }`}
               >
                 {pkg.cta}
-              </Link>
+              </button>
             </div>
           ))}
         </div>
@@ -138,9 +143,13 @@ const PricingSection = () => {
         <div className="mt-12 text-center animate-on-scroll">
           <p className="text-gray-500 text-sm">
             Not sure which one fits?{' '}
-            <Link to="/contact" className="text-primary font-medium underline underline-offset-2 hover:text-secondary transition-colors">
+            <button
+              type="button"
+              onClick={() => onRequestQuote?.('Not sure yet')}
+              className="text-primary font-medium underline underline-offset-2 hover:text-secondary transition-colors"
+            >
               Tell us what you need and we will suggest the right package.
-            </Link>
+            </button>
           </p>
         </div>
       </div>

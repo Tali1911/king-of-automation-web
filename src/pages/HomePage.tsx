@@ -1,8 +1,9 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import HeroSection from '../components/home/HeroSection';
 import ProblemsSection from '../components/home/ProblemsSection';
 import PricingSection from '../components/home/PricingSection';
+import QuoteRequestModal from '../components/home/QuoteRequestModal';
 import ServicesSection from '../components/home/ServicesSection';
 import WhyChooseUsSection from '../components/home/WhyChooseUsSection';
 import TechStackSection from '../components/home/TechStackSection';
@@ -14,8 +15,17 @@ import RelatedPosts from '../components/common/RelatedPosts';
 import SEO from '../components/SEO';
 import { useNavigate } from 'react-router-dom';
 
+type PackageOption = 'Starter' | 'Growth' | 'Enterprise' | 'Not sure yet';
+
 const HomePage = () => {
   const navigate = useNavigate();
+  const [quoteOpen, setQuoteOpen] = useState(false);
+  const [quotePackage, setQuotePackage] = useState<PackageOption | undefined>(undefined);
+
+  const openQuote = (pkg: PackageOption) => {
+    setQuotePackage(pkg);
+    setQuoteOpen(true);
+  };
   
   // Scroll to top when page loads
   useEffect(() => {
@@ -100,7 +110,7 @@ const HomePage = () => {
         <ProblemsSection />
         <ServicesSection />
         <WhyChooseUsSection />
-        <PricingSection />
+        <PricingSection onRequestQuote={openQuote} />
         <TechStackSection />
         <TestimonialsSection />
         <ServiceBooking />
@@ -108,6 +118,11 @@ const HomePage = () => {
         <FAQSection />
         <ContactCTASection />
       </div>
+      <QuoteRequestModal
+        open={quoteOpen}
+        onOpenChange={setQuoteOpen}
+        defaultPackage={quotePackage}
+      />
     </>
   );
 };
