@@ -31,9 +31,9 @@ const FeaturesList = ({
   return (
     <div>
       <div className="flex justify-between items-center mb-1">
-        <h3 className="text-sm font-medium">Select Features</h3>
+        <h3 className="text-sm font-medium">Pick the items you want</h3>
         <span className="text-xs text-muted-foreground">
-          {selectedFeatures.length}/{totalFeatures} selected
+          {selectedFeatures.length}/{totalFeatures} picked
         </span>
       </div>
       <Progress value={percentComplete} className="h-1 mb-3" />

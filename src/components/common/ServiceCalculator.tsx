@@ -21,9 +21,9 @@ const ServiceCalculator = () => {
   const { toast } = useToast();
 
   const serviceTypeLabels: Record<ServiceType, string> = {
-    website: 'Website',
-    webapp: 'Web App',
-    data: 'Data Analysis'
+    website: 'A New Website',
+    webapp: 'A Business Tool / App',
+    data: 'Help With My Data'
   };
 
   // Helper to get feature names from IDs
@@ -129,7 +129,7 @@ const ServiceCalculator = () => {
         data-calculator-trigger
         className="bg-primary text-primary-foreground p-3 rounded-t-xl w-full flex justify-between items-center hover:opacity-90 transition-opacity"
       >
-        <span className="font-medium text-sm">Build Your Requirements</span>
+        <span className="font-medium text-sm">Tell Us What You Need</span>
         <span className="text-xs bg-background text-foreground px-2 py-1 rounded-full">
           {isOpen ? "Close" : "Open"}
         </span>
@@ -147,16 +147,16 @@ const ServiceCalculator = () => {
 
           <CardHeader className="pt-6 pb-3 px-4">
             <CardTitle className="text-lg">
-              {currentStep === 'selection' && 'Select Your Features'}
-              {currentStep === 'preview' && 'Review Your Selection'}
-              {currentStep === 'contact' && 'Get Your Quote'}
-              {currentStep === 'success' && 'Request Submitted!'}
+              {currentStep === 'selection' && 'Pick What You Need'}
+              {currentStep === 'preview' && 'Check What You Picked'}
+              {currentStep === 'contact' && 'Get Your Free Quote'}
+              {currentStep === 'success' && 'All Done!'}
             </CardTitle>
             <CardDescription className="text-xs">
-              {currentStep === 'selection' && 'Choose service types and features you need'}
-              {currentStep === 'preview' && 'Review and edit your selections'}
-              {currentStep === 'contact' && 'Enter your contact information'}
-              {currentStep === 'success' && 'We\'ll be in touch soon'}
+              {currentStep === 'selection' && 'Choose the things you want — we handle the rest'}
+              {currentStep === 'preview' && 'Review and change anything before you send'}
+              {currentStep === 'contact' && 'Tell us who to send the quote to'}
+              {currentStep === 'success' && 'We will get back to you shortly'}
             </CardDescription>
           </CardHeader>
           
@@ -165,7 +165,7 @@ const ServiceCalculator = () => {
               <>
                 {/* Service Type Selection */}
                 <div>
-                  <h3 className="text-sm font-medium mb-2">Service Types</h3>
+                  <h3 className="text-sm font-medium mb-2">What Do You Need?</h3>
                   <div className="flex flex-wrap gap-2">
                     {(['website', 'webapp', 'data'] as ServiceType[]).map(type => (
                       <button
@@ -187,7 +187,7 @@ const ServiceCalculator = () => {
                 {selectedServiceTypes.map(serviceType => (
                   <div key={serviceType} className="border-t pt-3">
                     <h4 className="text-xs font-semibold mb-2 text-muted-foreground uppercase">
-                      {serviceTypeLabels[serviceType]} Features
+                      {serviceTypeLabels[serviceType]} — Details
                     </h4>
                     <FeaturesList 
                       serviceType={serviceType}
@@ -219,13 +219,13 @@ const ServiceCalculator = () => {
               <div className="text-center py-6 space-y-4">
                 <CheckCircle2 className="h-16 w-16 text-green-500 mx-auto" />
                 <div className="space-y-2">
-                  <h3 className="font-semibold">Thank you for your interest!</h3>
+                  <h3 className="font-semibold">Thank you!</h3>
                   <p className="text-sm text-muted-foreground">
-                    We've received your requirements and will send you a detailed quotation within 24-48 hours.
+                    We have received your list and will send you a personalised quote within 1-2 days.
                   </p>
                 </div>
                 <Button onClick={handleReset} variant="outline" className="w-full">
-                  Start New Request
+                  Start a New Request
                 </Button>
               </div>
             )}
@@ -236,14 +236,14 @@ const ServiceCalculator = () => {
               {currentStep === 'selection' && (
                 <>
                   <div className="text-xs text-muted-foreground">
-                    {selectedFeatures.length} feature{selectedFeatures.length !== 1 ? 's' : ''} selected
+                    {selectedFeatures.length} item{selectedFeatures.length !== 1 ? 's' : ''} picked
                   </div>
                   <Button
                     onClick={() => setCurrentStep('preview')}
                     disabled={!canProceedToPreview}
                     size="sm"
                   >
-                    Continue
+                    Review
                     <ArrowRight className="ml-2 h-3 w-3" />
                   </Button>
                 </>
@@ -257,14 +257,14 @@ const ServiceCalculator = () => {
                     size="sm"
                   >
                     <ArrowLeft className="mr-2 h-3 w-3" />
-                    Edit
+                    Change
                   </Button>
                   <Button
                     onClick={() => setCurrentStep('contact')}
                     disabled={selectedFeatures.length === 0}
                     size="sm"
                   >
-                    Continue
+                    Get Quote
                     <ArrowRight className="ml-2 h-3 w-3" />
                   </Button>
                 </>

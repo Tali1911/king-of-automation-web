@@ -10,9 +10,9 @@ interface SelectionPreviewProps {
 }
 
 const serviceTypeLabels: Record<ServiceType, string> = {
-  website: 'Website Development',
-  webapp: 'Web Application',
-  data: 'Data Analysis'
+  website: 'A New Website',
+  webapp: 'A Business Tool / App',
+  data: 'Help With My Data'
 };
 
 const SelectionPreview = ({ 
@@ -30,8 +30,8 @@ const SelectionPreview = ({
   if (selectedFeatures.length === 0) {
     return (
       <div className="text-center py-8 text-muted-foreground">
-        <p className="text-sm">No features selected yet</p>
-        <p className="text-xs mt-1">Go back and select features you need</p>
+        <p className="text-sm">Nothing picked yet</p>
+        <p className="text-xs mt-1">Go back and tick what you need</p>
       </div>
     );
   }
@@ -47,7 +47,7 @@ const SelectionPreview = ({
             <div className="flex items-center justify-between mb-2">
               <h4 className="text-sm font-semibold">{serviceTypeLabels[serviceType]}</h4>
               <Badge variant="secondary" className="text-xs">
-                {features.length} {features.length === 1 ? 'feature' : 'features'}
+                {features.length} {features.length === 1 ? 'item' : 'items'}
               </Badge>
             </div>
             <ul className="space-y-1.5">
