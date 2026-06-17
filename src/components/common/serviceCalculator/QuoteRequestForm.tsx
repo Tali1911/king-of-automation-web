@@ -55,12 +55,12 @@ const QuoteRequestForm = ({ onSubmit, isSubmitting = false }: QuoteRequestFormPr
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-2">
         <Label htmlFor="email" className="text-sm">
-          Email <span className="text-destructive">*</span>
+          Your Email <span className="text-destructive">*</span>
         </Label>
         <Input
           id="email"
           type="email"
-          placeholder="your@email.com"
+          placeholder="you@yourcompany.com"
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
@@ -77,11 +77,11 @@ const QuoteRequestForm = ({ onSubmit, isSubmitting = false }: QuoteRequestFormPr
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="name" className="text-sm">Name (optional)</Label>
+        <Label htmlFor="name" className="text-sm">Your Name (optional)</Label>
         <Input
           id="name"
           type="text"
-          placeholder="Your name"
+          placeholder="John Doe"
           value={name}
           onChange={(e) => setName(e.target.value)}
           disabled={isSubmitting}
@@ -89,11 +89,11 @@ const QuoteRequestForm = ({ onSubmit, isSubmitting = false }: QuoteRequestFormPr
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="phone" className="text-sm">Phone (optional)</Label>
+        <Label htmlFor="phone" className="text-sm">Phone Number (optional)</Label>
         <Input
           id="phone"
           type="tel"
-          placeholder="+1 (555) 000-0000"
+          placeholder="+254 700 000 000"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           disabled={isSubmitting}
@@ -101,10 +101,10 @@ const QuoteRequestForm = ({ onSubmit, isSubmitting = false }: QuoteRequestFormPr
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="notes" className="text-sm">Project Notes (optional)</Label>
+        <Label htmlFor="notes" className="text-sm">Anything else we should know? (optional)</Label>
         <Textarea
           id="notes"
-          placeholder="Tell us more about your project..."
+          placeholder="Tell us a bit about your project or goals..."
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           className="resize-none"
@@ -121,15 +121,15 @@ const QuoteRequestForm = ({ onSubmit, isSubmitting = false }: QuoteRequestFormPr
         {isSubmitting ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Submitting...
+            Sending...
           </>
         ) : (
-          'Submit Quote Request'
+          'Send My Quote Request'
         )}
       </Button>
 
       <p className="text-xs text-muted-foreground text-center">
-        We'll review your requirements and send you a detailed quote within 24-48 hours.
+        We will review your picks and reply with a detailed quote within 1-2 days.
       </p>
     </form>
   );

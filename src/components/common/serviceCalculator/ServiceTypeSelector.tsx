@@ -13,25 +13,25 @@ const ServiceTypeSelector = ({
 }: ServiceTypeSelectorProps) => {
   return (
     <div>
-      <h3 className="text-sm font-medium mb-1">Service Type</h3>
+      <h3 className="text-sm font-medium mb-1">What Do You Need?</h3>
       <div className="flex flex-wrap gap-1">
         <button 
           className={`px-2 py-1 rounded-md text-xs ${serviceType === 'website' ? 'bg-primary text-white' : 'bg-gray-100 hover:bg-gray-200'}`}
           onClick={() => onSelectServiceType('website')}
         >
-          Website Development
+          A New Website
         </button>
         <button 
           className={`px-2 py-1 rounded-md text-xs ${serviceType === 'webapp' ? 'bg-primary text-white' : 'bg-gray-100 hover:bg-gray-200'}`}
           onClick={() => onSelectServiceType('webapp')}
         >
-          Web Application
+          A Business Tool / App
         </button>
         <button 
           className={`px-2 py-1 rounded-md text-xs ${serviceType === 'data' ? 'bg-primary text-white' : 'bg-gray-100 hover:bg-gray-200'}`}
           onClick={() => onSelectServiceType('data')}
         >
-          Data Analysis
+          Help With My Data
         </button>
       </div>
     </div>
