@@ -147,16 +147,16 @@ const ServiceCalculator = () => {
 
           <CardHeader className="pt-6 pb-3 px-4">
             <CardTitle className="text-lg">
-              {currentStep === 'selection' && 'Select Your Features'}
-              {currentStep === 'preview' && 'Review Your Selection'}
-              {currentStep === 'contact' && 'Get Your Quote'}
-              {currentStep === 'success' && 'Request Submitted!'}
+              {currentStep === 'selection' && 'Pick What You Need'}
+              {currentStep === 'preview' && 'Check What You Picked'}
+              {currentStep === 'contact' && 'Get Your Free Quote'}
+              {currentStep === 'success' && 'All Done!'}
             </CardTitle>
             <CardDescription className="text-xs">
-              {currentStep === 'selection' && 'Choose service types and features you need'}
-              {currentStep === 'preview' && 'Review and edit your selections'}
-              {currentStep === 'contact' && 'Enter your contact information'}
-              {currentStep === 'success' && 'We\'ll be in touch soon'}
+              {currentStep === 'selection' && 'Choose the things you want — we handle the rest'}
+              {currentStep === 'preview' && 'Review and change anything before you send'}
+              {currentStep === 'contact' && 'Tell us who to send the quote to'}
+              {currentStep === 'success' && 'We will get back to you shortly'}
             </CardDescription>
           </CardHeader>
           
