@@ -2,6 +2,7 @@ import React from 'react';
 import { ServiceType, serviceFeatures } from './types';
 import { Badge } from '@/components/ui/badge';
 import { X } from 'lucide-react';
+import PackageRecommendation from './PackageRecommendation';
 
 interface SelectionPreviewProps {
   selectedServiceTypes: ServiceType[];
@@ -38,6 +39,10 @@ const SelectionPreview = ({
 
   return (
     <div className="space-y-4">
+      <PackageRecommendation
+        selectedServiceTypes={selectedServiceTypes}
+        selectedFeatures={selectedFeatures}
+      />
       {selectedServiceTypes.map(serviceType => {
         const features = getFeaturesByServiceType(serviceType);
         if (features.length === 0) return null;
