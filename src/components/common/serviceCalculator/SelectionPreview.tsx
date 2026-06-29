@@ -2,6 +2,7 @@ import React from 'react';
 import { ServiceType, serviceFeatures } from './types';
 import { Badge } from '@/components/ui/badge';
 import { X } from 'lucide-react';
+import PackageRecommendation from './PackageRecommendation';
 
 interface SelectionPreviewProps {
   selectedServiceTypes: ServiceType[];
