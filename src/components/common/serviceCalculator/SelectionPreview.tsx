@@ -39,6 +39,10 @@ const SelectionPreview = ({
 
   return (
     <div className="space-y-4">
+      <PackageRecommendation
+        selectedServiceTypes={selectedServiceTypes}
+        selectedFeatures={selectedFeatures}
+      />
       {selectedServiceTypes.map(serviceType => {
         const features = getFeaturesByServiceType(serviceType);
         if (features.length === 0) return null;
