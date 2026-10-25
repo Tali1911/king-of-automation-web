@@ -56,7 +56,9 @@ export default {
 			},
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
-				heading: ['Poppins', 'sans-serif'],
+				heading: ['Space Grotesk', 'sans-serif'],
+				display: ['Space Grotesk', 'sans-serif'],
+				body: ['Inter', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
