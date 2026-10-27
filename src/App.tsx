@@ -26,6 +26,9 @@ import Chatbot from "./components/common/Chatbot";
 import ServiceCalculator from "./components/common/ServiceCalculator";
 import WebsiteGuide from "./components/common/WebsiteGuide";
 import { PageTracker } from "./components/common/PageTracker";
+import { SmoothScroll } from "./components/common/SmoothScroll";
+import { Preloader } from "./components/ui/Preloader";
+import { CustomCursor } from "./components/ui/CustomCursor";
 
 // Admin imports
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
