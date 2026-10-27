@@ -66,7 +66,7 @@ const SceneContent = ({ active, lowPower }: { active: boolean; lowPower: boolean
       {!lowPower && (
         <EffectComposer multisampling={0}>
           <Bloom intensity={0.55} luminanceThreshold={0.22} luminanceSmoothing={0.5} mipmapBlur />
-          <ChromaticAberration offset={new THREE.Vector2(0.00045, 0.00045)} />
+          <ChromaticAberration offset={new THREE.Vector2(0.00045, 0.00045)} radialModulation={false} modulationOffset={0} />
           <Vignette darkness={0.72} offset={0.22} />
         </EffectComposer>
       )}
