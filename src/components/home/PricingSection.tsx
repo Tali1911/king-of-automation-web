@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Check, Rocket, Building2, Landmark } from 'lucide-react';
 
 interface PricingSectionProps {
@@ -9,7 +8,7 @@ interface PricingSectionProps {
 const packages = [
   {
     name: 'Starter',
-    icon: <Rocket className="w-8 h-8 text-secondary" />,
+    icon: <Rocket className="h-7 w-7 text-[#33c3f0]" />,
     tagline: 'Get online fast',
     features: [
       'Custom website (up to 5 pages)',
@@ -25,7 +24,7 @@ const packages = [
   },
   {
     name: 'Growth',
-    icon: <Building2 className="w-8 h-8 text-secondary" />,
+    icon: <Building2 className="h-7 w-7 text-[#33c3f0]" />,
     tagline: 'Automate the busywork',
     features: [
       'Everything in Starter',
@@ -42,7 +41,7 @@ const packages = [
   },
   {
     name: 'Enterprise',
-    icon: <Landmark className="w-8 h-8 text-secondary" />,
+    icon: <Landmark className="h-7 w-7 text-[#33c3f0]" />,
     tagline: 'Full business systems',
     features: [
       'Everything in Growth',
@@ -75,52 +74,65 @@ const PricingSection = ({ onRequestQuote }: PricingSectionProps = {}) => {
   }, []);
 
   return (
-    <section id="pricing" className="py-20 bg-muted">
-      <div className="container-custom">
-        <div className="text-center mb-16 animate-on-scroll">
+    <section id="pricing" className="relative py-24 overflow-hidden bg-[#040a14]">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-0 left-0 h-96 w-96 rounded-full blur-3xl opacity-50"
+        style={{ background: 'rgba(10,36,99,0.45)' }}
+      />
+      <div className="container-custom relative">
+        <div className="mb-16 text-center animate-on-scroll">
+          <span className="eyebrow-badge mb-5">Packages</span>
           <h2 className="section-title">Simple Packages, No Surprises</h2>
           <p className="section-subtitle mx-auto">
             Pick a starting point. We tailor every project to your exact needs — and you own everything we build.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {packages.map((pkg, i) => (
             <div
               key={i}
-              className={`animate-on-scroll relative rounded-2xl p-8 border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
+              className={`animate-on-scroll glow-border relative rounded-2xl p-8 transition-all duration-300 ${
                 pkg.highlighted
-                  ? 'bg-gradient-to-br from-primary to-[#0A3472] text-white border-primary shadow-lg scale-[1.02] md:scale-[1.03]'
-                  : 'bg-white border-gray-100'
+                  ? 'md:scale-[1.03]'
+                  : 'glass-card'
               }`}
-              style={{ transitionDelay: `${pkg.delay}s` }}
+              style={
+                pkg.highlighted
+                  ? {
+                      background: 'linear-gradient(150deg, rgba(10,36,99,0.85), rgba(5,15,30,0.92))',
+                      boxShadow: '0 30px 90px -40px rgba(51,195,240,0.4)',
+                    }
+                  : { transitionDelay: `${pkg.delay}s` }
+              }
             >
               {pkg.highlighted && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-primary text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wide">
+                <div
+                  className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-bold uppercase tracking-widest text-[#05101f]"
+                  style={{ background: 'linear-gradient(100deg, #33c3f0, #7fdcff)', boxShadow: '0 0 20px rgba(51,195,240,0.5)' }}
+                >
                   Most Popular
                 </div>
               )}
 
-              <div className="flex items-center gap-3 mb-2">
-                <div className={`p-2 rounded-lg ${pkg.highlighted ? 'bg-white/10' : 'bg-primary/5'}`}>
+              <div className="mb-2 flex items-center gap-3">
+                <div
+                  className="rounded-xl p-2.5"
+                  style={{ background: 'rgba(51,195,240,0.08)', border: '1px solid rgba(51,195,240,0.22)' }}
+                >
                   {pkg.icon}
                 </div>
-                <h3 className={`text-2xl font-bold ${pkg.highlighted ? 'text-white' : 'text-primary'}`}>
-                  {pkg.name}
-                </h3>
+                <h3 className="font-display text-2xl font-bold text-white">{pkg.name}</h3>
               </div>
 
-              <p className={`text-sm mb-6 ${pkg.highlighted ? 'text-white/80' : 'text-gray-500'}`}>
-                {pkg.tagline}
-              </p>
+              <p className="mb-6 text-sm text-[#8fa6bf]">{pkg.tagline}</p>
 
-              <ul className="space-y-3 mb-8">
+              <ul className="mb-8 space-y-3">
                 {pkg.features.map((feature, fi) => (
                   <li key={fi} className="flex items-start gap-3">
-                    <Check className={`w-5 h-5 flex-shrink-0 mt-0.5 ${pkg.highlighted ? 'text-secondary' : 'text-primary'}`} />
-                    <span className={`text-sm ${pkg.highlighted ? 'text-white/90' : 'text-gray-600'}`}>
-                      {feature}
-                    </span>
+                    <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#33c3f0]" />
+                    <span className="text-sm text-[#c6d5e6]">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -128,11 +140,16 @@ const PricingSection = ({ onRequestQuote }: PricingSectionProps = {}) => {
               <button
                 type="button"
                 onClick={() => onRequestQuote?.(pkg.name as 'Starter' | 'Growth' | 'Enterprise')}
-                className={`block w-full text-center font-medium py-3 px-6 rounded-lg transition-all hover:shadow-lg hover:-translate-y-0.5 ${
+                className={`block w-full rounded-lg py-3 text-center font-medium transition-all hover:-translate-y-0.5 ${
                   pkg.highlighted
-                    ? 'bg-white text-primary'
-                    : 'bg-primary text-white'
+                    ? 'text-[#05101f]'
+                    : 'glass-panel text-white hover:text-[#33c3f0]'
                 }`}
+                style={
+                  pkg.highlighted
+                    ? { background: 'linear-gradient(100deg, #33c3f0, #7fdcff)', boxShadow: '0 0 26px rgba(51,195,240,0.35)' }
+                    : undefined
+                }
               >
                 {pkg.cta}
               </button>
@@ -141,12 +158,12 @@ const PricingSection = ({ onRequestQuote }: PricingSectionProps = {}) => {
         </div>
 
         <div className="mt-12 text-center animate-on-scroll">
-          <p className="text-gray-500 text-sm">
+          <p className="text-sm text-[#8fa6bf]">
             Not sure which one fits?{' '}
             <button
               type="button"
               onClick={() => onRequestQuote?.('Not sure yet')}
-              className="text-primary font-medium underline underline-offset-2 hover:text-secondary transition-colors"
+              className="font-medium text-[#33c3f0] underline underline-offset-4 transition-colors hover:text-[#7fdcff]"
             >
               Tell us what you need and we will suggest the right package.
             </button>

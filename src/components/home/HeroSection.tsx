@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { usePublicPageContent } from '@/hooks/usePageContent';
+import { HeroCanvas } from '@/components/three/HeroCanvas';
 
 const HeroSection = () => {
-  const { getContent, isLoading } = usePublicPageContent('home');
+  const { getContent } = usePublicPageContent('home');
   const titleRef = useRef<HTMLHeadingElement>(null);
   const sloganRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
@@ -44,112 +45,75 @@ const HeroSection = () => {
   const secondaryCTA = getContent('hero_cta_secondary', 'See What We Build');
 
   return (
-    <section className="relative h-screen flex items-center overflow-hidden bg-gradient-to-br from-primary via-[#0A3472] to-[#104B8B]">
-      {/* Professional Animated Background */}
-      <div className="absolute inset-0">
-        {/* Animated gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-transparent to-accent/30 animate-pulse" style={{ animationDuration: '4s' }} />
-        
-        {/* Floating geometric shapes */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-10 left-10 w-32 h-32 border-2 border-white/50 transform rotate-45 animate-spin" style={{ animationDuration: '15s' }} />
-          <div className="absolute top-1/3 right-20 w-24 h-24 border-2 border-white/40 transform rotate-12 animate-spin" style={{ animationDuration: '18s', animationDirection: 'reverse' }} />
-          <div className="absolute bottom-20 left-1/4 w-28 h-28 border-2 border-white/45 transform -rotate-12 animate-spin" style={{ animationDuration: '22s' }} />
-          
-          {/* Circuit-like lines */}
-          <div className="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-transparent via-white/25 to-transparent animate-pulse" style={{ animationDuration: '3s' }} />
-          <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/25 to-transparent animate-pulse" style={{ animationDelay: '1s', animationDuration: '3s' }} />
-          <div className="absolute bottom-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse" style={{ animationDelay: '2s', animationDuration: '3s' }} />
-        </div>
-        
-        {/* Floating orbs with glow effect */}
-        <div className="absolute inset-0 opacity-25">
-          <div className="absolute top-1/4 left-1/6 w-64 h-64 rounded-full bg-white/30 blur-3xl animate-pulse" style={{ animationDuration: '5s' }} />
-          <div className="absolute top-2/3 right-1/6 w-48 h-48 rounded-full bg-accent/40 blur-2xl animate-pulse" style={{ animationDelay: '2s', animationDuration: '6s' }} />
-          <div className="absolute bottom-1/4 left-1/2 w-56 h-56 rounded-full bg-secondary/30 blur-3xl animate-pulse" style={{ animationDelay: '4s', animationDuration: '7s' }} />
-        </div>
-        
-        {/* Animated dots grid */}
-        <div className="absolute inset-0 opacity-30">
-          {Array.from({ length: 15 }).map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-3 h-3 bg-white rounded-full animate-pulse"
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 2}s`,
-                animationDuration: `${1.5 + Math.random() * 1.5}s`
-              }}
-            />
-          ))}
-        </div>
-        
-        {/* Moving particles */}
-        <div className="absolute inset-0 opacity-25">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div
-              key={`particle-${i}`}
-              className="absolute w-1 h-1 bg-white rounded-full animate-bounce"
-              style={{
-                top: `${20 + Math.random() * 60}%`,
-                left: `${10 + Math.random() * 80}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${2 + Math.random() * 3}s`
-              }}
-            />
-          ))}
-        </div>
-        
-        {/* Enhanced wave animation */}
-        <div className="absolute bottom-0 left-0 w-full h-32 opacity-15">
-          <svg className="w-full h-full" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,60 C300,20 600,100 900,60 C1050,30 1150,80 1200,60 L1200,120 L0,120 Z" fill="url(#waveGradient)">
-              <animateTransform attributeName="transform" type="translate" values="0,0; 100,0; 0,0" dur="8s" repeatCount="indefinite" />
-            </path>
-            <defs>
-              <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="white" stopOpacity="0.4" />
-                <stop offset="50%" stopColor="white" stopOpacity="0.2" />
-                <stop offset="100%" stopColor="white" stopOpacity="0.4" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
-      </div>
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-deep">
+      {/* Interactive 3D automation core — lazy, decorative, click-through */}
+      <HeroCanvas />
 
-      <div className="container-custom z-10 px-6 md:px-8">
+      {/* Ambient gradient + bottom fade into the page */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 55% 45% at 18% 30%, rgba(10,36,99,0.45), transparent 65%), linear-gradient(180deg, rgba(4,10,20,0.15) 0%, rgba(4,10,20,0.05) 55%, #050b18 96%)',
+        }}
+      />
+      <div aria-hidden="true" className="noise-overlay absolute inset-0" />
+
+      <div className="container-custom relative z-10 px-6 py-28 md:px-8">
         <div className="max-w-3xl opacity-0" ref={titleRef}>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 md:mb-3 tracking-tight">
+          <span className="eyebrow-badge mb-6 animate-fade-in">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#33c3f0] shadow-[0_0_8px_rgba(51,195,240,0.9)]" />
+            Automation Studio — Nairobi, Kenya
+          </span>
+          <h1 className="font-display text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
             {heroTitle}
           </h1>
         </div>
-        
+
         <div className="max-w-3xl opacity-0" ref={sloganRef}>
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-secondary mb-4 md:mb-6 tracking-wide">
+          <h2 className="font-display mt-4 text-xl font-semibold uppercase tracking-[0.25em] text-[#33c3f0] text-glow md:text-2xl">
             {heroSlogan}
           </h2>
         </div>
-        
+
         <div className="max-w-2xl opacity-0" ref={descRef}>
-          <p className="text-base sm:text-lg md:text-xl text-gray-200/90 mb-6 md:mb-8 leading-relaxed">
+          <p className="mt-6 text-base leading-relaxed text-[#a9bcd1] sm:text-lg md:text-xl">
             {heroSubtitle}
           </p>
         </div>
-        
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 opacity-0 max-w-md sm:max-w-none" ref={ctaRef}>
-          <Link 
-            to="/contact" 
-            className="btn-primary text-center py-3 px-6 text-sm sm:text-base font-semibold rounded-lg shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all duration-300"
+
+        <div className="flex max-w-md flex-col gap-4 opacity-0 sm:max-w-none sm:flex-row" ref={ctaRef}>
+          <Link
+            to="/contact"
+            className="text-center text-sm font-semibold text-[#05101f] sm:text-base"
+            style={{
+              background: 'linear-gradient(100deg, #33c3f0, #7fdcff)',
+              padding: '0.85rem 1.75rem',
+              borderRadius: '0.6rem',
+              boxShadow: '0 0 30px rgba(51,195,240,0.35)',
+            }}
           >
             {primaryCTA}
           </Link>
-          <Link 
-            to="/services" 
-            className="bg-white/10 backdrop-blur-sm border border-white/30 text-white font-medium py-3 px-6 text-sm sm:text-base rounded-lg transition-all duration-300 hover:bg-white/20 hover:border-white/50 hover:shadow-lg hover:-translate-y-0.5 text-center"
+          <Link
+            to="/services"
+            className="glass-panel text-center font-medium text-white transition-all duration-300 hover:border-[#33c3f0]/50 hover:text-[#33c3f0]"
+            style={{ padding: '0.85rem 1.75rem', borderRadius: '0.6rem', fontSize: '0.9rem' }}
           >
             {secondaryCTA}
           </Link>
+        </div>
+      </div>
+
+      {/* Scroll cue */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 animate-bounce"
+        style={{ animationDuration: '2.4s' }}
+      >
+        <div className="flex h-10 w-6 items-start justify-center rounded-full border border-white/20 p-1.5">
+          <div className="h-2 w-1 rounded-full bg-[#33c3f0]/80" />
         </div>
       </div>
     </section>

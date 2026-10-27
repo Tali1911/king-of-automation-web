@@ -26,6 +26,9 @@ import Chatbot from "./components/common/Chatbot";
 import ServiceCalculator from "./components/common/ServiceCalculator";
 import WebsiteGuide from "./components/common/WebsiteGuide";
 import { PageTracker } from "./components/common/PageTracker";
+import { SmoothScroll } from "./components/common/SmoothScroll";
+import { Preloader } from "./components/ui/Preloader";
+import { CustomCursor } from "./components/ui/CustomCursor";
 
 // Admin imports
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
@@ -89,36 +92,42 @@ const App = () => (
             }
           />
 
-          {/* Public Routes */}
+          {/* Public Routes — dark 3D showpiece theme (scoped .dark wrapper; admin stays light) */}
           <Route
             path="/*"
             element={
-              <div className="flex flex-col min-h-screen">
-                <NavBar />
-                <main className="flex-grow">
-                  <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/about" element={<AboutPage />} />
-                    <Route path="/services" element={<ServicesPage />} />
-                    <Route path="/portfolio" element={<PortfolioPage />} />
-                    <Route path="/contact" element={<ContactPage />} />
-                    <Route path="/consultation" element={<ConsultationPage />} />
-                    <Route path="/blog" element={<BlogPage />} />
-                    <Route path="/blog/:id" element={<BlogPostPage />} />
-                    <Route path="/unsubscribe" element={<UnsubscribePage />} />
-                    <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-                    <Route path="/terms-of-service" element={<TermsOfServicePage />} />
-                    <Route path="/services/web-development" element={<WebDevelopmentPage />} />
-                    <Route path="/services/automation" element={<AutomationPage />} />
-                    <Route path="/services/data-analysis" element={<DataAnalysisPage />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </main>
-                <Footer />
-                <Chatbot />
-                <ServiceCalculator />
-                <WebsiteGuide />
-                <PageTracker />
+              <div className="dark">
+                <Preloader />
+                <CustomCursor />
+                <SmoothScroll>
+                  <div className="flex flex-col min-h-screen bg-deep noise-overlay relative">
+                    <NavBar />
+                    <main className="flex-grow">
+                      <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/about" element={<AboutPage />} />
+                        <Route path="/services" element={<ServicesPage />} />
+                        <Route path="/portfolio" element={<PortfolioPage />} />
+                        <Route path="/contact" element={<ContactPage />} />
+                        <Route path="/consultation" element={<ConsultationPage />} />
+                        <Route path="/blog" element={<BlogPage />} />
+                        <Route path="/blog/:id" element={<BlogPostPage />} />
+                        <Route path="/unsubscribe" element={<UnsubscribePage />} />
+                        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                        <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+                        <Route path="/services/web-development" element={<WebDevelopmentPage />} />
+                        <Route path="/services/automation" element={<AutomationPage />} />
+                        <Route path="/services/data-analysis" element={<DataAnalysisPage />} />
+                        <Route path="*" element={<NotFound />} />
+                      </Routes>
+                    </main>
+                    <Footer />
+                    <Chatbot />
+                    <ServiceCalculator />
+                    <WebsiteGuide />
+                    <PageTracker />
+                  </div>
+                </SmoothScroll>
               </div>
             }
           />
