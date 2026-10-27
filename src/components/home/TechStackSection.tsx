@@ -5,7 +5,7 @@ const TechStackSection = () => {
   useEffect(() => {
     const animateOnScroll = () => {
       const elements = document.querySelectorAll('.animate-on-scroll');
-      
+
       elements.forEach((element) => {
         const rect = element.getBoundingClientRect();
         if (rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8) {
@@ -57,29 +57,35 @@ const TechStackSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-primary text-white">
-      <div className="container-custom">
-        <div className="text-center mb-16 animate-on-scroll">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Our Tech Stack</h2>
-          <p className="text-xl md:text-2xl font-medium mb-12 text-gray-300 max-w-2xl mx-auto">
+    <section className="relative py-24 overflow-hidden bg-deep">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-1/3 left-1/2 h-72 w-[46rem] -translate-x-1/2 rounded-full blur-3xl opacity-50"
+        style={{ background: 'rgba(10,36,99,0.5)' }}
+      />
+      <div className="container-custom relative">
+        <div className="mb-16 text-center animate-on-scroll">
+          <span className="eyebrow-badge mb-5">Under the Hood</span>
+          <h2 className="section-title">Our Tech Stack</h2>
+          <p className="section-subtitle mx-auto">
             Leveraging modern technologies to create powerful, scalable solutions
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
           {technologies.map((tech, index) => (
-            <div 
+            <div
               key={index}
-              className="bg-white/10 backdrop-blur-sm p-8 rounded-lg text-center animate-on-scroll"
-              style={{transitionDelay: `${tech.delay}s`}}
+              className="glass-card glow-border group p-8 text-center animate-on-scroll"
+              style={{ transitionDelay: `${tech.delay}s` }}
             >
-              <img 
-                src={tech.image} 
-                alt={tech.name} 
-                className="h-16 w-16 mx-auto mb-4"
+              <img
+                src={tech.image}
+                alt={tech.name}
+                className="mx-auto mb-5 h-16 w-16 transition-transform duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_14px_rgba(51,195,240,0.6)]"
               />
-              <h3 className="text-xl font-bold mb-2">{tech.name}</h3>
-              <p className="text-gray-300">{tech.description}</p>
+              <h3 className="font-display mb-2 text-lg font-bold text-white">{tech.name}</h3>
+              <p className="text-sm text-[#9db2c9]">{tech.description}</p>
             </div>
           ))}
         </div>
