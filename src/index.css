@@ -35,6 +35,17 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    /* Brand colour tokens used by Tailwind primary/secondary/muted/accent.
+       Light values equal the original hex brand colours (admin unchanged). */
+    --brand-primary: 224 82% 21%;
+    --brand-primary-foreground: 0 0% 100%;
+    --brand-secondary: 195 86% 57%;
+    --brand-secondary-foreground: 0 0% 100%;
+    --brand-muted: 0 0% 95%;
+    --brand-muted-foreground: 0 0% 33%;
+    --brand-accent: 205 58% 52%;
+    --brand-accent-foreground: 0 0% 100%;
   }
 
   /* Premium dark theme — public site (applies via .dark wrapper in App.tsx; admin portal stays light) */
@@ -66,6 +77,15 @@
     --border: 214 35% 18%;
     --input: 214 35% 18%;
     --ring: 197 84% 57%;
+
+    --brand-primary: 197 84% 62%;
+    --brand-primary-foreground: 0 0% 100%;
+    --brand-secondary: 195 86% 57%;
+    --brand-secondary-foreground: 222 60% 6%;
+    --brand-muted: 218 35% 10%;
+    --brand-muted-foreground: 214 25% 68%;
+    --brand-accent: 205 80% 62%;
+    --brand-accent-foreground: 0 0% 100%;
   }
 
   * {
@@ -280,3 +300,16 @@
 
 /* Prose (blog/legal CMS HTML) */
 .dark .prose { --tw-prose-body: hsl(214 30% 82%); --tw-prose-headings: hsl(210 40% 96%); --tw-prose-links: #33c3f0; --tw-prose-bold: hsl(210 40% 96%); --tw-prose-quotes: hsl(214 30% 82%); --tw-prose-bullets: #33c3f0; --tw-prose-counters: #33c3f0; --tw-prose-hr: hsl(214 35% 18%); --tw-prose-code: #7fdcff; }
+
+/* Filled brand surfaces stay deep navy in dark mode so white text keeps contrast,
+   while text-primary / text-accent read as bright cyan on the dark background. */
+.dark .bg-primary { background-color: #0a2463; color: #fff; }
+.dark .bg-accent { background-image: linear-gradient(135deg, #0a2463, #123a8a 60%, #1b5fa8); color: #fff; }
+.dark .bg-muted { background-color: hsl(218 40% 6%); }
+.dark .bg-red-50 { background-color: hsl(0 60% 12% / 0.55); }
+.dark .bg-green-50, .dark .bg-green-100 { background-color: hsl(150 50% 10% / 0.55); }
+.dark .text-red-700, .dark .text-red-800 { color: #fca5a5; }
+.dark .text-green-700, .dark .text-green-800 { color: #86efac; }
+.dark .text-yellow-900 { color: #fde68a; }
+.dark .border-green-200 { border-color: hsl(150 40% 25%); }
+.dark .bg-black { background-color: hsl(222 60% 3%); }
