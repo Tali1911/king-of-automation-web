@@ -66,17 +66,19 @@ const SceneContent = ({ active, lowPower }: { active: boolean; lowPower: boolean
       {/* Built with createElement (not JSX) so the dev tagger can't inject
           data-* props, which postprocessing passes to three and crashes on. */}
       {!lowPower &&
-        createElement(
-          EffectComposer,
-          { multisampling: 0 },
-          createElement(Bloom, { intensity: 0.55, luminanceThreshold: 0.22, luminanceSmoothing: 0.5, mipmapBlur: true }),
-          createElement(ChromaticAberration, {
-            offset: new THREE.Vector2(0.00045, 0.00045),
-            radialModulation: false,
-            modulationOffset: 0,
-          }),
-          createElement(Vignette, { darkness: 0.72, offset: 0.22 }),
-        )}
+        createElement(EffectComposer, {
+          multisampling: 0,
+          children: [
+            createElement(Bloom, { key: 'bloom', intensity: 0.55, luminanceThreshold: 0.22, luminanceSmoothing: 0.5, mipmapBlur: true }),
+            createElement(ChromaticAberration, {
+              key: 'ca',
+              offset: new THREE.Vector2(0.00045, 0.00045),
+              radialModulation: false,
+              modulationOffset: 0,
+            }),
+            createElement(Vignette, { key: 'vignette', darkness: 0.72, offset: 0.22 }),
+          ],
+        })}
     </>
   );
 };
