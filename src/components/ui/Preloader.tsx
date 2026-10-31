@@ -12,7 +12,8 @@ export const Preloader = () => {
 
   useEffect(() => {
     let windowLoaded = document.readyState === 'complete';
-    let sceneReady = false;
+    // Only the home page has a 3D scene to wait for
+    let sceneReady = window.location.pathname !== '/';
     let raf = 0;
 
     const onLoad = () => { windowLoaded = true; };

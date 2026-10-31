@@ -29,6 +29,7 @@ import { PageTracker } from "./components/common/PageTracker";
 import { SmoothScroll } from "./components/common/SmoothScroll";
 import { Preloader } from "./components/ui/Preloader";
 import { CustomCursor } from "./components/ui/CustomCursor";
+import { DarkDocument, PageTransition } from "./components/common/PublicShellEffects";
 
 // Admin imports
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
@@ -97,12 +98,14 @@ const App = () => (
             path="/*"
             element={
               <div className="dark">
+                <DarkDocument />
                 <Preloader />
                 <CustomCursor />
                 <SmoothScroll>
                   <div className="flex flex-col min-h-screen bg-deep noise-overlay relative">
                     <NavBar />
                     <main className="flex-grow">
+                      <PageTransition>
                       <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/about" element={<AboutPage />} />
@@ -120,6 +123,7 @@ const App = () => (
                         <Route path="/services/data-analysis" element={<DataAnalysisPage />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>
+                      </PageTransition>
                     </main>
                     <Footer />
                     <Chatbot />
