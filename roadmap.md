@@ -1,8 +1,9 @@
 # Roadmap: 3D/WebGL Showpiece Redesign
 
-## Phase 1 — Audit (in progress)
-- [ ] Explore agent: functional inventory (routes, forms, integrations, auth, tracking, SEO)
-- [ ] Write FUNCTIONALITY.md checklist (the contract)
+## Phase 1 — Audit (done)
+- [x] Explore agent: functional inventory (routes, forms, integrations, auth, tracking, SEO)
+- [x] Write FUNCTIONALITY.md checklist (the contract)
+- [x] Report design system + content to user
 
 ## Phase 2 — Design direction
 - [ ] Dark premium theme tokens (near-black bg, navy #0A2463 + cyan #33C3F0 accents, glass panels, noise)
