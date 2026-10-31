@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { createElement, useEffect, useRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Environment, Lightformer } from '@react-three/drei';
 import { Bloom, ChromaticAberration, EffectComposer, Vignette } from '@react-three/postprocessing';
@@ -63,13 +63,20 @@ const SceneContent = ({ active, lowPower }: { active: boolean; lowPower: boolean
         <Lightformer intensity={0.4} color="#3e92cc" position={[6, -2, 2]} rotation-y={-Math.PI / 2} scale={[10, 2, 1]} />
       </Environment>
 
-      {!lowPower && (
-        <EffectComposer multisampling={0}>
-          <Bloom intensity={0.55} luminanceThreshold={0.22} luminanceSmoothing={0.5} mipmapBlur />
-          <ChromaticAberration offset={new THREE.Vector2(0.00045, 0.00045)} radialModulation={false} modulationOffset={0} />
-          <Vignette darkness={0.72} offset={0.22} />
-        </EffectComposer>
-      )}
+      {/* Built with createElement (not JSX) so the dev tagger can't inject
+          data-* props, which postprocessing passes to three and crashes on. */}
+      {!lowPower &&
+        createElement(
+          EffectComposer,
+          { multisampling: 0 },
+          createElement(Bloom, { intensity: 0.55, luminanceThreshold: 0.22, luminanceSmoothing: 0.5, mipmapBlur: true }),
+          createElement(ChromaticAberration, {
+            offset: new THREE.Vector2(0.00045, 0.00045),
+            radialModulation: false,
+            modulationOffset: 0,
+          }),
+          createElement(Vignette, { darkness: 0.72, offset: 0.22 }),
+        )}
     </>
   );
 };
