@@ -232,3 +232,51 @@
     color-scheme: dark;
   }
 }
+
+/* ---------- Route transition (decorative) ---------- */
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+.page-transition { animation: page-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .page-transition { animation: none; }
+}
+
+/* ---------- Dark remap for legacy light utilities on public pages ----------
+   Older page/widget markup hardcodes light colors. Inside the public .dark
+   theme these map onto the glass/deep palette so every page and dialog
+   matches without touching component logic. Admin (no .dark) is unaffected. */
+.dark .bg-white,
+.dark .bg-gray-50,
+.dark .bg-blue-50,
+.dark .bg-slate-50 {
+  background-color: hsl(222 45% 7% / 0.72);
+  backdrop-filter: blur(14px);
+}
+.dark .bg-gray-100 { background-color: hsl(218 35% 12%); }
+.dark .bg-gray-200 { background-color: hsl(218 35% 16%); }
+.dark .bg-white\/90, .dark .bg-white\/95, .dark .bg-white\/80 { background-color: hsl(222 50% 6% / 0.85); }
+.dark .from-white { --tw-gradient-from: hsl(222 60% 4%) var(--tw-gradient-from-position); --tw-gradient-to: hsl(222 60% 4% / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+.dark .text-gray-900, .dark .text-gray-800, .dark .text-slate-800, .dark .text-slate-900 { color: hsl(210 40% 96%); }
+.dark .text-gray-700, .dark .text-slate-700 { color: hsl(214 30% 82%); }
+.dark .text-gray-600, .dark .text-gray-500, .dark .text-slate-600 { color: hsl(214 25% 68%); }
+.dark .text-navy, .dark .text-blue-800, .dark .text-blue-700 { color: #7fdcff; }
+.dark .border-gray-100, .dark .border-gray-200, .dark .border-gray-300 { border-color: hsl(214 35% 18%); }
+.dark .bg-navy { background-color: #0a2463; }
+
+/* Cards and shadcn surfaces pick up a soft glowing edge on hover */
+.dark .rounded-lg.border.bg-card,
+.dark .rounded-xl.border.bg-card {
+  background: linear-gradient(160deg, hsl(222 45% 9% / 0.85), hsl(222 50% 6% / 0.7));
+  backdrop-filter: blur(14px);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.dark .rounded-lg.border.bg-card:hover,
+.dark .rounded-xl.border.bg-card:hover {
+  border-color: rgba(51, 195, 240, 0.35);
+  box-shadow: 0 0 0 1px rgba(51, 195, 240, 0.12), 0 18px 50px -20px rgba(51, 195, 240, 0.35);
+}
+
+/* Prose (blog/legal CMS HTML) */
+.dark .prose { --tw-prose-body: hsl(214 30% 82%); --tw-prose-headings: hsl(210 40% 96%); --tw-prose-links: #33c3f0; --tw-prose-bold: hsl(210 40% 96%); --tw-prose-quotes: hsl(214 30% 82%); --tw-prose-bullets: #33c3f0; --tw-prose-counters: #33c3f0; --tw-prose-hr: hsl(214 35% 18%); --tw-prose-code: #7fdcff; }
