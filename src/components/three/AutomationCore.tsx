@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { createElement, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Float, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
@@ -35,15 +35,16 @@ export const AutomationCore = ({ motionScale = 1 }: { motionScale?: number }) =>
       <Float speed={1.4} rotationIntensity={0.35} floatIntensity={0.6}>
         <mesh>
           <sphereGeometry args={[1.35, 48, 48]} />
-          <MeshDistortMaterial
-            color="#0a2463"
-            emissive="#33c3f0"
-            emissiveIntensity={0.32}
-            roughness={0.25}
-            metalness={0.85}
-            distort={0.28}
-            speed={1.6}
-          />
+          {/* createElement so the dev tagger can't add data-* props (crashes three) */}
+          {createElement(MeshDistortMaterial, {
+            color: '#0a2463',
+            emissive: '#33c3f0',
+            emissiveIntensity: 0.32,
+            roughness: 0.25,
+            metalness: 0.85,
+            distort: 0.28,
+            speed: 1.6,
+          })}
         </mesh>
       </Float>
 
