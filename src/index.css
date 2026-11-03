@@ -317,3 +317,13 @@
   .dark .rounded-lg.border.bg-card:hover,
   .dark .rounded-xl.border.bg-card:hover { transform: translateY(-4px); }
 }
+.dark input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+.dark textarea,
+.dark select {
+  background-color: hsl(222 50% 5% / 0.8);
+  border-color: hsl(214 35% 20%);
+  color: hsl(210 40% 96%);
+}
+.dark input:focus-visible, .dark textarea:focus-visible, .dark select:focus-visible {
+  border-color: rgba(51, 195, 240, 0.6);
+}
