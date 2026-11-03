@@ -6,21 +6,21 @@
 - [x] Report design system + content to user
 
 ## Phase 2 — Design direction
-- [ ] Dark premium theme tokens (near-black bg, navy #0A2463 + cyan #33C3F0 accents, glass panels, noise)
-- [ ] Typography: display + body fonts
+- [x] Dark premium theme tokens (near-black bg, navy #0A2463 + cyan #33C3F0 accents, glass panels, noise)
+- [x] Typography: display + body fonts
 
 ## Phase 3 — Dependencies
-- [ ] three, @react-three/fiber@^8.18, @react-three/drei@^9.122, @react-three/postprocessing@^2, gsap, lenis
+- [x] three, @react-three/fiber@^8.18, @react-three/drei@^9.122, @react-three/postprocessing@^2, gsap, lenis
 
 ## Phase 4 — Build (restyle only; zero functional changes)
-- [ ] Infrastructure: SceneCanvas (lazy), shaders, custom cursor, Preloader, ScrollProgress, hooks (mouse, reduced-motion, webgl support)
-- [ ] NavBar glass restyle, Footer restyle
-- [ ] Hero: full-screen 3D node-network + GLSL particle field, mouse-reactive
-- [ ] Home sections restyle (Problems, Services, WhyChooseUs, Pricing, TechStack, Testimonials, ContactCTA)
-- [ ] QuoteRequestModal, ServiceCalculator, WebsiteGuide, Chatbot, ServiceBooking, ConsultationBooking, FAQ, RelatedPosts/Services restyle
-- [ ] About, Services, Portfolio, Contact, Consultation, Blog, BlogPost, NotFound + service detail pages restyle
-- [ ] Scroll storytelling: GSAP ScrollTrigger reveals, parallax; Lenis smooth scroll
-- [ ] Page transitions between routes; preloader with progress
+- [x] Infrastructure: SceneCanvas (lazy), shaders, custom cursor, Preloader, ScrollProgress, hooks (mouse, reduced-motion, webgl support)
+- [x] NavBar glass restyle, Footer restyle
+- [x] Hero: full-screen 3D node-network + GLSL particle field, mouse-reactive
+- [x] Home sections restyle (Problems, Services, WhyChooseUs, Pricing, TechStack, Testimonials, ContactCTA)
+- [x] QuoteRequestModal, ServiceCalculator, WebsiteGuide, Chatbot, ServiceBooking, ConsultationBooking, FAQ, RelatedPosts/Services restyle
+- [x] About, Services, Portfolio, Contact, Consultation, Blog, BlogPost, NotFound + service detail pages restyle
+- [x] Scroll storytelling: GSAP ScrollTrigger reveals, parallax; Lenis smooth scroll
+- [x] Page transitions between routes; preloader with progress
 
 ## Phase 5 — Constraints
 - [ ] Admin portal untouched; no logic/data/endpoint changes
