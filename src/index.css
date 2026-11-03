@@ -313,3 +313,7 @@
 .dark .text-yellow-900 { color: #fde68a; }
 .dark .border-green-200 { border-color: hsl(150 40% 25%); }
 .dark .bg-black { background-color: hsl(222 60% 3%); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .dark .rounded-lg.border.bg-card:hover,
+  .dark .rounded-xl.border.bg-card:hover { transform: translateY(-4px); }
+}
