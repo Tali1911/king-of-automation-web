@@ -1,10 +1,19 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { usePublicPageContent } from '@/hooks/usePageContent';
 import { HeroCanvas } from '@/components/three/HeroCanvas';
 
+// Hero copy is fixed (not CMS-driven) so it renders instantly with no content flash.
+// Update it here — not in the admin content editor.
+const HERO_COPY = {
+  title: 'Put Your Business on Auto-Pilot',
+  slogan: 'King of Automation',
+  subtitle:
+    'We build websites and smart tools that run the boring parts of your business for you — emails, invoices, leads, payments, content updates. So you can stop doing repetitive work and focus on growing.',
+  primaryCTA: 'Get a Free Quote',
+  secondaryCTA: 'See What We Build',
+} as const;
+
 const HeroSection = () => {
-  const { getContent } = usePublicPageContent('home');
   const titleRef = useRef<HTMLHeadingElement>(null);
   const sloganRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
