@@ -47,11 +47,12 @@ const HeroSection = () => {
     }
   }, []);
 
-  const heroTitle = getContent('hero_title', 'Put Your Business on Auto-Pilot');
-  const heroSlogan = getContent('hero_slogan', 'King of Automation');
-  const heroSubtitle = getContent('hero_subtitle', 'We build websites and smart tools that run the boring parts of your business for you — emails, invoices, leads, payments, content updates. So you can stop doing repetitive work and focus on growing.');
-  const primaryCTA = getContent('hero_cta_primary', 'Get a Free Quote');
-  const secondaryCTA = getContent('hero_cta_secondary', 'See What We Build');
+  const heroTitle = HERO_COPY.title;
+  const heroSlogan = HERO_COPY.slogan;
+  const heroSubtitle = HERO_COPY.subtitle;
+  const primaryCTA = HERO_COPY.primaryCTA;
+  const secondaryCTA = HERO_COPY.secondaryCTA;
+
 
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden bg-deep">
