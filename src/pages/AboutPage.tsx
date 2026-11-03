@@ -26,8 +26,10 @@ const AboutPage = () => {
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
-  const heroTitle = getContent('hero_title', 'We Build Tools That Work So You Don\u2019t Have To');
-  const heroSubtitle = getContent('hero_subtitle', "NafArro Solutions is a small, senior team obsessed with putting boring, repetitive business work on auto-pilot — so founders can get back to growing.");
+  // Hero copy is fixed (not CMS-driven) so it renders instantly with no content flash.
+  // Update it here — not in the admin content editor.
+  const heroTitle = 'We Build Tools That Work So You Don\u2019t Have To';
+  const heroSubtitle = "NafArro Solutions is a small, senior team obsessed with putting boring, repetitive business work on auto-pilot — so founders can get back to growing.";
   const storyTitle = getContent('story_title', 'Our Story');
   const storyContent = getContent('story_content', 'NafArro Solutions was founded with a singular vision: to help businesses leverage the power of automation to achieve greater efficiency and growth. What began as a small team of passionate developers has evolved into a comprehensive technology partner for businesses of all sizes.');
   const missionTitle = getContent('mission_title', 'Our Mission');
