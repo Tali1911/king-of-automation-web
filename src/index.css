@@ -160,6 +160,49 @@
     color: #e6eef7;
   }
 
+  /* Shared atmospheric title bands for public pages. */
+  .page-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background-image:
+      radial-gradient(ellipse 58% 82% at 12% 18%, hsl(224 82% 21% / 0.48), transparent 72%),
+      radial-gradient(ellipse 42% 70% at 92% 4%, hsl(197 84% 57% / 0.11), transparent 74%);
+  }
+
+  .page-hero::after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent 66%, hsl(var(--background) / 0.82) 100%);
+  }
+
+  .hero-copy-scrim {
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 88% 92% at 12% 48%,
+      hsl(222 60% 4% / 0.96) 0%,
+      hsl(222 60% 4% / 0.82) 43%,
+      hsl(222 60% 4% / 0.34) 72%,
+      transparent 100%
+    );
+  }
+
+  @media (max-width: 640px) {
+    .hero-copy-scrim {
+      background: radial-gradient(
+        ellipse 122% 94% at 12% 48%,
+        hsl(222 60% 4% / 0.96) 0%,
+        hsl(222 60% 4% / 0.86) 54%,
+        hsl(222 60% 4% / 0.38) 82%,
+        transparent 100%
+      );
+    }
+  }
+
   /* Glassmorphic panel */
   .glass-panel {
     background: rgba(255, 255, 255, 0.04);

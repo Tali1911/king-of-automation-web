@@ -68,6 +68,7 @@ const HeroSection = () => {
             'radial-gradient(ellipse 55% 45% at 18% 30%, rgba(10,36,99,0.45), transparent 65%), linear-gradient(180deg, rgba(4,10,20,0.15) 0%, rgba(4,10,20,0.05) 55%, #050b18 96%)',
         }}
       />
+      <div aria-hidden="true" className="hero-copy-scrim absolute inset-0" />
       <div aria-hidden="true" className="noise-overlay absolute inset-0" />
 
       <div className="container-custom relative z-10 px-6 py-28 md:px-8">

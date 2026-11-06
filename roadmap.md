@@ -21,6 +21,8 @@
 - [x] About, Services, Portfolio, Contact, Consultation, Blog, BlogPost, NotFound + service detail pages restyle
 - [x] Scroll storytelling: GSAP ScrollTrigger reveals, parallax; Lenis smooth scroll
 - [x] Page transitions between routes; preloader with progress
+- [x] Improve homepage hero copy contrast with a layered dark scrim
+- [x] Harmonize public page-title headers with the homepage's dark atmospheric theme
 
 ## Phase 5 — Constraints
 - [ ] Admin portal untouched; no logic/data/endpoint changes

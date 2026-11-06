@@ -57,8 +57,8 @@ const ConsultationPage = () => {
       
       <div className="min-h-screen bg-gradient-to-br from-background to-muted/30">
         {/* Hero Section */}
-        <section className="py-20">
-          <div className="container-custom text-center">
+        <section className="page-hero bg-deep py-24 md:py-28">
+          <div className="container-custom relative z-10 text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-primary mb-6">
               Free Automation Consultation
             </h1>
