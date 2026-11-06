@@ -37,8 +37,8 @@ const WebDevelopmentPage = () => {
       />
       <div className="pt-20">
         {/* Hero Section */}
-        <div className="bg-primary text-white py-16">
-          <div className="container-custom">
+        <div className="page-hero bg-deep py-16 text-white">
+          <div className="container-custom relative z-10">
             <div className="flex items-center mb-6">
               <div className="bg-white/20 p-4 rounded-lg mr-6">
                 <Globe size={48} className="text-white" />

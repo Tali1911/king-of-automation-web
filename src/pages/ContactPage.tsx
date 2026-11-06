@@ -79,8 +79,8 @@ const ContactPage = () => {
       />
       <div className="pt-20">
         {/* Contact Header */}
-        <div className="bg-primary text-white py-16">
-          <div className="container-custom">
+        <div className="page-hero bg-deep py-16 text-white">
+          <div className="container-custom relative z-10">
             <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">{heroTitle}</h1>
             <p className="text-xl text-gray-300 max-w-2xl animate-fade-in" style={{ animationDelay: '0.2s' }}>
               {heroSubtitle}

@@ -8,8 +8,8 @@ const BlogHero = () => {
   const heroSubtitle = getContent('hero_subtitle', 'Insights, tutorials, and industry trends in automation, web development, and data analysis');
 
   return (
-    <section className="bg-gradient-to-br from-primary to-accent py-20 text-white">
-      <div className="container-custom">
+    <section className="page-hero bg-deep py-20 text-white">
+      <div className="container-custom relative z-10">
         <div className="text-center max-w-3xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 animate-fade-in">{heroTitle}</h1>
           <p className="text-xl mb-10 animate-fade-in" style={{animationDelay: '0.2s'}}>

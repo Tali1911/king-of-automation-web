@@ -86,21 +86,8 @@ const AboutPage = () => {
       />
 
       <div>
-        {/* Hero — matches HomePage gradient + animated background */}
-        <section className="relative pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden bg-gradient-to-br from-primary via-[#0A3472] to-[#104B8B]">
-          <div className="absolute inset-0">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-transparent to-accent/30 animate-pulse" style={{ animationDuration: '4s' }} />
-            <div className="absolute inset-0 opacity-20">
-              <div className="absolute top-10 left-10 w-32 h-32 border-2 border-white/50 transform rotate-45 animate-spin" style={{ animationDuration: '15s' }} />
-              <div className="absolute top-1/3 right-20 w-24 h-24 border-2 border-white/40 transform rotate-12 animate-spin" style={{ animationDuration: '18s', animationDirection: 'reverse' }} />
-              <div className="absolute bottom-10 left-1/4 w-28 h-28 border-2 border-white/45 transform -rotate-12 animate-spin" style={{ animationDuration: '22s' }} />
-            </div>
-            <div className="absolute inset-0 opacity-25">
-              <div className="absolute top-1/4 left-1/6 w-64 h-64 rounded-full bg-white/30 blur-3xl animate-pulse" style={{ animationDuration: '5s' }} />
-              <div className="absolute bottom-1/4 right-1/6 w-56 h-56 rounded-full bg-accent/40 blur-3xl animate-pulse" style={{ animationDelay: '2s', animationDuration: '6s' }} />
-            </div>
-          </div>
-
+        {/* Hero — shares the homepage's dark, atmospheric palette */}
+        <section className="page-hero bg-deep pt-32 pb-24 md:pt-40 md:pb-32">
           <div className="container-custom relative z-10 text-center">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm font-medium mb-6 animate-fade-in">
               <Sparkles className="w-4 h-4 text-secondary" /> About NafArro Solutions
