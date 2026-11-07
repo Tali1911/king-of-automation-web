@@ -46,6 +46,7 @@
     --brand-muted-foreground: 0 0% 33%;
     --brand-accent: 205 58% 52%;
     --brand-accent-foreground: 0 0% 100%;
+    --brand-supabase: 150 61% 49%;
   }
 
   /* Premium dark theme — public site (applies via .dark wrapper in App.tsx; admin portal stays light) */
@@ -280,6 +281,10 @@
     background: rgba(51, 195, 240, 0.08);
     border: 1px solid rgba(51, 195, 240, 0.25);
     color: #33c3f0;
+  }
+
+  .supabase-mark {
+    color: hsl(var(--brand-supabase));
   }
 
   /* Dark-theme section title override (used inside .dark wrapper) */
