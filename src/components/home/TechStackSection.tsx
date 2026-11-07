@@ -51,7 +51,6 @@ const TechStackSection = () => {
     {
       name: "Supabase",
       description: "Backend-as-a-Service platform",
-      image: "",
       delay: 0.8
     }
   ];
