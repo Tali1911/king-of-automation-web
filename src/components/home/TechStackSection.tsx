@@ -1,5 +1,6 @@
 
 import React, { useEffect } from 'react';
+import supabaseMark from '@/assets/supabase-mark.svg.asset.json';
 
 const TechStackSection = () => {
   useEffect(() => {
@@ -51,7 +52,7 @@ const TechStackSection = () => {
     {
       name: "Supabase",
       description: "Backend-as-a-Service platform",
-      image: "https://supabase.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fsupabase-logo-icon.6ce8a6f8.svg&w=64&q=75",
+      image: supabaseMark.url,
       delay: 0.8
     }
   ];
